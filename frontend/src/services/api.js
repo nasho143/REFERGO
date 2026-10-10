@@ -1,10 +1,12 @@
+
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: "https://refergo-production.up.railway.app/api",
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 // ==========================================
@@ -14,7 +16,12 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
 
-    console.log("API REQUEST:", config.method?.toUpperCase(), config.url);
+    console.log(
+      "API REQUEST:",
+      config.method?.toUpperCase(),
+      config.baseURL + config.url
+    );
+
     console.log("TOKEN EXISTS:", !!token);
 
     if (token) {
@@ -40,7 +47,7 @@ api.interceptors.response.use(
       "API ERROR:",
       error.response?.status,
       error.config?.url,
-      error.response?.data
+      error.response?.data || error.message
     );
 
     if (error.response?.status === 401) {
