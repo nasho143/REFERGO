@@ -1,3 +1,4 @@
+
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -5,15 +6,32 @@ require("dotenv").config();
 const app = express();
 
 // ======================================
-// MIDDLEWARE
+// CORS CONFIGURATION
 // ======================================
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://refergo-xi.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+      // Allow requests without an Origin header,
+      // such as server-to-server or local health checks.
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.warn("CORS blocked origin:", origin);
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
 
+// ======================================
+// MIDDLEWARE
+// ======================================
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -49,8 +67,6 @@ app.use("/api/follow-ups", followUpRoutes);
 app.use("/api/employer-responses", employerResponseRoutes);
 app.use("/api/approvals", approvalRoutes);
 
-
-
 // ======================================
 // TEST ROUTE
 // ======================================
@@ -77,6 +93,13 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   console.error("SERVER ERROR:", err);
 
+  if (err.message === "Not allowed by CORS") {
+    return res.status(403).json({
+      success: false,
+      message: "Origin not allowed by CORS.",
+    });
+  }
+
   res.status(500).json({
     success: false,
     message: "Internal server error.",
@@ -89,7 +112,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(
-    `REFERGO Backend running on port ${PORT}`
-  );
+  console.log(`REFERGO Backend running on port ${PORT}`);
 });
