@@ -29,7 +29,7 @@ export default function UserModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 p-4">
       <div className="w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4 sm:px-6">
@@ -83,7 +83,7 @@ export default function UserModal({
                   placeholder="Enter full name"
                   required
                   disabled={loading}
-                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-slate-50"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8] disabled:bg-slate-50"
                 />
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function UserModal({
                     required
                     disabled={loading}
                     autoComplete="username"
-                    className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-slate-50"
+                    className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8] disabled:bg-slate-50"
                   />
                 </div>
               </div>
@@ -136,7 +136,7 @@ export default function UserModal({
                     placeholder="Enter email address"
                     disabled={loading}
                     autoComplete="email"
-                    className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-slate-50"
+                    className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8] disabled:bg-slate-50"
                   />
                 </div>
               </div>
@@ -175,7 +175,7 @@ export default function UserModal({
                       ? "new-password"
                       : "new-password"
                   }
-                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-slate-50"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8] disabled:bg-slate-50"
                 />
               </div>
 
@@ -204,7 +204,7 @@ export default function UserModal({
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-slate-50"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8] disabled:bg-slate-50"
                 >
                   <option value="peso_staff">
                     PESO Staff
@@ -231,7 +231,7 @@ export default function UserModal({
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:bg-slate-50"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8] disabled:bg-slate-50"
                 >
                   <option value="active">
                     Active
@@ -245,16 +245,16 @@ export default function UserModal({
             </div>
 
             {/* Role Information */}
-            <div className="rounded-xl border border-blue-100 bg-blue-50 p-4">
+            <div className="rounded-xl border border-[#eef0f8] bg-blue-50 p-4">
               <div className="flex items-start gap-3">
-                <FaUserTag className="mt-0.5 shrink-0 text-blue-600" />
+                <FaUserTag className="mt-0.5 shrink-0 text-[#202860]" />
 
                 <div>
-                  <p className="text-sm font-semibold text-blue-800">
+                  <p className="text-sm font-semibold text-[#1b2255]">
                     Role Access
                   </p>
 
-                  <p className="mt-1 text-xs leading-5 text-blue-700">
+                  <p className="mt-1 text-xs leading-5 text-[#202860]">
                     {form.role === "department_head"
                       ? "Department Head has supervisory access and can manage system users."
                       : "PESO Staff can manage operational records such as applicants, employers, vacancies, and referrals."}
@@ -278,7 +278,7 @@ export default function UserModal({
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#202860] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#202860] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
               {loading ? (
                 <>

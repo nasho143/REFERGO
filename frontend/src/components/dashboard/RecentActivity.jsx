@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  FaClipboardList,
-  FaUser,
-  FaClock,
-} from "react-icons/fa";
+import { FaClipboardList, FaClock } from "react-icons/fa";
 
 import { getActivityLogs } from "../../services/activityLogApi";
 
@@ -91,7 +87,7 @@ export default function RecentActivity() {
     const value = String(module).toLowerCase();
 
     if (value.includes("applicant")) {
-      return "bg-blue-50 text-blue-700";
+      return "bg-blue-50 text-[#202860]";
     }
 
     if (value.includes("employer")) {
@@ -134,9 +130,6 @@ export default function RecentActivity() {
           </p>
         </div>
 
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-          <FaClipboardList />
-        </div>
       </div>
 
       {/* Empty State */}
@@ -172,9 +165,6 @@ export default function RecentActivity() {
               >
 
                 {/* User Icon */}
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                  <FaUser />
-                </div>
 
                 {/* Activity Details */}
                 <div className="min-w-0 flex-1">
@@ -186,7 +176,7 @@ export default function RecentActivity() {
 
                     {module && (
                       <span
-                        className={`w-fit rounded-full px-2.5 py-1 text-xs font-semibold ${getModuleStyle(
+                        className={`w-fit rounded-sm px-2.5 py-1 text-xs font-semibold ${getModuleStyle(
                           module
                         )}`}
                       >

@@ -152,7 +152,7 @@ export default function ActivityLogs() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4">
         <div className="flex flex-col items-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-[#202860]">
             <svg
               className="h-6 w-6 animate-spin"
               viewBox="0 0 24 24"
@@ -206,7 +206,7 @@ export default function ActivityLogs() {
       {error && (
         <div className="rounded-xl border border-red-200 bg-red-50 px-5 py-4">
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-full bg-red-500" />
+            <div className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-sm bg-red-500" />
 
             <div className="min-w-0">
               <p className="text-sm font-semibold text-red-700">

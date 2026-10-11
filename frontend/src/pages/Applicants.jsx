@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
+import StatStrip from "../components/common/StatStrip";
 import {
   getApplicants,
   addApplicant,
@@ -808,7 +809,7 @@ export default function Applicants() {
       showCancelButton: true,
       confirmButtonText: "Yes, Approve",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#16a34a",
+      confirmButtonColor: "#1e6b3c",
     });
 
     if (!result.isConfirmed) return;
@@ -852,7 +853,7 @@ export default function Applicants() {
       showCancelButton: true,
       confirmButtonText: "Reject Applicant",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#dc2626",
+      confirmButtonColor: "#c8142f",
       inputValidator: (value) => {
         if (!value || !value.trim()) {
           return "Rejection reason is required.";
@@ -917,107 +918,13 @@ export default function Applicants() {
           SUMMARY CARDS
       ===================================================== */}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-
-        {/* ==================================================
-            TOTAL APPLICANTS
-        =================================================== */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-sm font-medium text-slate-500">
-                Total Applicants
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-slate-800">
-                {totalApplicants}
-              </h3>
-
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-
-              <span className="text-2xl">
-                👤
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        {/* ==================================================
-            JOB READY
-        =================================================== */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-sm font-medium text-slate-500">
-                Job Ready
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-green-600">
-                {jobReadyApplicants}
-              </h3>
-
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-600">
-
-              <span className="text-2xl">
-                ✓
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        {/* ==================================================
-            INCOMPLETE PROFILES
-        =================================================== */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-sm font-medium text-slate-500">
-                Incomplete Profiles
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-amber-600">
-                {incompleteProfiles}
-              </h3>
-
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
-
-              <span className="text-2xl">
-                !
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
+      <StatStrip
+        items={[
+          { label: "Total Applicants", value: totalApplicants },
+          { label: "Job Ready", value: jobReadyApplicants },
+          { label: "Incomplete Profiles", value: incompleteProfiles },
+        ]}
+      />
 
 
       {/* ====================================================

@@ -1,20 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import {
-  FaUserCircle,
-  FaChevronDown,
-  FaSignOutAlt,
-  FaBars,
-  FaUser,
-  FaLock,
-  FaUserCog,
-} from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 
 import Swal from "sweetalert2";
 import api from "../services/api";
+import logo from "../assets/peso-logo.png";
 
-export default function Navbar({ onMenuClick }) {
+export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,10 +15,7 @@ export default function Navbar({ onMenuClick }) {
 
   const dropdownRef = useRef(null);
 
-  // ======================================
-  // GET CURRENT USER
-  // ======================================
-
+  // Current user
   let user = null;
 
   try {
@@ -38,80 +28,21 @@ export default function Navbar({ onMenuClick }) {
     console.error("USER DATA PARSE ERROR:", error);
   }
 
-  // ======================================
-  // ROLE LABEL
-  // ======================================
+  const roleLabel =
+    user?.role === "department_head"
+      ? "Department Head"
+      : user?.role === "peso_staff"
+      ? "PESO Staff"
+      : "User";
 
-  const getRoleLabel = (role) => {
-    switch (role) {
-      case "peso_staff":
-        return "PESO Staff";
+  const isDepartmentHead = user?.role === "department_head";
 
-      case "department_head":
-        return "Department Head";
-
-      default:
-        return "User";
-    }
-  };
-
-  const roleLabel = getRoleLabel(user?.role);
-
-  // ======================================
-  // DEPARTMENT HEAD CHECK
-  // ======================================
-
-  const isDepartmentHead =
-    user?.role === "department_head";
-
-  // ======================================
-  // PAGE TITLES
-  // ======================================
-
-  const pageTitles = {
-    "/": "Dashboard",
-    "/dashboard": "Dashboard",
-    "/employers": "Employers",
-    "/vacancies": "Job Vacancies",
-    "/applicants": "Applicants",
-    "/referrals": "Referrals",
-    "/reports": "Reports",
-    "/activity-logs": "Activity Logs",
-    "/profile": "My Profile",
-    "/change-password": "Change Password",
-    "/users": "User Management",
-  };
-
-  const title =
-    pageTitles[location.pathname] || "REFERGO";
-
-  // ======================================
-  // DATE
-  // ======================================
-
-  const date = new Date().toLocaleDateString(
-    "en-PH",
-    {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }
-  );
-
-  // ======================================
-  // GREETING
-  // ======================================
-
-  const hour = new Date().getHours();
-
-  let greeting = "Good Evening";
-
-  if (hour < 12) {
-    greeting = "Good Morning";
-  } else if (hour < 18) {
-    greeting = "Good Afternoon";
-  }
+  const today = new Date().toLocaleDateString("en-PH", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   // ======================================
   // LOGOUT
@@ -125,8 +56,8 @@ export default function Navbar({ onMenuClick }) {
       text: "Are you sure you want to logout?",
       icon: "question",
       showCancelButton: true,
-      confirmButtonColor: "#2563eb",
-      cancelButtonColor: "#6b7280",
+      confirmButtonColor: "#202860",
+      cancelButtonColor: "#5c6280",
       confirmButtonText: "Yes, Logout",
       cancelButtonText: "Cancel",
       reverseButtons: true,
@@ -225,411 +156,132 @@ export default function Navbar({ onMenuClick }) {
     setDropdownOpen(false);
   }, [location.pathname]);
 
-  // ======================================
-  // RENDER
-  // ======================================
+  const menuItem =
+    "block w-full px-4 py-2.5 text-left text-sm text-slate-800 hover:bg-amber-50 focus-visible:bg-amber-50";
 
   return (
-    <header
-      className="
-        fixed
-        top-0
-        right-0
-        z-40
-        flex
-        h-20
-        w-full
-        items-center
-        justify-between
-        bg-white
-        px-4
-        shadow
-        sm:px-5
-        lg:left-72
-        lg:w-[calc(100%-18rem)]
-        lg:px-8
-      "
-    >
-
-      {/* ==================================
-          LEFT SECTION
-      ================================== */}
-
-      <div
-        className="
-          flex
-          min-w-0
-          items-center
-          gap-3
-          sm:gap-4
-        "
-      >
-
-        {/* ==================================
-            MOBILE MENU BUTTON
-        ================================== */}
-
-        <button
-          type="button"
-          onClick={onMenuClick}
-          aria-label="Open navigation menu"
-          className="
-            flex
-            h-10
-            w-10
-            shrink-0
-            items-center
-            justify-center
-            rounded-lg
-            text-xl
-            text-gray-700
-            transition
-            hover:bg-gray-100
-            lg:hidden
-          "
-        >
-          <FaBars />
-        </button>
-
-        {/* ==================================
-            PAGE TITLE
-        ================================== */}
-
-        <div className="min-w-0">
-
-          <h2
-            className="
-              truncate
-              text-lg
-              font-bold
-              text-gray-800
-              sm:text-xl
-              lg:text-2xl
-            "
-          >
-            {title}
-          </h2>
-
-          <p
-            className="
-              hidden
-              truncate
-              text-xs
-              text-gray-500
-              sm:block
-              sm:text-sm
-            "
-          >
-            {date}
-          </p>
-
+    <header>
+      {/* Republic strip */}
+      <div className="gov-strip">
+        <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-4 py-1.5 sm:px-6">
+          <span>Republic of the Philippines</span>
+          <span className="hidden sm:inline">{today}</span>
         </div>
       </div>
 
-
-      {/* ==================================
-          RIGHT SECTION
-      ================================== */}
-
-      <div
-        className="
-          relative
-          shrink-0
-        "
-        ref={dropdownRef}
-      >
-
-        {/* ==================================
-            USER BUTTON
-        ================================== */}
-
-        <button
-          type="button"
-          onClick={() =>
-            setDropdownOpen(
-              (prev) => !prev
-            )
-          }
-          aria-expanded={dropdownOpen}
-          aria-label="Open user menu"
-          className="
-            flex
-            items-center
-            gap-2
-            rounded-lg
-            px-2
-            py-2
-            transition
-            hover:bg-gray-100
-            sm:gap-3
-            sm:px-3
-          "
-        >
-
-          {/* USER ICON */}
-
-          <FaUserCircle
-            className="
-              text-3xl
-              text-blue-700
-              sm:text-4xl
-            "
-          />
-
-          {/* USER DETAILS */}
-
-          <div
-            className="
-              hidden
-              text-left
-              md:block
-            "
-          >
-
-            <h3 className="font-semibold text-gray-800">
-              {roleLabel}
-            </h3>
-
-            <p className="text-sm text-gray-500">
-              {greeting}
-            </p>
-
-          </div>
-
-          {/* ARROW */}
-
-          <FaChevronDown
-            className={`
-              hidden
-              text-xs
-              text-gray-500
-              transition-transform
-              duration-300
-              sm:block
-
-              ${
-                dropdownOpen
-                  ? "rotate-180"
-                  : ""
-              }
-            `}
-          />
-
-        </button>
-
-
-        {/* ==================================
-            DROPDOWN
-        ================================== */}
-
-        {dropdownOpen && (
-          <div
-            className="
-              absolute
-              right-0
-              top-full
-              mt-2
-              w-[calc(100vw-2rem)]
-              max-w-64
-              overflow-hidden
-              rounded-xl
-              border
-              border-gray-200
-              bg-white
-              shadow-xl
-            "
-          >
-
-            {/* ==================================
-                USER INFORMATION
-            ================================== */}
-
-            <div
-              className="
-                bg-gray-50
-                px-4
-                py-4
-                sm:px-5
-              "
-            >
-
-              <h3
-                className="
-                  truncate
-                  font-semibold
-                  text-gray-800
-                "
-              >
-                {user?.full_name ||
-                  "System Administrator"}
-              </h3>
-
-              <p
-                className="
-                  truncate
-                  text-sm
-                  text-gray-500
-                "
-              >
-                {user?.username || "admin"}
+      {/* Office masthead */}
+      <div className="gov-masthead">
+        <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4">
+          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+            <img
+              src={logo}
+              alt="PESO seal"
+              className="h-11 w-11 shrink-0 object-contain sm:h-[68px] sm:w-[68px]"
+            />
+            <div className="min-w-0">
+              <p className="gov-office text-[17px] sm:text-[26px]">
+                Public Employment Service Office
               </p>
-
-              <p
-                className="
-                  mt-1
-                  text-xs
-                  font-semibold
-                  text-blue-600
-                "
-              >
-                {roleLabel}
+              <p className="text-[12.5px] text-slate-600 sm:text-[14.5px]">
+                Municipality of Mendez, Cavite
               </p>
-
             </div>
-
-
-            {/* ==================================
-                MY PROFILE
-            ================================== */}
-
-            <button
-              type="button"
-              onClick={() => {
-                navigate("/profile");
-                setDropdownOpen(false);
-              }}
-              className="
-                flex
-                w-full
-                items-center
-                gap-3
-                px-4
-                py-3
-                text-left
-                transition
-                hover:bg-gray-100
-                sm:px-5
-              "
-            >
-
-              <FaUser className="shrink-0 text-blue-600" />
-
-              <span>
-                My Profile
-              </span>
-
-            </button>
-
-
-            {/* ==================================
-                USER MANAGEMENT
-                DEPARTMENT HEAD ONLY
-            ================================== */}
-
-            {isDepartmentHead && (
-              <button
-                type="button"
-                onClick={() => {
-                  navigate("/users");
-                  setDropdownOpen(false);
-                }}
-                className="
-                  flex
-                  w-full
-                  items-center
-                  gap-3
-                  px-4
-                  py-3
-                  text-left
-                  transition
-                  hover:bg-gray-100
-                  sm:px-5
-                "
-              >
-
-                <FaUserCog className="shrink-0 text-purple-600" />
-
-                <span>
-                  User Management
-                </span>
-
-              </button>
-            )}
-
-
-            {/* ==================================
-                CHANGE PASSWORD
-            ================================== */}
-
-            <button
-              type="button"
-              onClick={() => {
-                navigate(
-                  "/change-password"
-                );
-                setDropdownOpen(false);
-              }}
-              className="
-                flex
-                w-full
-                items-center
-                gap-3
-                px-4
-                py-3
-                text-left
-                transition
-                hover:bg-gray-100
-                sm:px-5
-              "
-            >
-
-              <FaLock className="shrink-0 text-green-600" />
-
-              <span>
-                Change Password
-              </span>
-
-            </button>
-
-
-            <hr className="border-gray-200" />
-
-
-            {/* ==================================
-                LOGOUT
-            ================================== */}
-
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="
-                flex
-                w-full
-                items-center
-                gap-3
-                px-4
-                py-3
-                text-left
-                text-red-600
-                transition
-                hover:bg-red-50
-                sm:px-5
-              "
-            >
-
-              <FaSignOutAlt />
-
-              <span>
-                Logout
-              </span>
-
-            </button>
-
           </div>
-        )}
 
+          {/* Signed-in user */}
+          <div className="relative shrink-0" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() => setDropdownOpen((prev) => !prev)}
+              aria-expanded={dropdownOpen}
+              aria-haspopup="menu"
+              className="flex items-center gap-3 border border-slate-300 bg-white px-3 py-2 text-left hover:border-blue-600"
+            >
+              <span className="hidden min-w-0 md:block">
+                <span className="block max-w-[200px] truncate text-sm font-bold text-slate-900">
+                  {user?.full_name || "System Administrator"}
+                </span>
+                <span className="block text-[12.5px] text-slate-600">
+                  {roleLabel}
+                </span>
+              </span>
+              <span className="text-sm font-semibold text-blue-600 md:hidden">
+                Account
+              </span>
+              <FaChevronDown
+                aria-hidden="true"
+                className={`text-[11px] text-slate-500 ${
+                  dropdownOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {dropdownOpen && (
+              <div
+                role="menu"
+                className="absolute right-0 top-full z-50 mt-1 w-64 border border-slate-400 bg-white shadow-xl"
+              >
+                <div className="border-b border-slate-300 bg-slate-50 px-4 py-3">
+                  <p className="truncate text-sm font-bold text-slate-900">
+                    {user?.full_name || "System Administrator"}
+                  </p>
+                  <p className="truncate text-[13px] text-slate-600">
+                    Username: {user?.username || "admin"}
+                  </p>
+                  <p className="text-[13px] text-slate-600">{roleLabel}</p>
+                </div>
+
+                <button
+                  type="button"
+                  role="menuitem"
+                  className={menuItem}
+                  onClick={() => {
+                    navigate("/profile");
+                    setDropdownOpen(false);
+                  }}
+                >
+                  My Profile
+                </button>
+
+                {isDepartmentHead && (
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className={menuItem}
+                    onClick={() => {
+                      navigate("/users");
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    User Management
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  role="menuitem"
+                  className={menuItem}
+                  onClick={() => {
+                    navigate("/change-password");
+                    setDropdownOpen(false);
+                  }}
+                >
+                  Change Password
+                </button>
+
+                <button
+                  type="button"
+                  role="menuitem"
+                  className={`${menuItem} border-t border-slate-300 font-semibold !text-red-700`}
+                  onClick={handleLogout}
+                >
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-
     </header>
   );
 }

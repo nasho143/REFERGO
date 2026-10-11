@@ -14,16 +14,16 @@ export default function DataTable({
 }) {
   if (loading) {
     return (
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-x-auto border border-slate-400 bg-white">
         <LoadingSpinner />
       </div>
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div className="overflow-x-auto border border-slate-400 bg-white">
       <table className="w-full table-fixed border-collapse">
-        <thead className="bg-slate-100">
+        <thead>
           <tr>
             {columns.map((column, index) => {
               const isLastColumn = index === columns.length - 1;
@@ -34,23 +34,7 @@ export default function DataTable({
                   style={{
                     width: columnWidths[index] || "auto",
                   }}
-                  className={`
-                    whitespace-nowrap
-                    border-b
-                    border-slate-200
-                    py-4
-                    text-left
-                    text-xs
-                    font-bold
-                    uppercase
-                    tracking-wider
-                    text-slate-700
-                    ${
-                      isLastColumn
-                        ? "pl-2 pr-3"
-                        : "px-5"
-                    }
-                  `}
+                  className={`whitespace-nowrap py-3 text-left text-[13px] font-bold ${isLastColumn ? "pl-2 pr-3" : "px-4"}`}
                 >
                   {column}
                 </th>
@@ -59,10 +43,10 @@ export default function DataTable({
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-slate-100">
+        <tbody>
           {isEmpty ? (
             <tr>
-              <td colSpan={columns.length} className="p-12">
+              <td colSpan={columns.length} className="p-0">
                 <EmptyState
                   title={emptyTitle}
                   description={emptyDescription}

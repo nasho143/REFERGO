@@ -40,19 +40,19 @@ export default function ReferralForm({
   const status = form?.status || "Pending";
 
   const inputClass =
-    "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 transition focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200";
+    "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 transition focus:border-[#202860] focus:outline-none focus:ring-2 focus:ring-[#bfc6e2]";
 
   const readOnlyClass =
     "w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-600 focus:outline-none";
 
   const labelClass =
-    "mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700";
+    "mb-2.5 flex items-center gap-2.5 text-sm font-semibold text-slate-800";
 
   const isRejected =
     status === "Rejected" || status === "Failed";
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
 
       {/* =====================================================
           1. REFERRAL INFORMATION
@@ -61,14 +61,14 @@ export default function ReferralForm({
           already displays the Referral Information heading.
       ===================================================== */}
       <section>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-7 md:grid-cols-2">
 
           {/* =================================================
               APPLICANT
           ================================================== */}
           <div className="md:col-span-2">
             <label className={labelClass}>
-              <FaUser className="text-blue-600" />
+              <FaUser className="text-[#202860]" />
               Applicant
             </label>
 
@@ -186,7 +186,7 @@ export default function ReferralForm({
           ================================================== */}
           <div>
             <label className={labelClass}>
-              <FaBuilding className="text-blue-600" />
+              <FaBuilding className="text-[#202860]" />
               Employer
             </label>
 
@@ -226,7 +226,7 @@ export default function ReferralForm({
           ================================================== */}
           <div>
             <label className={labelClass}>
-              <FaCalendarAlt className="text-blue-600" />
+              <FaCalendarAlt className="text-[#202860]" />
               Date Referred
             </label>
 
@@ -305,12 +305,12 @@ export default function ReferralForm({
           icon={<FaClipboardCheck />}
         />
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-7 md:grid-cols-2">
 
           {/* Interview Date */}
           <div>
             <label className={labelClass}>
-              <FaCalendarAlt className="text-blue-600" />
+              <FaCalendarAlt className="text-[#202860]" />
               Interview Date
             </label>
 
@@ -438,12 +438,12 @@ export default function ReferralForm({
           icon={<FaCommentAlt />}
         />
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-7 md:grid-cols-2">
 
           {/* Date Contacted */}
           <div>
             <label className={labelClass}>
-              <FaCalendarAlt className="text-blue-600" />
+              <FaCalendarAlt className="text-[#202860]" />
               Date Contacted
             </label>
 
@@ -576,11 +576,8 @@ function SectionHeader({
   icon,
 }) {
   return (
-    <div className="mb-5 flex items-start gap-3 border-b border-slate-200 pb-3">
+    <div className="mb-6 flex items-start gap-3 border-b border-slate-300 pb-3">
 
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-        {icon}
-      </div>
 
       <div className="min-w-0">
 

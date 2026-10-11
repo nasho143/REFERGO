@@ -1,9 +1,4 @@
-import {
-  FaBriefcase,
-  FaBuilding,
-  FaUsers,
-  FaCalendarAlt,
-} from "react-icons/fa";
+import { FaBuilding, FaUsers, FaCalendarAlt } from "react-icons/fa";
 
 import StatusBadge from "../common/StatusBadge";
 import ActionButtons from "../common/ActionButtons";
@@ -106,33 +101,33 @@ export default function VacancyTable({
           </colgroup>
 
           <thead>
-            <tr className="border-b border-slate-200 bg-slate-50">
+            <tr className="  bg-slate-50">
 
-              <th className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-5 py-3 text-left text-xs font-bold text-slate-500">
                 Position
               </th>
 
-              <th className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-5 py-3 text-left text-xs font-bold text-slate-500">
                 Company
               </th>
 
-              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-4 py-3 text-left text-xs font-bold text-slate-500">
                 Openings
               </th>
 
-              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-4 py-3 text-left text-xs font-bold text-slate-500">
                 Deadline
               </th>
 
-              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-4 py-3 text-left text-xs font-bold text-slate-500">
                 Status
               </th>
 
-              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-4 py-3 text-left text-xs font-bold text-slate-500">
                 Approval
               </th>
 
-              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-4 py-3 text-left text-xs font-bold text-slate-500">
                 Actions
               </th>
 
@@ -149,7 +144,7 @@ export default function VacancyTable({
                 >
                   <div className="flex flex-col items-center justify-center gap-3">
 
-                    <div className="h-9 w-9 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600" />
+                    <div className="h-9 w-9 animate-spin rounded-sm border-4 border-slate-200 border-t-blue-600" />
 
                     <p className="text-sm text-slate-500">
                       Loading job vacancies...
@@ -166,9 +161,6 @@ export default function VacancyTable({
                 >
                   <div className="flex flex-col items-center justify-center text-center">
 
-                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                      <FaBriefcase className="text-lg" />
-                    </div>
 
                     <h3 className="text-base font-bold text-slate-800">
                       No Job Vacancies Found
@@ -184,7 +176,7 @@ export default function VacancyTable({
                       <button
                         type="button"
                         onClick={onAdd}
-                        className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        className="mt-4 rounded-lg bg-[#202860] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#202860] focus:outline-none focus:ring-2 focus:ring-[#959fcb]"
                       >
                         Add Vacancy
                       </button>
@@ -202,7 +194,7 @@ export default function VacancyTable({
                 return (
                   <tr
                     key={vacancy.vacancy_id}
-                    className="border-b border-slate-100 transition last:border-b-0 hover:bg-slate-50"
+                    className="  transition  hover:bg-slate-50"
                   >
 
                     {/* Position */}
@@ -210,9 +202,6 @@ export default function VacancyTable({
 
                       <div className="flex items-center gap-3">
 
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                          <FaBriefcase className="text-sm" />
-                        </div>
 
                         <div className="min-w-0">
 
@@ -235,7 +224,7 @@ export default function VacancyTable({
 
                       <div className="flex items-center gap-2 text-sm text-slate-700">
 
-                        <FaBuilding className="shrink-0 text-blue-600" />
+                        <FaBuilding className="shrink-0 text-[#202860]" />
 
                         <span className="truncate">
                           {vacancy.company_name || "-"}

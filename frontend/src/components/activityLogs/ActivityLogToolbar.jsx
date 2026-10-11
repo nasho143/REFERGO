@@ -1,4 +1,4 @@
-import { FaHistory, FaSearch, FaClock } from "react-icons/fa";
+import { FaSearch, FaClock } from "react-icons/fa";
 
 export default function ActivityLogToolbar({
   search,
@@ -11,13 +11,10 @@ export default function ActivityLogToolbar({
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-5">
           {/* Icon */}
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-            <FaHistory className="text-3xl" />
-          </div>
 
           {/* Title */}
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">
+            <h1>
               Activity Logs
             </h1>
 
@@ -39,23 +36,23 @@ export default function ActivityLogToolbar({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search user, module, activity, or IP address..."
-            className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8]"
           />
         </div>
 
         {/* Total Activities */}
         <div className="flex w-full items-center justify-between rounded-xl bg-blue-50 px-5 py-3 lg:w-auto lg:min-w-[190px]">
           <div>
-            <p className="text-sm font-medium text-blue-600">
+            <p className="text-sm font-medium text-[#202860]">
               Total Activities
             </p>
 
-            <p className="mt-1 text-2xl font-bold text-blue-700">
+            <p className="mt-1 text-2xl font-bold text-[#202860]">
               {totalActivities}
             </p>
           </div>
 
-          <FaClock className="text-2xl text-blue-500" />
+          <FaClock className="text-2xl text-[#202860]" />
         </div>
       </div>
     </div>

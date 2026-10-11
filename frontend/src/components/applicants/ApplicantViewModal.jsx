@@ -173,7 +173,7 @@ export default function ApplicantViewModal({
       value === "for interview" ||
       value === "interview scheduled"
     ) {
-      return "bg-blue-100 text-blue-700";
+      return "bg-[#eef0f8] text-[#202860]";
     }
 
     if (value === "pending") {
@@ -220,8 +220,8 @@ export default function ApplicantViewModal({
       case "info":
         return {
           icon: FaExchangeAlt,
-          circle: "bg-blue-100 text-blue-600",
-          line: "bg-blue-200",
+          circle: "bg-[#eef0f8] text-[#202860]",
+          line: "bg-[#bfc6e2]",
         };
 
       default:
@@ -542,8 +542,7 @@ export default function ApplicantViewModal({
         bg-black/50
         px-3
         py-4
-        sm:px-4
-      "
+        sm:px-4"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
           onClose();
@@ -565,8 +564,7 @@ export default function ApplicantViewModal({
           bg-white
           shadow-2xl
           max-h-[calc(100vh-2rem)]
-          sm:max-h-[calc(100vh-3rem)]
-        "
+          sm:max-h-[calc(100vh-3rem)]"
         onMouseDown={(e) => e.stopPropagation()}
       >
 
@@ -580,19 +578,18 @@ export default function ApplicantViewModal({
             shrink-0
             items-center
             justify-between
-            bg-blue-600
+            bg-[#202860]
             px-5
             py-4
             text-white
-            sm:px-6
-          "
+            sm:px-6"
         >
           <div>
             <h2 className="text-xl font-bold sm:text-2xl">
               Applicant Profile
             </h2>
 
-            <p className="mt-0.5 text-xs text-blue-100 sm:text-sm">
+            <p className="mt-0.5 text-xs text-[#eef0f8] sm:text-sm">
               Applicant information and employment history
             </p>
           </div>
@@ -613,8 +610,7 @@ export default function ApplicantViewModal({
               text-white
               transition
               hover:bg-white/15
-              focus:outline-none
-            "
+              focus:outline-none"
           >
             ×
           </button>
@@ -632,8 +628,7 @@ export default function ApplicantViewModal({
             px-4
             py-4
             sm:px-5
-            sm:py-5
-          "
+            sm:py-5"
         >
 
           {/* =================================================
@@ -647,14 +642,13 @@ export default function ApplicantViewModal({
               flex-col
               gap-4
               rounded-xl
-              bg-blue-800
+              bg-[#1b2255]
               p-4
               text-white
               shadow-md
               sm:flex-row
               sm:items-center
-              sm:justify-between
-            "
+              sm:justify-between"
           >
             <div className="min-w-0">
               <h3 className="truncate text-lg font-bold sm:text-xl">
@@ -662,7 +656,7 @@ export default function ApplicantViewModal({
                   "Unnamed Applicant"}
               </h3>
 
-              <p className="truncate text-xs text-blue-100 sm:text-sm">
+              <p className="truncate text-xs text-[#eef0f8] sm:text-sm">
                 {applicant.classification ||
                   "No classification"}
               </p>
@@ -672,7 +666,7 @@ export default function ApplicantViewModal({
               className={`
                 w-fit
                 shrink-0
-                rounded-full
+                rounded-sm
                 px-3
                 py-1.5
                 text-xs
@@ -798,11 +792,10 @@ export default function ApplicantViewModal({
                       bg-white
                       px-3
                       py-3
-                      shadow-sm
-                    "
+                      shadow-sm"
                   >
                     <div className="flex min-w-0 items-center gap-2">
-                      <Icon className="shrink-0 text-blue-600" />
+                      <Icon className="shrink-0 text-[#202860]" />
 
                       <span className="truncate text-xs font-semibold text-slate-600">
                         {requirement.label}
@@ -881,30 +874,29 @@ export default function ApplicantViewModal({
                 className="
                   rounded-xl
                   border-2
-                  border-blue-200
+                  border-[#bfc6e2]
                   bg-blue-50
-                  p-4
-                "
+                  p-4"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-sm font-bold text-blue-900">
+                    <p className="text-sm font-bold text-[#161c47]">
                       Overall Job Readiness
                     </p>
 
-                    <p className="mt-1 text-[11px] text-blue-700">
+                    <p className="mt-1 text-[11px] text-[#202860]">
                       Overall applicant readiness assessment.
                     </p>
                   </div>
 
-                  <span className="text-2xl font-bold text-blue-700">
+                  <span className="text-2xl font-bold text-[#202860]">
                     {scores.overall}%
                   </span>
                 </div>
 
-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-blue-100">
+                <div className="mt-3 h-2 overflow-hidden rounded-sm bg-[#eef0f8]">
                   <div
-                    className="h-full rounded-full bg-blue-600 transition-all"
+                    className="h-full rounded-sm bg-[#202860] transition-all"
                     style={{
                       width: `${Math.min(
                         100,
@@ -914,7 +906,7 @@ export default function ApplicantViewModal({
                   />
                 </div>
 
-                <p className="mt-2 text-xs font-semibold text-blue-800">
+                <p className="mt-2 text-xs font-semibold text-[#1b2255]">
                   {readinessLabel}
                 </p>
               </div>
@@ -962,7 +954,7 @@ export default function ApplicantViewModal({
                             shrink-0
                             items-center
                             justify-center
-                            rounded-full
+                            rounded-sm
                             ${journeyStyle.circle}
                           `}
                         >
@@ -1065,14 +1057,13 @@ export default function ApplicantViewModal({
                         border
                         border-slate-200
                         bg-slate-50
-                        p-4
-                      "
+                        p-4"
                     >
                       {/* REFERRAL HEADER */}
 
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="flex min-w-0 items-start gap-3">
-                          <div className="mt-0.5 shrink-0 text-blue-600">
+                          <div className="mt-0.5 shrink-0 text-[#202860]">
                             <FaBuilding className="text-sm" />
                           </div>
 
@@ -1093,7 +1084,7 @@ export default function ApplicantViewModal({
                           className={`
                             w-fit
                             shrink-0
-                            rounded-full
+                            rounded-sm
                             px-2.5
                             py-1
                             text-[11px]
@@ -1179,7 +1170,7 @@ export default function ApplicantViewModal({
                         referral.follow_up_result) && (
                         <div className="mt-4 border-t border-slate-200 pt-4">
                           <div className="mb-3 flex items-center gap-2">
-                            <FaBell className="text-blue-600" />
+                            <FaBell className="text-[#202860]" />
 
                             <p className="text-sm font-semibold text-slate-700">
                               Follow-up Information
@@ -1271,8 +1262,7 @@ export default function ApplicantViewModal({
             bg-white
             px-4
             py-4
-            sm:px-5
-          "
+            sm:px-5"
         >
           <button
             type="button"
@@ -1291,9 +1281,8 @@ export default function ApplicantViewModal({
               hover:bg-slate-50
               focus:outline-none
               focus:ring-2
-              focus:ring-blue-500
-              focus:ring-offset-1
-            "
+              focus:ring-[#202860]
+              focus:ring-offset-1"
           >
             Close
           </button>
@@ -1324,7 +1313,7 @@ function SectionTitle({
         ${noMargin ? "" : "mb-4"}
       `}
     >
-      <span className="text-blue-600">
+      <span className="text-[#202860]">
         {icon}
       </span>
 
@@ -1364,7 +1353,7 @@ function InfoCard({
       `}
     >
       <div className="flex items-center gap-2">
-        <span className="text-blue-600">
+        <span className="text-[#202860]">
           {icon}
         </span>
 
@@ -1407,14 +1396,14 @@ function ScoreCard({
           </p>
         </div>
 
-        <span className="shrink-0 text-lg font-bold text-blue-600">
+        <span className="shrink-0 text-lg font-bold text-[#202860]">
           {safeScore}%
         </span>
       </div>
 
-      <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+      <div className="mt-3 h-2 overflow-hidden rounded-sm bg-slate-200">
         <div
-          className="h-full rounded-full bg-blue-600 transition-all"
+          className="h-full rounded-sm bg-[#202860] transition-all"
           style={{
             width: `${safeScore}%`,
           }}
@@ -1444,7 +1433,7 @@ function MiniDetail({
     <div className="min-w-0">
       <div className="flex items-center gap-2">
         {icon && (
-          <span className="shrink-0 text-blue-600">
+          <span className="shrink-0 text-[#202860]">
             {icon}
           </span>
         )}

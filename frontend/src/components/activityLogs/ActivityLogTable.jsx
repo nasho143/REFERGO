@@ -89,7 +89,7 @@ function getModuleIconStyle(moduleName) {
   const module = String(moduleName || "").toLowerCase();
 
   if (module.includes("applicant")) {
-    return "bg-blue-50 text-blue-600";
+    return "bg-blue-50 text-[#202860]";
   }
 
   if (module.includes("employer")) {
@@ -212,16 +212,13 @@ function LogRow({ log }) {
   const ipAddress = getIpAddress(log);
 
   return (
-    <tr className="border-b border-slate-100 transition-colors last:border-b-0 hover:bg-slate-50">
+    <tr className="  transition-colors  hover:bg-slate-50">
       {/* =================================================
           1. DATE & TIME
       ================================================= */}
 
-      <td className="w-[22%] border-r border-slate-100 px-8 py-5 pr-12 align-top">
+      <td className="w-[22%]   px-8 py-5 pr-12 align-top">
         <div className="flex items-start gap-4">
-          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
-            <FaCalendarAlt className="text-sm" />
-          </div>
 
           <div className="min-w-0">
             <p className="whitespace-nowrap text-sm font-medium leading-5 text-slate-700">
@@ -237,9 +234,6 @@ function LogRow({ log }) {
 
       <td className="w-[19%] px-8 py-5 pl-12 align-top">
         <div className="flex items-start gap-4">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
-            <FaUser className="text-sm" />
-          </div>
 
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold leading-5 text-slate-700">
@@ -309,9 +303,6 @@ function MobileLogCard({ log }) {
 
       <div className="flex items-start justify-between gap-4">
         <div className="flex min-w-0 items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
-            <FaUser />
-          </div>
 
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-slate-800">
@@ -343,7 +334,7 @@ function MobileLogCard({ log }) {
       ================================================= */}
 
       <div className="mt-4 flex items-center gap-2">
-        <span className="text-xs font-medium uppercase tracking-wide text-slate-400">
+        <span className="text-xs font-medium text-slate-400">
           Module
         </span>
 
@@ -357,7 +348,7 @@ function MobileLogCard({ log }) {
       ================================================= */}
 
       <div className="mt-4 flex items-start gap-3 rounded-xl bg-slate-50 p-3">
-        <FaCalendarAlt className="mt-0.5 shrink-0 text-blue-500" />
+        <FaCalendarAlt className="mt-0.5 shrink-0 text-[#202860]" />
 
         <div className="min-w-0">
           <p className="text-xs font-medium text-slate-400">
@@ -375,7 +366,7 @@ function MobileLogCard({ log }) {
       ================================================= */}
 
       <div className="mt-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+        <p className="text-xs font-medium text-slate-400">
           Activity
         </p>
 
@@ -419,9 +410,6 @@ export default function ActivityLogTable({
   if (!logs.length) {
     return (
       <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400">
-          <FaCalendarAlt className="text-2xl" />
-        </div>
 
         <h3 className="mt-4 text-lg font-semibold text-slate-700">
           No activity logs found
@@ -444,29 +432,29 @@ export default function ActivityLogTable({
         <div className="w-full overflow-x-auto">
           <table className="w-full min-w-[1150px] table-fixed border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50">
+              <tr className="  bg-slate-50">
                 {/* DATE */}
-                <th className="w-[22%] border-r border-slate-200 px-8 py-4 pr-12 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="w-[22%]   px-8 py-4 pr-12 text-left text-xs font-semibold text-slate-500">
                   Date & Time
                 </th>
 
                 {/* USER */}
-                <th className="w-[19%] px-8 py-4 pl-12 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="w-[19%] px-8 py-4 pl-12 text-left text-xs font-semibold text-slate-500">
                   User
                 </th>
 
                 {/* MODULE */}
-                <th className="w-[16%] px-8 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="w-[16%] px-8 py-4 text-left text-xs font-semibold text-slate-500">
                   Module
                 </th>
 
                 {/* ACTIVITY */}
-                <th className="w-[28%] px-8 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="w-[28%] px-8 py-4 text-left text-xs font-semibold text-slate-500">
                   Activity
                 </th>
 
                 {/* IP */}
-                <th className="w-[15%] px-8 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="w-[15%] px-8 py-4 text-left text-xs font-semibold text-slate-500">
                   IP Address
                 </th>
               </tr>

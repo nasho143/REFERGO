@@ -22,7 +22,7 @@ export default function PendingApprovalTable({ records = [] }) {
     <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="flex items-center justify-between gap-4 border-b border-slate-100 p-5 sm:p-6">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Records Waiting for Approval</h2>
+          <h2>Records Waiting for Approval</h2>
           <p className="mt-1 text-sm text-slate-500">The latest records requiring Department Head review.</p>
         </div>
         <FaClock className="shrink-0 text-amber-500" />
@@ -39,13 +39,13 @@ export default function PendingApprovalTable({ records = [] }) {
             <thead className="bg-slate-50">
               <tr>
                 {['Type', 'Record', 'Details', 'Date', 'Action'].map((heading) => (
-                  <th key={heading} className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">{heading}</th>
+                  <th key={heading} className="px-5 py-3 text-left text-xs font-bold r text-slate-500">{heading}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {records.map((record, index) => (
-                <tr key={`${record.record_type}-${record.record_id}-${index}`} className="border-t border-slate-100 hover:bg-slate-50">
+                <tr key={`${record.record_type}-${record.record_id}-${index}`} className="  hover:bg-slate-50">
                   <td className="px-5 py-4 text-sm font-semibold text-slate-700">{record.record_type}</td>
                   <td className="px-5 py-4 text-sm text-slate-700">{record.record_name || "—"}</td>
                   <td className="px-5 py-4 text-sm text-slate-500">{record.secondary_name || "—"}</td>
@@ -54,7 +54,7 @@ export default function PendingApprovalTable({ records = [] }) {
                     <button
                       type="button"
                       onClick={() => navigate(paths[record.record_type] || "/dashboard")}
-                      className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-blue-700"
+                      className="inline-flex items-center gap-2 rounded-lg bg-[#202860] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#202860]"
                     >
                       Review <FaArrowRight />
                     </button>

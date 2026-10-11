@@ -229,7 +229,7 @@ export default function Profile() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
 
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1>
             My Profile
           </h1>
 
@@ -257,8 +257,7 @@ export default function Profile() {
               bg-white
               text-gray-700
               hover:bg-gray-50
-              transition
-            "
+              transition"
           >
             <FaArrowLeft />
 
@@ -278,11 +277,10 @@ export default function Profile() {
                 px-5
                 py-2.5
                 rounded-lg
-                bg-blue-600
+                bg-[#202860]
                 text-white
-                hover:bg-blue-700
-                transition
-              "
+                hover:bg-[#202860]
+                transition"
             >
               <FaEdit />
 
@@ -303,26 +301,23 @@ export default function Profile() {
         shadow-sm
         border
         border-gray-200
-        overflow-hidden
-      ">
+        overflow-hidden">
 
         {/* TOP */}
         <div className="
-          bg-blue-700
+          bg-[#202860]
           px-8
           py-8
           flex
           flex-col
           sm:flex-row
           items-center
-          gap-5
-        ">
+          gap-5">
 
           <FaUserCircle
             className="
               text-7xl
-              text-white
-            "
+              text-white"
           />
 
           <div className="text-center sm:text-left">
@@ -330,17 +325,15 @@ export default function Profile() {
             <h2 className="
               text-2xl
               font-bold
-              text-white
-            ">
+              text-white">
               {profile.full_name ||
                 profile.username ||
                 "Administrator"}
             </h2>
 
             <p className="
-              text-blue-100
-              mt-1
-            ">
+              text-[#eef0f8]
+              mt-1">
               {profile.username ||
                 "admin"}
             </p>
@@ -350,11 +343,10 @@ export default function Profile() {
               mt-3
               px-3
               py-1
-              rounded-full
+              rounded-sm
               bg-white/20
               text-white
-              text-sm
-            ">
+              text-sm">
               Administrator
             </span>
 
@@ -371,8 +363,7 @@ export default function Profile() {
             grid
             grid-cols-1
             md:grid-cols-2
-            gap-6
-          ">
+            gap-6">
 
             {/* FULL NAME */}
             <div className="md:col-span-2">
@@ -382,8 +373,7 @@ export default function Profile() {
                 text-sm
                 font-semibold
                 text-gray-700
-                mb-2
-              ">
+                mb-2">
                 Full Name
               </label>
 
@@ -395,8 +385,7 @@ export default function Profile() {
                     left-4
                     top-1/2
                     -translate-y-1/2
-                    text-gray-400
-                  "
+                    text-gray-400"
                 />
 
                 <input
@@ -418,10 +407,9 @@ export default function Profile() {
                     rounded-lg
                     outline-none
                     focus:ring-2
-                    focus:ring-blue-500
+                    focus:ring-[#202860]
                     disabled:bg-gray-100
-                    disabled:text-gray-600
-                  "
+                    disabled:text-gray-600"
                 />
 
               </div>
@@ -435,8 +423,7 @@ export default function Profile() {
                 text-sm
                 font-semibold
                 text-gray-700
-                mb-2
-              ">
+                mb-2">
                 First Name
               </label>
 
@@ -458,9 +445,8 @@ export default function Profile() {
                   rounded-lg
                   outline-none
                   focus:ring-2
-                  focus:ring-blue-500
-                  disabled:bg-gray-100
-                "
+                  focus:ring-[#202860]
+                  disabled:bg-gray-100"
               />
 
             </div>
@@ -473,8 +459,7 @@ export default function Profile() {
                 text-sm
                 font-semibold
                 text-gray-700
-                mb-2
-              ">
+                mb-2">
                 Last Name
               </label>
 
@@ -496,9 +481,8 @@ export default function Profile() {
                   rounded-lg
                   outline-none
                   focus:ring-2
-                  focus:ring-blue-500
-                  disabled:bg-gray-100
-                "
+                  focus:ring-[#202860]
+                  disabled:bg-gray-100"
               />
 
             </div>
@@ -511,8 +495,7 @@ export default function Profile() {
                 text-sm
                 font-semibold
                 text-gray-700
-                mb-2
-              ">
+                mb-2">
                 Username
               </label>
 
@@ -534,9 +517,8 @@ export default function Profile() {
                   rounded-lg
                   outline-none
                   focus:ring-2
-                  focus:ring-blue-500
-                  disabled:bg-gray-100
-                "
+                  focus:ring-[#202860]
+                  disabled:bg-gray-100"
               />
 
             </div>
@@ -549,8 +531,7 @@ export default function Profile() {
                 text-sm
                 font-semibold
                 text-gray-700
-                mb-2
-              ">
+                mb-2">
                 Email Address
               </label>
 
@@ -562,8 +543,7 @@ export default function Profile() {
                     left-4
                     top-1/2
                     -translate-y-1/2
-                    text-gray-400
-                  "
+                    text-gray-400"
                 />
 
                 <input
@@ -585,9 +565,8 @@ export default function Profile() {
                     rounded-lg
                     outline-none
                     focus:ring-2
-                    focus:ring-blue-500
-                    disabled:bg-gray-100
-                  "
+                    focus:ring-[#202860]
+                    disabled:bg-gray-100"
                 />
 
               </div>
@@ -606,8 +585,7 @@ export default function Profile() {
               gap-3
               mt-8
               pt-6
-              border-t
-            ">
+              border-t">
 
               <button
                 type="button"
@@ -620,8 +598,7 @@ export default function Profile() {
                   border-gray-300
                   text-gray-700
                   hover:bg-gray-50
-                  transition
-                "
+                  transition"
               >
                 Cancel
               </button>
@@ -636,12 +613,11 @@ export default function Profile() {
                   px-6
                   py-3
                   rounded-lg
-                  bg-blue-600
+                  bg-[#202860]
                   text-white
-                  hover:bg-blue-700
+                  hover:bg-[#202860]
                   disabled:opacity-60
-                  transition
-                "
+                  transition"
               >
                 <FaSave />
 

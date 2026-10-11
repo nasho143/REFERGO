@@ -15,12 +15,9 @@ export default function UserToolbar({
       {/* Header */}
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-5">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-            <FaUsersCog className="text-3xl" />
-          </div>
 
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">
+            <h1>
               User Management
             </h1>
 
@@ -33,7 +30,7 @@ export default function UserToolbar({
         <button
           type="button"
           onClick={onAddUser}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-blue-700 active:scale-[0.98] md:w-auto"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#202860] px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-[#202860] active:scale-[0.98] md:w-auto"
         >
           <FaPlus />
           Add User
@@ -50,7 +47,7 @@ export default function UserToolbar({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search users..."
-            className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8]"
           />
         </div>
 
@@ -60,12 +57,12 @@ export default function UserToolbar({
               Total Users
             </p>
 
-            <p className="mt-1 text-2xl font-bold text-blue-700">
+            <p className="mt-1 text-2xl font-bold text-[#202860]">
               {totalUsers}
             </p>
           </div>
 
-          <FaUsersCog className="text-xl text-blue-600" />
+          <FaUsersCog className="text-xl text-[#202860]" />
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FaChartBar } from "react-icons/fa";
 
 import { getReports } from "../services/reportApi";
 
@@ -127,7 +126,7 @@ export default function Reports() {
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
 
-          <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600" />
+          <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-sm border-4 border-slate-200 border-t-blue-600" />
 
           <p className="text-base font-semibold text-slate-700">
             Loading reports...
@@ -154,12 +153,9 @@ export default function Reports() {
 
           <div className="flex items-center gap-3">
 
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              <FaChartBar className="text-2xl" />
-            </div>
 
             <div>
-              <h1 className="text-2xl font-bold text-slate-800">
+              <h1>
                 Reports & Analytics
               </h1>
 
@@ -212,13 +208,10 @@ export default function Reports() {
 
         <div className="flex items-center gap-3">
 
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-            <FaChartBar className="text-2xl" />
-          </div>
 
           <div>
 
-            <h1 className="text-2xl font-bold text-slate-800">
+            <h1>
               Reports & Analytics
             </h1>
 

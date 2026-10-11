@@ -24,7 +24,7 @@ export default function EmployerForm({
           {/* COMPANY NAME */}
           <div className="md:col-span-2">
             <label className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-slate-700">
-              <FaBuilding className="text-blue-600" />
+              <FaBuilding className="text-[#202860]" />
               Company Name
             </label>
 
@@ -48,17 +48,16 @@ export default function EmployerForm({
                 outline-none
                 transition
                 placeholder:text-slate-400
-                focus:border-blue-600
+                focus:border-[#202860]
                 focus:ring-2
-                focus:ring-blue-100
-              "
+                focus:ring-[#eef0f8]"
             />
           </div>
 
           {/* CONTACT PERSON */}
           <div>
             <label className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-slate-700">
-              <FaUser className="text-blue-600" />
+              <FaUser className="text-[#202860]" />
               Contact Person
             </label>
 
@@ -81,10 +80,9 @@ export default function EmployerForm({
                 outline-none
                 transition
                 placeholder:text-slate-400
-                focus:border-blue-600
+                focus:border-[#202860]
                 focus:ring-2
-                focus:ring-blue-100
-              "
+                focus:ring-[#eef0f8]"
             />
           </div>
 
@@ -114,10 +112,9 @@ export default function EmployerForm({
                 outline-none
                 transition
                 placeholder:text-slate-400
-                focus:border-blue-600
+                focus:border-[#202860]
                 focus:ring-2
-                focus:ring-blue-100
-              "
+                focus:ring-[#eef0f8]"
             />
           </div>
 
@@ -147,10 +144,9 @@ export default function EmployerForm({
                 outline-none
                 transition
                 placeholder:text-slate-400
-                focus:border-blue-600
+                focus:border-[#202860]
                 focus:ring-2
-                focus:ring-blue-100
-              "
+                focus:ring-[#eef0f8]"
             />
           </div>
 
@@ -181,10 +177,9 @@ export default function EmployerForm({
                 outline-none
                 transition
                 placeholder:text-slate-400
-                focus:border-blue-600
+                focus:border-[#202860]
                 focus:ring-2
-                focus:ring-blue-100
-              "
+                focus:ring-[#eef0f8]"
             />
           </div>
 
@@ -197,7 +192,7 @@ export default function EmployerForm({
       ====================================================== */}
 
       <div>
-        <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500">
+        <h3 className="mb-3 text-sm font-bold text-slate-500">
           Reapplication Policy
         </h3>
 
@@ -234,8 +229,7 @@ export default function EmployerForm({
                   transition
                   focus:border-purple-600
                   focus:ring-2
-                  focus:ring-purple-100
-                "
+                  focus:ring-purple-100"
               />
 
             </div>

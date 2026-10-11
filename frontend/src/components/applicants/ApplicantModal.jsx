@@ -130,7 +130,7 @@ export default function ApplicantModal({
             {/* FULL NAME */}
             <FormField
               icon={<FaUser />}
-              iconColor="text-blue-600"
+              iconColor="text-[#202860]"
               label="Full Name"
             >
               <input
@@ -301,7 +301,7 @@ export default function ApplicantModal({
           <div className="mb-5 border-b border-slate-200 pb-3">
 
             <div className="flex items-center gap-2">
-              <span className="text-blue-600">
+              <span className="text-[#202860]">
                 <FaFileAlt />
               </span>
 
@@ -325,7 +325,7 @@ export default function ApplicantModal({
               checked={Boolean(form.resume_uploaded)}
               onChange={handleChange}
               icon={<FaFile />}
-              iconColor="text-blue-600"
+              iconColor="text-[#202860]"
               title="Resume / CV"
               description="Resume uploaded"
             />
@@ -382,7 +382,7 @@ export default function ApplicantModal({
 
               </div>
 
-              <span className="inline-flex w-fit rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
+              <span className="inline-flex w-fit rounded-sm bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
                 Automatic
               </span>
 
@@ -528,14 +528,14 @@ function RequirementCard({
   description,
 }) {
   return (
-    <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+    <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-[#959fcb] hover:bg-blue-50">
 
       <input
         type="checkbox"
         name={name}
         checked={checked}
         onChange={onChange}
-        className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+        className="mt-1 h-4 w-4 rounded border-slate-300 text-[#202860] focus:ring-[#202860]"
       />
 
       <div className="min-w-0">
@@ -580,7 +580,7 @@ function ScoreCard({
         transition
         ${
           highlight
-            ? "border-blue-200 bg-blue-50"
+            ? "border-[#bfc6e2] bg-blue-50"
             : "border-slate-200 bg-slate-50"
         }
       `}
@@ -612,8 +612,8 @@ function ScoreCard({
             font-bold
             ${
               highlight
-                ? "bg-blue-600 text-white"
-                : "bg-white text-blue-700"
+                ? "bg-[#202860] text-white"
+                : "bg-white text-[#202860]"
             }
           `}
         >
@@ -630,7 +630,7 @@ function ScoreCard({
 ========================================================== */
 
 const inputClass =
-  "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
+  "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8]";
 
 const textareaClass =
-  "w-full resize-none rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
+  "w-full resize-none rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8]";

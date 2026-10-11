@@ -1,4 +1,3 @@
-import { FaBuilding } from "react-icons/fa";
 import SearchBar from "../common/SearchBar";
 
 export default function EmployerToolbar({
@@ -20,13 +19,10 @@ export default function EmployerToolbar({
 
         <div className="flex items-center gap-3">
 
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-            <FaBuilding className="text-2xl" />
-          </div>
 
           <div>
 
-            <h1 className="text-2xl font-bold text-slate-800">
+            <h1>
               Employers
             </h1>
 
@@ -52,7 +48,7 @@ export default function EmployerToolbar({
               items-center
               justify-center
               rounded-lg
-              bg-blue-600
+              bg-[#202860]
               px-4
               py-2.5
               text-sm
@@ -60,12 +56,11 @@ export default function EmployerToolbar({
               text-white
               shadow-sm
               transition
-              hover:bg-blue-700
+              hover:bg-[#202860]
               focus:outline-none
               focus:ring-2
-              focus:ring-blue-500
-              focus:ring-offset-2
-            "
+              focus:ring-[#202860]
+              focus:ring-offset-2"
           >
             + Add Employer
           </button>
@@ -103,7 +98,7 @@ export default function EmployerToolbar({
             Total Employers
           </span>
 
-          <span className="ml-4 text-xl font-bold text-blue-700">
+          <span className="ml-4 text-xl font-bold text-[#202860]">
             {totalEmployers}
           </span>
 

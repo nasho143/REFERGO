@@ -154,22 +154,22 @@ export default function ReportCharts({
     {
       name: "Interviewed",
       value: Number(interviewed) || 0,
-      color: "#9333ea",
+      color: "#3a4789",
     },
     {
       name: "Hired",
       value: Number(hired) || 0,
-      color: "#16a34a",
+      color: "#1e6b3c",
     },
     {
       name: "Rejected",
       value: Number(rejected) || 0,
-      color: "#dc2626",
+      color: "#c8142f",
     },
     {
       name: "Pending",
       value: Number(pending) || 0,
-      color: "#f59e0b",
+      color: "#e3c400",
     },
   ];
 
@@ -218,14 +218,14 @@ export default function ReportCharts({
 
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="#e2e8f0"
+                stroke="#d5d8e2"
               />
 
               <XAxis
                 dataKey="monthLabel"
                 tick={{
                   fontSize: 12,
-                  fill: "#64748b",
+                  fill: "#5c6280",
                 }}
               />
 
@@ -233,21 +233,21 @@ export default function ReportCharts({
                 allowDecimals={false}
                 tick={{
                   fontSize: 12,
-                  fill: "#64748b",
+                  fill: "#5c6280",
                 }}
               />
 
               <Tooltip
                 contentStyle={{
                   borderRadius: "12px",
-                  border: "1px solid #e2e8f0",
+                  border: "1px solid #d5d8e2",
                   boxShadow:
-                    "0 4px 12px rgba(0,0,0,0.08)",
+                    "none",
                 }}
 
                 labelStyle={{
                   fontWeight: 700,
-                  color: "#334155",
+                  color: "#2f3450",
                 }}
 
                 formatter={(value, name) => [
@@ -267,7 +267,7 @@ export default function ReportCharts({
                 type="monotone"
                 dataKey="total_referred"
                 name="Referred"
-                stroke="#2563eb"
+                stroke="#202860"
                 strokeWidth={3}
                 dot={{
                   r: 5,
@@ -287,7 +287,7 @@ export default function ReportCharts({
                 type="monotone"
                 dataKey="interviewed"
                 name="Interviewed"
-                stroke="#9333ea"
+                stroke="#3a4789"
                 strokeWidth={3}
                 dot={{
                   r: 5,
@@ -308,7 +308,7 @@ export default function ReportCharts({
                 type="monotone"
                 dataKey="hired"
                 name="Hired"
-                stroke="#16a34a"
+                stroke="#1e6b3c"
                 strokeWidth={3}
                 dot={{
                   r: 5,
@@ -329,7 +329,7 @@ export default function ReportCharts({
                 type="monotone"
                 dataKey="rejected"
                 name="Rejected"
-                stroke="#dc2626"
+                stroke="#c8142f"
                 strokeWidth={3}
                 dot={{
                   r: 5,
@@ -349,7 +349,7 @@ export default function ReportCharts({
                 type="monotone"
                 dataKey="pending"
                 name="Pending"
-                stroke="#f59e0b"
+                stroke="#e3c400"
                 strokeWidth={3}
                 dot={{
                   r: 5,
@@ -395,14 +395,14 @@ export default function ReportCharts({
 
                 <CartesianGrid
                   strokeDasharray="3 3"
-                  stroke="#e2e8f0"
+                  stroke="#d5d8e2"
                 />
 
                 <XAxis
                   dataKey="status"
                   tick={{
                     fontSize: 11,
-                    fill: "#64748b",
+                    fill: "#5c6280",
                   }}
                 />
 
@@ -410,21 +410,21 @@ export default function ReportCharts({
                   allowDecimals={false}
                   tick={{
                     fontSize: 12,
-                    fill: "#64748b",
+                    fill: "#5c6280",
                   }}
                 />
 
                 <Tooltip
                   contentStyle={{
                     borderRadius: "12px",
-                    border: "1px solid #e2e8f0",
+                    border: "1px solid #d5d8e2",
                   }}
                 />
 
                 <Bar
                   dataKey="total"
                   name="Referrals"
-                  fill="#2563eb"
+                  fill="#202860"
                   radius={[
                     6,
                     6,
@@ -517,7 +517,7 @@ export default function ReportCharts({
 
                 <CartesianGrid
                   strokeDasharray="3 3"
-                  stroke="#e2e8f0"
+                  stroke="#d5d8e2"
                 />
 
                 <XAxis
@@ -525,7 +525,7 @@ export default function ReportCharts({
                   allowDecimals={false}
                   tick={{
                     fontSize: 12,
-                    fill: "#64748b",
+                    fill: "#5c6280",
                   }}
                 />
 
@@ -535,7 +535,7 @@ export default function ReportCharts({
                   width={100}
                   tick={{
                     fontSize: 11,
-                    fill: "#64748b",
+                    fill: "#5c6280",
                   }}
                 />
 
@@ -544,7 +544,7 @@ export default function ReportCharts({
                 <Bar
                   dataKey="total_referrals"
                   name="Referrals"
-                  fill="#7c3aed"
+                  fill="#3a4789"
                   radius={[
                     0,
                     6,
@@ -583,7 +583,7 @@ export default function ReportCharts({
 
                 <CartesianGrid
                   strokeDasharray="3 3"
-                  stroke="#e2e8f0"
+                  stroke="#d5d8e2"
                 />
 
                 <XAxis
@@ -591,7 +591,7 @@ export default function ReportCharts({
                   allowDecimals={false}
                   tick={{
                     fontSize: 12,
-                    fill: "#64748b",
+                    fill: "#5c6280",
                   }}
                 />
 
@@ -601,7 +601,7 @@ export default function ReportCharts({
                   width={110}
                   tick={{
                     fontSize: 11,
-                    fill: "#64748b",
+                    fill: "#5c6280",
                   }}
                 />
 
@@ -610,7 +610,7 @@ export default function ReportCharts({
                 <Bar
                   dataKey="total_referrals"
                   name="Referrals"
-                  fill="#0f766e"
+                  fill="#1e6b3c"
                   radius={[
                     0,
                     6,
@@ -695,11 +695,11 @@ export default function ReportCharts({
           {/* PLACEMENT RATE */}
 
           <div className="rounded-xl bg-blue-50 p-4">
-            <p className="text-sm font-medium text-blue-600">
+            <p className="text-sm font-medium text-[#202860]">
               Placement Rate
             </p>
 
-            <p className="mt-2 text-2xl font-bold text-blue-700">
+            <p className="mt-2 text-2xl font-bold text-[#202860]">
               {Number(placementRate) || 0}%
             </p>
           </div>

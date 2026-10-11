@@ -13,15 +13,15 @@ import {
 } from "recharts";
 
 const STATUS_COLORS = {
-  Pending: "#f59e0b",
-  "For Interview": "#9333ea",
-  "Interview Scheduled": "#9333ea",
-  Hired: "#16a34a",
-  Rejected: "#dc2626",
-  Failed: "#dc2626",
-  "No Response": "#64748b",
-  Expired: "#64748b",
-  Cancelled: "#64748b",
+  Pending: "#e3c400",
+  "For Interview": "#3a4789",
+  "Interview Scheduled": "#3a4789",
+  Hired: "#1e6b3c",
+  Rejected: "#c8142f",
+  Failed: "#c8142f",
+  "No Response": "#5c6280",
+  Expired: "#5c6280",
+  Cancelled: "#5c6280",
 };
 
 function normalizeStatusData(status = []) {
@@ -38,7 +38,7 @@ function normalizeStatusData(status = []) {
 }
 
 function getStatusColor(status) {
-  return STATUS_COLORS[status] || "#2563eb";
+  return STATUS_COLORS[status] || "#202860";
 }
 
 function ChartCard({ title, subtitle, children }) {
@@ -121,8 +121,8 @@ export default function DashboardCharts({ status = [] }) {
               <Tooltip
                 contentStyle={{
                   borderRadius: "12px",
-                  border: "1px solid #e2e8f0",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  border: "1px solid #d5d8e2",
+                  boxShadow: "none",
                 }}
               />
 
@@ -178,8 +178,8 @@ export default function DashboardCharts({ status = [] }) {
               <Tooltip
                 contentStyle={{
                   borderRadius: "12px",
-                  border: "1px solid #e2e8f0",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  border: "1px solid #d5d8e2",
+                  boxShadow: "none",
                 }}
               />
 

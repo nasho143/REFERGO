@@ -1,53 +1,466 @@
 @import "tailwindcss";
 
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+/* ==========================================================================
+   REFERGO  |  PESO Mendez, Cavite
+   Government-office design system.
+   Palette is taken from the PESO seal: navy ring, red gear, yellow sun.
+   Every Tailwind color/radius/shadow/font token the app already uses is
+   re-pointed here, so existing class names inherit the new look.
+   ========================================================================== */
+
+@theme {
+  --font-sans: "Public Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  /* Square, form-like corners. Only 'rounded-full' stays round. */
+  --radius-xs: 0;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 3px;
+  --radius-2xl: 3px;
+  --radius-3xl: 4px;
+
+  /* Flat paper. Only floating layers (menus, dialogs) get a shadow. */
+  --shadow-2xs: 0 0 #0000;
+  --shadow-xs: 0 0 #0000;
+  --shadow-sm: 0 0 #0000;
+  --shadow-md: 0 0 #0000;
+  --shadow-lg: 0 0 #0000;
+  --shadow-xl: 0 2px 6px rgb(17 22 58 / 0.22);
+  --shadow-2xl: 0 6px 20px rgb(17 22 58 / 0.32);
+
+  /* Navy (seal ring #202860). Blue and indigo both resolve here. */
+  --color-blue-50: #eef0f8;
+  --color-blue-100: #dde1f0;
+  --color-blue-200: #bfc6e2;
+  --color-blue-300: #959fcb;
+  --color-blue-400: #6471ad;
+  --color-blue-500: #3a4789;
+  --color-blue-600: #202860;
+  --color-blue-700: #1b2255;
+  --color-blue-800: #161c47;
+  --color-blue-900: #11163a;
+  --color-blue-950: #0b0f27;
+  --color-indigo-50: #eef0f8;
+  --color-indigo-100: #dde1f0;
+  --color-indigo-200: #bfc6e2;
+  --color-indigo-500: #3a4789;
+  --color-indigo-600: #202860;
+  --color-indigo-700: #1b2255;
+  /* No purple in the PESO palette: it reads as a lighter navy. */
+  --color-purple-50: #eef0f8;
+  --color-purple-100: #dde1f0;
+  --color-purple-200: #bfc6e2;
+  --color-purple-500: #3a4789;
+  --color-purple-600: #3a4789;
+  --color-purple-700: #202860;
+
+  /* Seal red #E01838 */
+  --color-red-50: #fdecef;
+  --color-red-100: #fad3d9;
+  --color-red-200: #f5aab5;
+  --color-red-300: #ee7a8b;
+  --color-red-500: #e01838;
+  --color-red-600: #c8142f;
+  --color-red-700: #a00f27;
+  --color-red-800: #7d0c1f;
+  --color-orange-50: #fdecef;
+  --color-orange-100: #fad3d9;
+  --color-orange-200: #f5aab5;
+  --color-orange-500: #e01838;
+  --color-orange-600: #c8142f;
+  --color-orange-700: #a00f27;
+
+  /* Seal yellow #F8E000, with dark gold for text on it. */
+  --color-amber-50: #fffbd9;
+  --color-amber-100: #fff6a8;
+  --color-amber-200: #fdee66;
+  --color-amber-400: #f8e000;
+  --color-amber-500: #f8e000;
+  --color-amber-600: #8a7600;
+  --color-amber-700: #6b5b00;
+  --color-yellow-300: #f8e000;
+  --color-yellow-400: #f8e000;
+
+  /* Status green, used only for Hired / Active / Approved. */
+  --color-green-50: #e8f3ec;
+  --color-green-100: #cfe7d6;
+  --color-green-200: #a5d0b2;
+  --color-green-500: #2e8a52;
+  --color-green-600: #1e6b3c;
+  --color-green-700: #185733;
+  --color-green-800: #12432a;
+
+  /* Cool neutrals with a navy cast. */
+  --color-slate-50: #f5f6f9;
+  --color-slate-100: #eceef3;
+  --color-slate-200: #d5d8e2;
+  --color-slate-300: #b6bbcb;
+  --color-slate-400: #8187a0;
+  --color-slate-500: #5c6280;
+  --color-slate-600: #444a66;
+  --color-slate-700: #2f3450;
+  --color-slate-800: #1f2340;
+  --color-slate-900: #14172e;
+  --color-gray-50: #f5f6f9;
+  --color-gray-100: #eceef3;
+  --color-gray-200: #d5d8e2;
+  --color-gray-300: #b6bbcb;
+  --color-gray-400: #8187a0;
+  --color-gray-500: #5c6280;
+  --color-gray-600: #444a66;
+  --color-gray-700: #2f3450;
+  --color-gray-800: #1f2340;
+  --color-gray-900: #14172e;
 }
 
-body {
-  overflow-x: hidden;
-  background: #f3f4f6;
-  font-family: Inter, Arial, sans-serif;
+:root {
+  color-scheme: light;
+  --peso-navy: #202860;
+  --peso-navy-deep: #161c47;
+  --peso-red: #e01838;
+  --peso-yellow: #f8e000;
+  --paper: #eef0f6;
+  --sheet: #ffffff;
+  --rule: #c9cddb;
+  --rule-strong: #8f95ad;
+  --ink: #1b1f3a;
+  --ink-muted: #4d5372;
 }
 
-* {
-  box-sizing: border-box;
+@layer base {
+  html,
+  body,
+  #root {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  html {
+    background: var(--paper);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--peso-yellow);
+    color: var(--peso-navy-deep);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--peso-navy);
+    outline-offset: 2px;
+  }
+
+  /* Headings: serif, navy, like an office memorandum. */
+  h1,
+  h2,
+  h3 {
+    color: var(--peso-navy);
+    line-height: 1.25;
+  }
+
+  main h1 {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  main h2 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  main h3 {
+    font-weight: 700;
+  }
+
+  /* Paper-form fields */
+  main
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+      [type="range"]
+    ),
+  main select,
+  main textarea {
+    min-height: 40px;
+    background: #fff;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    color: var(--ink);
+    box-shadow: inset 0 1px 0 rgb(17 22 58 / 0.06);
+  }
+
+  main
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+  main select:focus,
+  main textarea:focus {
+    border-color: var(--peso-navy);
+    outline: 3px solid rgb(248 224 0 / 0.75);
+    outline-offset: 0;
+    box-shadow: none;
+  }
+
+  main input::placeholder,
+  main textarea::placeholder {
+    color: #7b8199;
+    opacity: 1;
+  }
+
+  main input:disabled,
+  main select:disabled,
+  main textarea:disabled {
+    background: #eceef3;
+    color: #5c6280;
+    cursor: not-allowed;
+  }
+
+  main input[type="checkbox"],
+  main input[type="radio"] {
+    accent-color: var(--peso-navy);
+  }
+
+  /* Record tables: no grid lines. Rows are told apart by tint alone. */
+  main table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  main table thead th {
+    background: #e2e5f1;
+    color: var(--peso-navy-deep);
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    border: 0;
+  }
+
+  main table tbody td {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  main table tbody tr:nth-child(even) {
+    background: #f7f8fb;
+  }
+
+  main table tbody tr:hover {
+    background: #fffbd9;
+  }
 }
 
-/* ======================================
-   REFERGO SIDEBAR SCROLLBAR
-   Subtle / Almost Hidden
-   ====================================== */
+@layer components {
+  /* Masthead pieces */
+  .gov-strip {
+    background: #f3f4f8;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-muted);
+    font-size: 12.5px;
+  }
+
+  .gov-masthead {
+    background: var(--sheet);
+  }
+
+  .gov-office {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--peso-navy);
+    line-height: 1.15;
+  }
+
+  .gov-nav {
+    background: var(--peso-navy);
+    border-top: 4px solid var(--peso-red);
+  }
+
+  .gov-nav-link {
+    display: block;
+    padding: 13px 16px 10px;
+    border-bottom: 3px solid transparent;
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .gov-nav-link:hover {
+    background: var(--peso-navy-deep);
+  }
+
+  .gov-nav-link[aria-current="page"] {
+    background: var(--peso-navy-deep);
+    border-bottom-color: var(--peso-yellow);
+    font-weight: 700;
+  }
+
+  .gov-nav :focus-visible {
+    outline-color: var(--peso-yellow);
+  }
+
+  .gov-crumbs {
+    background: var(--sheet);
+    border-bottom: 1px solid var(--rule);
+    font-size: 13.5px;
+    color: var(--ink-muted);
+  }
+
+  .gov-footer {
+    background: var(--peso-navy-deep);
+    border-top: 4px solid var(--peso-red);
+    color: #dfe2f1;
+    font-size: 13px;
+  }
+
+  /* A titled box, the basic unit of the login and detail layouts. */
+  .gov-panel {
+    background: var(--sheet);
+    border: 1px solid var(--rule-strong);
+  }
+
+  .back-to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 40;
+    display: flex;
+    height: 48px;
+    width: 48px;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: var(--peso-navy);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgb(17 22 58 / 0.4), 0 1px 3px rgb(17 22 58 / 0.3);
+  }
+
+  .back-to-top:hover {
+    background: var(--peso-navy-deep);
+    box-shadow: 0 6px 16px rgb(17 22 58 / 0.5), 0 2px 4px rgb(17 22 58 / 0.3);
+  }
+
+  .back-to-top:focus-visible {
+    outline: 3px solid var(--peso-yellow);
+    outline-offset: 2px;
+  }
+
+  .gov-panel-title {
+    background: var(--peso-navy);
+    color: #fff;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 10px 18px;
+  }
+
+  .gov-notice {
+    background: #fffbd9;
+    border: 1px solid #d9cc3a;
+    border-left: 5px solid var(--peso-yellow);
+    color: #3d3700;
+  }
+}
+
+/* SweetAlert dialogs, restyled to match the forms. */
+.swal2-popup {
+  border-radius: 3px !important;
+  border: 1px solid var(--rule-strong);
+  font-family: var(--font-sans) !important;
+  padding: 1.5rem 1.5rem 1.25rem !important;
+}
+
+.swal2-title {
+  font-family: var(--font-serif) !important;
+  color: var(--peso-navy) !important;
+  font-size: 1.4rem !important;
+}
+
+.swal2-html-container {
+  color: var(--ink) !important;
+  font-size: 0.95rem !important;
+}
+
+.swal2-styled {
+  border-radius: 2px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.swal2-styled.swal2-confirm {
+  background: var(--peso-navy) !important;
+}
+
+.swal2-styled.swal2-cancel {
+  background: #fff !important;
+  color: var(--peso-navy) !important;
+  border: 1px solid var(--peso-navy) !important;
+}
+
+.swal2-styled:focus-visible {
+  outline: 3px solid var(--peso-yellow) !important;
+  outline-offset: 2px;
+}
 
 .sidebar-scroll {
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
 }
 
-/* Chrome / Edge / Safari */
-.sidebar-scroll::-webkit-scrollbar {
-  width: 4px;
+@media (max-width: 640px) {
+  main {
+    overflow-wrap: anywhere;
+  }
+  main table {
+    min-width: 620px;
+  }
 }
 
-.sidebar-scroll::-webkit-scrollbar-track {
-  background: transparent;
+@media print {
+  .back-to-top,
+  .gov-strip,
+  .gov-nav,
+  .gov-crumbs,
+  .gov-footer {
+    display: none;
+  }
 }
 
-.sidebar-scroll::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 9999px;
-}
-
-/* Show a very subtle scrollbar when hovering */
-.sidebar-scroll:hover {
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
-}
-
-.sidebar-scroll:hover::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

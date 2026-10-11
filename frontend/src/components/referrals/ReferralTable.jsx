@@ -28,8 +28,8 @@ export default function ReferralTable({
   ========================================================= */
 
   const columnWidths = hasManagementActions
-    ? ["18%", "13%", "14%", "10%", "9%", "11%", "25%"]
-    : ["20%", "14%", "15%", "11%", "9%", "11%", "20%"];
+    ? ["18%", "13%", "13%", "11%", "9%", "11%", "25%"]
+    : ["21%", "15%", "15%", "12%", "10%", "12%", "15%"];
 
   /* =========================================================
      DATE FORMAT
@@ -71,7 +71,7 @@ export default function ReferralTable({
           TABLE WRAPPER
       ====================================================== */}
 
-      <div className="min-w-[1100px]">
+      <div className="min-w-[1240px]">
 
         <DataTable
           columns={[
@@ -109,23 +109,22 @@ export default function ReferralTable({
             <tr
               key={referral.referral_id}
               className="
-                border-b
-                border-slate-100
+                
+                
                 transition
-                last:border-b-0
-                hover:bg-slate-50
-              "
+                
+                hover:bg-slate-50"
             >
 
               {/* =================================================
                   APPLICANT
               ================================================== */}
 
-              <td className="px-5 py-4">
+              <td className="px-5 py-5">
 
-                <div className="flex min-w-0 items-center gap-2">
+                <div className="flex min-w-0 items-center gap-3">
 
-                  <FaUser className="shrink-0 text-sm text-blue-600" />
+                  <FaUser className="shrink-0 text-sm text-[#202860]" />
 
                   <div className="min-w-0">
 
@@ -138,7 +137,7 @@ export default function ReferralTable({
                     </p>
 
                     <p
-                      className="mt-0.5 truncate text-xs text-slate-500"
+                      className="mt-1 truncate text-xs text-slate-600"
                       title={referral.classification || ""}
                     >
                       {referral.classification ||
@@ -155,11 +154,11 @@ export default function ReferralTable({
                   COMPANY
               ================================================== */}
 
-              <td className="px-5 py-4">
+              <td className="px-5 py-5">
 
-                <div className="flex min-w-0 items-center gap-2">
+                <div className="flex min-w-0 items-center gap-3">
 
-                  <FaBuilding className="shrink-0 text-sm text-blue-600" />
+                  <FaBuilding className="shrink-0 text-sm text-[#202860]" />
 
                   <span
                     className="truncate text-sm font-medium text-slate-700"
@@ -176,11 +175,11 @@ export default function ReferralTable({
                   POSITION
               ================================================== */}
 
-              <td className="px-5 py-4">
+              <td className="px-5 py-5">
 
-                <div className="flex min-w-0 items-center gap-2">
+                <div className="flex min-w-0 items-center gap-3">
 
-                  <FaBriefcase className="shrink-0 text-sm text-blue-600" />
+                  <FaBriefcase className="shrink-0 text-sm text-[#202860]" />
 
                   <span
                     className="truncate text-sm font-medium text-slate-700"
@@ -197,11 +196,11 @@ export default function ReferralTable({
                   DATE REFERRED
               ================================================== */}
 
-              <td className="px-5 py-4">
+              <td className="px-5 py-5">
 
-                <div className="flex items-center gap-2 whitespace-nowrap">
+                <div className="flex items-center gap-3 whitespace-nowrap">
 
-                  <FaCalendarAlt className="shrink-0 text-sm text-blue-600" />
+                  <FaCalendarAlt className="shrink-0 text-sm text-[#202860]" />
 
                   <span className="text-sm font-medium text-slate-700">
                     {formatDate(
@@ -217,7 +216,7 @@ export default function ReferralTable({
                   STATUS
               ================================================== */}
 
-              <td className="px-5 py-4">
+              <td className="px-5 py-5">
 
                 <div className="flex items-center">
 
@@ -235,7 +234,7 @@ export default function ReferralTable({
                   APPROVAL
               ================================================== */}
 
-              <td className="px-5 py-4">
+              <td className="px-5 py-5">
                 <StatusBadge
                   status={referral.approval_status || "Pending"}
                   variant={
@@ -252,9 +251,9 @@ export default function ReferralTable({
                   ACTIONS
               ================================================== */}
 
-              <td className="px-5 py-4">
+              <td className="px-5 py-5">
 
-                <div className="flex min-w-0 flex-wrap items-center gap-1.5 whitespace-nowrap">
+                <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-3 whitespace-nowrap">
 
                   <ActionButtons
                     onView={

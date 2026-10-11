@@ -1,4 +1,3 @@
-import { FaBriefcase } from "react-icons/fa";
 import SearchBar from "../common/SearchBar";
 
 export default function VacancyToolbar({
@@ -15,13 +14,10 @@ export default function VacancyToolbar({
 
         <div className="flex items-center gap-3">
 
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-            <FaBriefcase className="text-xl" />
-          </div>
 
           <div>
 
-            <h1 className="text-2xl font-bold text-slate-800">
+            <h1>
               Job Vacancies
             </h1>
 
@@ -37,7 +33,7 @@ export default function VacancyToolbar({
           <button
             type="button"
             onClick={onAdd}
-            className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="inline-flex items-center justify-center rounded-lg bg-[#202860] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#202860] focus:outline-none focus:ring-2 focus:ring-[#202860] focus:ring-offset-2"
           >
             + Add Vacancy
           </button>
@@ -62,7 +58,7 @@ export default function VacancyToolbar({
             Total Vacancies
           </span>
 
-          <span className="text-xl font-bold text-blue-700">
+          <span className="text-xl font-bold text-[#202860]">
             {totalVacancies}
           </span>
 

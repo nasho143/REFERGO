@@ -46,25 +46,25 @@ export default function EmployerTable({
           ================================================== */}
 
           <thead>
-            <tr className="border-b border-slate-200 bg-slate-50">
+            <tr className="  bg-slate-50">
 
-              <th className="px-5 py-4 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
                 Company
               </th>
 
-              <th className="px-5 py-4 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
                 Contact Person
               </th>
 
-              <th className="px-5 py-4 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
                 Status
               </th>
 
-              <th className="px-5 py-4 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
                 Approval
               </th>
 
-              <th className="px-5 py-4 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+              <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
                 Actions
               </th>
 
@@ -92,11 +92,10 @@ export default function EmployerTable({
                         h-9
                         w-9
                         animate-spin
-                        rounded-full
+                        rounded-sm
                         border-4
                         border-slate-200
-                        border-t-blue-600
-                      "
+                        border-t-blue-600"
                     />
 
                     <p className="text-sm text-slate-500">
@@ -116,9 +115,6 @@ export default function EmployerTable({
                 >
                   <div className="flex flex-col items-center justify-center text-center">
 
-                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                      <FaBuilding className="text-xl" />
-                    </div>
 
                     <h3 className="text-base font-bold text-slate-800">
                       No Employers Found
@@ -138,18 +134,17 @@ export default function EmployerTable({
                         className="
                           mt-4
                           rounded-lg
-                          bg-blue-600
+                          bg-[#202860]
                           px-4
                           py-2.5
                           text-sm
                           font-semibold
                           text-white
                           transition
-                          hover:bg-blue-700
+                          hover:bg-[#202860]
                           focus:outline-none
                           focus:ring-2
-                          focus:ring-blue-300
-                        "
+                          focus:ring-[#959fcb]"
                       >
                         Add Employer
                       </button>
@@ -166,12 +161,11 @@ export default function EmployerTable({
                 <tr
                   key={employer.employer_id}
                   className="
-                    border-b
-                    border-slate-100
+                    
+                    
                     transition
-                    last:border-b-0
-                    hover:bg-slate-50
-                  "
+                    
+                    hover:bg-slate-50"
                 >
 
                   {/* COMPANY */}
@@ -188,10 +182,9 @@ export default function EmployerTable({
                           shrink-0
                           items-center
                           justify-center
-                          rounded-full
-                          bg-blue-100
-                          text-blue-600
-                        "
+                          rounded-sm
+                          bg-[#eef0f8]
+                          text-[#202860]"
                       >
                         <FaBuilding />
                       </div>
@@ -219,7 +212,7 @@ export default function EmployerTable({
 
                     <div className="flex min-w-0 items-center gap-2">
 
-                      <FaUserTie className="shrink-0 text-sm text-blue-600" />
+                      <FaUserTie className="shrink-0 text-sm text-[#202860]" />
 
                       <div className="min-w-0">
 

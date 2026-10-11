@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  FaBriefcase,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaTimesCircle,
-} from "react-icons/fa";
 
+import StatStrip from "../components/common/StatStrip";
 import VacancyToolbar from "../components/vacancies/VacancyToolbar";
 import VacancyTable from "../components/vacancies/VacancyTable";
 import VacancyModal from "../components/vacancies/VacancyModal";
@@ -645,7 +640,7 @@ export default function Vacancies() {
       showCancelButton: true,
       confirmButtonText: "Yes, Approve",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#16a34a",
+      confirmButtonColor: "#1e6b3c",
     });
 
     if (!result.isConfirmed) return;
@@ -688,7 +683,7 @@ export default function Vacancies() {
       showCancelButton: true,
       confirmButtonText: "Reject Vacancy",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#dc2626",
+      confirmButtonColor: "#c8142f",
       inputValidator: (value) =>
         !value || !value.trim()
           ? "Rejection reason is required."
@@ -752,97 +747,14 @@ export default function Vacancies() {
           SUMMARY CARDS
       ====================================================== */}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-        {/* TOTAL */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Total Vacancies
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-slate-800">
-                {totalVacancies}
-              </h3>
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              <FaBriefcase />
-            </div>
-
-          </div>
-        </div>
-
-        {/* ACTIVE */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Active
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-green-600">
-                {activeVacancies}
-              </h3>
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-600">
-              <FaCheckCircle />
-            </div>
-
-          </div>
-        </div>
-
-        {/* EXPIRING SOON */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Expiring Soon
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-amber-600">
-                {expiringVacancies}
-              </h3>
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
-              <FaExclamationTriangle />
-            </div>
-
-          </div>
-        </div>
-
-        {/* EXPIRED */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Expired
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-red-600">
-                {expiredVacancies}
-              </h3>
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600">
-              <FaTimesCircle />
-            </div>
-
-          </div>
-        </div>
-
-      </div>
+      <StatStrip
+        items={[
+          { label: "Total Vacancies", value: totalVacancies },
+          { label: "Active", value: activeVacancies },
+          { label: "Expiring Soon", value: expiringVacancies },
+          { label: "Expired", value: expiredVacancies },
+        ]}
+      />
 
       {/* =====================================================
           VACANCY TABLE

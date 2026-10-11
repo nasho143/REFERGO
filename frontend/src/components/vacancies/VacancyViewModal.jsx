@@ -140,7 +140,7 @@ export default function VacancyViewModal({
                   w-fit
                   items-center
                   gap-2
-                  rounded-full
+                  rounded-sm
                   px-3
                   py-1.5
                   text-xs
@@ -329,7 +329,7 @@ function InfoCard({
   return (
     <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
       <div className="flex items-center gap-2">
-        <span className="text-blue-600">
+        <span className="text-[#202860]">
           {icon}
         </span>
 

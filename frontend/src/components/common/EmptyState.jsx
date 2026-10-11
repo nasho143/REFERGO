@@ -1,4 +1,3 @@
-import { FaInbox } from "react-icons/fa";
 import Button from "./Button";
 
 export default function EmptyState({
@@ -8,33 +7,16 @@ export default function EmptyState({
   onButtonClick,
 }) {
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
+    <div className="px-6 py-12 text-center">
+      <p className="font-serif text-xl font-bold text-blue-600">{title}</p>
 
-      {/* Icon */}
-      <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-slate-100 shadow-sm">
-        <FaInbox className="text-5xl text-slate-400" />
-      </div>
+      <p className="mx-auto mt-2 max-w-md text-slate-600">{description}</p>
 
-      {/* Title */}
-      <h2 className="text-2xl font-bold text-slate-800">
-        {title}
-      </h2>
-
-      {/* Description */}
-      <p className="mt-3 max-w-md text-slate-500 leading-relaxed">
-        {description}
-      </p>
-
-      {/* Optional Button */}
       {buttonText && (
-        <Button
-          className="mt-8"
-          onClick={onButtonClick}
-        >
+        <Button className="mt-6" onClick={onButtonClick}>
           {buttonText}
         </Button>
       )}
-
     </div>
   );
 }

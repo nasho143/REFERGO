@@ -1,10 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  FaExchangeAlt,
-  FaClock,
-  FaCalendarCheck,
-  FaCheckCircle,
-} from "react-icons/fa";
+import StatStrip from "../components/common/StatStrip";
 import Swal from "sweetalert2";
 
 import ReferralToolbar from "../components/referrals/ReferralToolbar";
@@ -661,7 +656,7 @@ export default function Referrals() {
           </div>
         `,
         confirmButtonText: "Okay",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
 
       return result.isConfirmed;
@@ -715,7 +710,7 @@ export default function Referrals() {
           </div>
         `,
         confirmButtonText: "Okay",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
 
       return true;
@@ -894,7 +889,7 @@ export default function Referrals() {
       showCancelButton: true,
       confirmButtonText: "Yes, Delete",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#dc2626",
+      confirmButtonColor: "#c8142f",
     });
 
     if (!result.isConfirmed) {
@@ -947,7 +942,7 @@ export default function Referrals() {
       showCancelButton: true,
       confirmButtonText: "Yes, Approve",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#16a34a",
+      confirmButtonColor: "#1e6b3c",
     });
 
     if (!result.isConfirmed) return;
@@ -990,7 +985,7 @@ export default function Referrals() {
       showCancelButton: true,
       confirmButtonText: "Reject Referral",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#dc2626",
+      confirmButtonColor: "#c8142f",
       inputValidator: (value) =>
         !value || !value.trim()
           ? "Rejection reason is required."
@@ -1033,7 +1028,7 @@ export default function Referrals() {
   ========================================================= */
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
 
       {/* =====================================================
           TOOLBAR
@@ -1054,85 +1049,14 @@ export default function Referrals() {
           SUMMARY CARDS
       ===================================================== */}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-        {/* TOTAL REFERRALS */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Total Referrals
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-slate-800">
-                {totalReferrals}
-              </h3>
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              <FaExchangeAlt />
-            </div>
-          </div>
-        </div>
-
-        {/* PENDING */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Pending
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-amber-600">
-                {pendingReferrals}
-              </h3>
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
-              <FaClock />
-            </div>
-          </div>
-        </div>
-
-        {/* FOR INTERVIEW */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                For Interview
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-blue-600">
-                {interviewReferrals}
-              </h3>
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              <FaCalendarCheck />
-            </div>
-          </div>
-        </div>
-
-        {/* HIRED */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-500">
-                Hired
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-green-600">
-                {hiredReferrals}
-              </h3>
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-600">
-              <FaCheckCircle />
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <StatStrip
+        items={[
+          { label: "Total Referrals", value: totalReferrals },
+          { label: "Pending", value: pendingReferrals },
+          { label: "For Interview", value: interviewReferrals },
+          { label: "Hired", value: hiredReferrals },
+        ]}
+      />
 
       {/* =====================================================
           TABLE

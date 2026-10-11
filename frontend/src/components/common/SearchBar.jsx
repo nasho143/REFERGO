@@ -1,4 +1,4 @@
-import { FaSearch, FaTimes } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 export default function SearchBar({
   value,
@@ -15,66 +15,32 @@ export default function SearchBar({
   };
 
   return (
-    <div className={`relative w-full ${className}`}>
+    <div className={`flex w-full ${className}`}>
+      <div className="relative min-w-0 flex-1">
+        <FaSearch
+          aria-hidden="true"
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500"
+        />
 
-      {/* Search Icon */}
-      <FaSearch
-        className="
-          absolute
-          left-4
-          top-1/2
-          -translate-y-1/2
-          text-slate-400
-          pointer-events-none
-        "
-      />
+        <input
+          type="text"
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          aria-label={placeholder}
+          className="w-full border border-slate-400 bg-white py-2.5 pl-9 pr-3 text-slate-900"
+        />
+      </div>
 
-      {/* Input */}
-      <input
-        type="text"
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className="
-          w-full
-          rounded-xl
-          border
-          border-slate-300
-          bg-white
-          py-3
-          pl-12
-          pr-12
-          text-slate-700
-          placeholder:text-slate-400
-          transition-all
-          duration-200
-          outline-none
-          shadow-sm
-          focus:border-blue-600
-          focus:ring-4
-          focus:ring-blue-100
-        "
-      />
-
-      {/* Clear Button */}
       {value && (
         <button
           type="button"
           onClick={clearSearch}
-          className="
-            absolute
-            right-4
-            top-1/2
-            -translate-y-1/2
-            text-slate-400
-            hover:text-red-500
-            transition
-          "
+          className="shrink-0 border border-l-0 border-slate-400 bg-slate-100 px-3 text-sm font-semibold text-blue-600 hover:bg-slate-200"
         >
-          <FaTimes />
+          Clear
         </button>
       )}
-
     </div>
   );
 }

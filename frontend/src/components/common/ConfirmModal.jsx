@@ -1,9 +1,5 @@
 import Modal from "./Modal";
 import Button from "./Button";
-import {
-  FaTrashAlt,
-  FaExclamationTriangle,
-} from "react-icons/fa";
 
 export default function ConfirmModal({
   isOpen,
@@ -16,80 +12,30 @@ export default function ConfirmModal({
   loading = false,
   variant = "danger",
 }) {
-  const colors = {
-    danger: {
-      bg: "bg-red-100",
-      text: "text-red-600",
-      icon: <FaTrashAlt />,
-    },
-    warning: {
-      bg: "bg-amber-100",
-      text: "text-amber-600",
-      icon: <FaExclamationTriangle />,
-    },
-    primary: {
-      bg: "bg-blue-100",
-      text: "text-blue-600",
-      icon: <FaExclamationTriangle />,
-    },
+  const accent = {
+    danger: "border-red-600",
+    warning: "border-amber-400",
+    primary: "border-blue-600",
   };
 
-  const current = colors[variant] || colors.danger;
-
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={title}
-      size="sm"
-    >
-      <div className="text-center">
+    <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm">
+      <p
+        className={`border-l-4 bg-slate-50 px-4 py-3 leading-relaxed text-slate-800 ${
+          accent[variant] || accent.danger
+        }`}
+      >
+        {message}
+      </p>
 
-        {/* Icon */}
-        <div
-          className={`
-            mx-auto
-            mb-6
-            flex
-            h-20
-            w-20
-            items-center
-            justify-center
-            rounded-full
-            ${current.bg}
-          `}
-        >
-          <div className={`text-4xl ${current.text}`}>
-            {current.icon}
-          </div>
-        </div>
+      <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <Button variant="secondary" onClick={onClose} disabled={loading}>
+          {cancelText}
+        </Button>
 
-        {/* Message */}
-        <p className="text-slate-600 leading-relaxed">
-          {message}
-        </p>
-
-        {/* Buttons */}
-        <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-center">
-
-          <Button
-            variant="secondary"
-            onClick={onClose}
-            disabled={loading}
-          >
-            {cancelText}
-          </Button>
-
-          <Button
-            variant={variant}
-            onClick={onConfirm}
-            loading={loading}
-          >
-            {confirmText}
-          </Button>
-
-        </div>
-
+        <Button variant={variant} onClick={onConfirm} loading={loading}>
+          {confirmText}
+        </Button>
       </div>
     </Modal>
   );

@@ -1,32 +1,11 @@
-import {
-  FaUsers,
-  FaBuilding,
-  FaBriefcase,
-  FaHandshake,
-} from "react-icons/fa";
-
-function Card({ title, value, icon, color }) {
+// Summary of records: one ruled table instead of four decorated stat cards.
+function Figure({ title, value }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
-      <div className="flex items-center justify-between gap-4">
-        {/* Text */}
-        <div className="min-w-0">
-          <p className="text-sm font-medium text-slate-500">
-            {title}
-          </p>
-
-          <h2 className="mt-2 text-3xl font-bold text-slate-800">
-            {Number(value) || 0}
-          </h2>
-        </div>
-
-        {/* Icon */}
-        <div
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-xl text-white shadow-sm ${color}`}
-        >
-          {icon}
-        </div>
-      </div>
+    <div className="px-5 py-4">
+      <p className="text-sm font-semibold text-slate-600">{title}</p>
+      <p className="mt-1 font-serif text-[34px] font-bold leading-none text-blue-600">
+        {Number(value) || 0}
+      </p>
     </div>
   );
 }
@@ -38,34 +17,23 @@ export default function DashboardCards({
   referrals = 0,
 }) {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      <Card
-        title="Applicants"
-        value={applicants}
-        icon={<FaUsers />}
-        color="bg-blue-600"
-      />
+    <section
+      aria-labelledby="summary-title"
+      className="border border-slate-400 bg-white"
+    >
+      <h2
+        id="summary-title"
+        className="border-b border-slate-400 bg-slate-100 px-5 py-2.5 !text-base"
+      >
+        Summary of records
+      </h2>
 
-      <Card
-        title="Employers"
-        value={employers}
-        icon={<FaBuilding />}
-        color="bg-green-600"
-      />
-
-      <Card
-        title="Job Vacancies"
-        value={vacancies}
-        icon={<FaBriefcase />}
-        color="bg-amber-500"
-      />
-
-      <Card
-        title="Referrals"
-        value={referrals}
-        icon={<FaHandshake />}
-        color="bg-purple-600"
-      />
-    </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4">
+        <Figure title="Applicants" value={applicants} />
+        <Figure title="Employers" value={employers} />
+        <Figure title="Job Vacancies" value={vacancies} />
+        <Figure title="Referrals" value={referrals} />
+      </div>
+    </section>
   );
 }

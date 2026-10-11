@@ -38,9 +38,6 @@ export default function ApprovalReviewInfo({
     <section>
       <div className="mb-5 border-b border-slate-200 pb-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-50">
-            <FaTimesCircle className="text-red-600" />
-          </div>
 
           <div>
             <h3 className="text-lg font-bold text-slate-800">
@@ -60,7 +57,7 @@ export default function ApprovalReviewInfo({
             <FaTimesCircle className="mt-1 shrink-0 text-red-600" />
 
             <div className="min-w-0">
-              <p className="text-xs font-bold uppercase tracking-wide text-red-700">
+              <p className="text-xs font-bold text-red-700">
                 Rejection Comment / Reason
               </p>
 
@@ -75,7 +72,7 @@ export default function ApprovalReviewInfo({
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
             <div className="flex items-center gap-2">
-              <FaUserShield className="text-blue-600" />
+              <FaUserShield className="text-[#202860]" />
               <p className="text-sm font-semibold text-slate-700">
                 Reviewed By
               </p>
@@ -88,7 +85,7 @@ export default function ApprovalReviewInfo({
 
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
             <div className="flex items-center gap-2">
-              <FaCalendarAlt className="text-blue-600" />
+              <FaCalendarAlt className="text-[#202860]" />
               <p className="text-sm font-semibold text-slate-700">
                 Reviewed On
               </p>
@@ -106,7 +103,7 @@ export default function ApprovalReviewInfo({
             <div className="flex items-start gap-3">
               <FaRedoAlt className="mt-1 shrink-0 text-amber-600" />
               <div>
-                <p className="text-xs font-bold uppercase tracking-wide text-amber-700">
+                <p className="text-xs font-bold text-amber-700">
                   Eligible to Reapply
                 </p>
                 <p className="mt-1 text-sm font-semibold text-slate-800">
@@ -117,9 +114,9 @@ export default function ApprovalReviewInfo({
           </div>
         )}
 
-        <div className="flex items-start gap-2 rounded-xl border border-blue-100 bg-blue-50 p-4">
-          <FaInfoCircle className="mt-0.5 shrink-0 text-blue-600" />
-          <p className="text-xs leading-5 text-blue-800">
+        <div className="flex items-start gap-2 rounded-xl border border-[#eef0f8] bg-blue-50 p-4">
+          <FaInfoCircle className="mt-0.5 shrink-0 text-[#202860]" />
+          <p className="text-xs leading-5 text-[#1b2255]">
             This review information is read-only. The rejection comment was recorded by the Department Head during the approval review.
           </p>
         </div>

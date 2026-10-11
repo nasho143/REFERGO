@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { FaTimes } from "react-icons/fa";
 
 export default function Modal({
@@ -9,6 +9,8 @@ export default function Modal({
   children,
   size = "lg",
 }) {
+  const titleId = useId();
+
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -36,65 +38,48 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60"
       onClick={onClose}
     >
-      <div className="flex min-h-screen items-center justify-center p-6">
-
+      <div className="flex min-h-screen items-center justify-center p-4 sm:p-6">
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
           onClick={(e) => e.stopPropagation()}
-          className={`
-            w-full
-            ${sizes[size]}
-            max-h-[90vh]
-            overflow-hidden
-            rounded-2xl
-            bg-white
-            shadow-2xl
-            animate-fadeIn
-          `}
+          className={`w-full ${sizes[size]} max-h-[92vh] overflow-hidden border border-slate-500 bg-white shadow-2xl`}
         >
-          {/* Header */}
-          <div className="flex items-start justify-between border-b bg-blue-600 px-8 py-6 text-white">
-
+          {/* Title bar */}
+          <div className="flex items-start justify-between gap-4 border-b-4 border-red-500 bg-blue-600 px-5 py-3.5 text-white">
             <div>
-
-              <h2 className="text-3xl font-bold">
+              <h2
+                id={titleId}
+                className="!font-serif !text-xl !font-bold !text-white"
+              >
                 {title}
               </h2>
 
               {subtitle && (
-                <p className="mt-2 text-blue-100">
-                  {subtitle}
-                </p>
+                <p className="mt-0.5 text-sm text-blue-100">{subtitle}</p>
               )}
-
             </div>
 
             <button
+              type="button"
               onClick={onClose}
-              className="
-                rounded-lg
-                p-2
-                transition
-                hover:bg-blue-700
-                active:scale-95
-              "
+              aria-label="Close dialog"
+              className="mt-0.5 flex items-center gap-1.5 border border-white/50 px-2.5 py-1 text-[13px] font-semibold text-white hover:bg-blue-800"
             >
-              <FaTimes size={18} />
+              <FaTimes aria-hidden="true" />
+              Close
             </button>
-
           </div>
 
           {/* Body */}
-          <div className="max-h-[70vh] overflow-y-auto p-8">
-
+          <div className="max-h-[72vh] overflow-y-auto p-5 sm:p-6">
             {children}
-
           </div>
-
         </div>
-
       </div>
     </div>
   );

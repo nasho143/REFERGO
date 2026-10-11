@@ -16,7 +16,7 @@ export default function VacancyForm({
   onChange,
 }) {
   const inputClass =
-    "w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm transition focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200";
+    "w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm transition focus:border-[#202860] focus:outline-none focus:ring-2 focus:ring-[#bfc6e2]";
 
   const labelClass =
     "mb-1.5 flex items-center gap-2 text-sm font-semibold text-slate-700";
@@ -34,7 +34,7 @@ export default function VacancyForm({
           {/* Employer */}
           <div>
             <label className={labelClass}>
-              <FaBuilding className="text-blue-600" />
+              <FaBuilding className="text-[#202860]" />
               Employer
             </label>
 
@@ -267,7 +267,7 @@ export default function VacancyForm({
           {/* Requirements */}
           <div>
             <label className={labelClass}>
-              <FaFileAlt className="text-blue-500" />
+              <FaFileAlt className="text-[#202860]" />
               Requirements
             </label>
 

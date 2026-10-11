@@ -218,22 +218,16 @@ export default function ChangePassword() {
         sm:items-center
         sm:justify-between
         gap-4
-        mb-6
-      ">
+        mb-6">
 
         <div>
-          <h1 className="
-            text-3xl
-            font-bold
-            text-gray-800
-          ">
+          <h1>
             Change Password
           </h1>
 
           <p className="
             text-gray-500
-            mt-1
-          ">
+            mt-1">
             Update your account password.
           </p>
         </div>
@@ -255,8 +249,7 @@ export default function ChangePassword() {
             bg-white
             text-gray-700
             hover:bg-gray-50
-            transition
-          "
+            transition"
         >
           <FaArrowLeft />
 
@@ -277,33 +270,29 @@ export default function ChangePassword() {
         shadow-sm
         border
         border-gray-200
-        overflow-hidden
-      ">
+        overflow-hidden">
 
         {/* TOP */}
         <div className="
-          bg-blue-700
+          bg-[#202860]
           px-8
           py-8
           flex
           items-center
-          gap-5
-        ">
+          gap-5">
 
           <div className="
             w-16
             h-16
-            rounded-full
+            rounded-sm
             bg-white/20
             flex
             items-center
-            justify-center
-          ">
+            justify-center">
             <FaKey
               className="
                 text-3xl
-                text-white
-              "
+                text-white"
             />
           </div>
 
@@ -312,15 +301,13 @@ export default function ChangePassword() {
             <h2 className="
               text-2xl
               font-bold
-              text-white
-            ">
+              text-white">
               Security Settings
             </h2>
 
             <p className="
-              text-blue-100
-              mt-1
-            ">
+              text-[#eef0f8]
+              mt-1">
               Keep your account secure.
             </p>
 
@@ -342,8 +329,7 @@ export default function ChangePassword() {
               text-sm
               font-semibold
               text-gray-700
-              mb-2
-            ">
+              mb-2">
               Current Password
             </label>
 
@@ -355,8 +341,7 @@ export default function ChangePassword() {
                   left-4
                   top-1/2
                   -translate-y-1/2
-                  text-gray-400
-                "
+                  text-gray-400"
               />
 
               <input
@@ -382,8 +367,7 @@ export default function ChangePassword() {
                   rounded-lg
                   outline-none
                   focus:ring-2
-                  focus:ring-blue-500
-                "
+                  focus:ring-[#202860]"
               />
 
               <button
@@ -399,8 +383,7 @@ export default function ChangePassword() {
                   top-1/2
                   -translate-y-1/2
                   text-gray-400
-                  hover:text-gray-600
-                "
+                  hover:text-gray-600"
               >
                 {showCurrent ? (
                   <FaEyeSlash />
@@ -420,8 +403,7 @@ export default function ChangePassword() {
               text-sm
               font-semibold
               text-gray-700
-              mb-2
-            ">
+              mb-2">
               New Password
             </label>
 
@@ -433,8 +415,7 @@ export default function ChangePassword() {
                   left-4
                   top-1/2
                   -translate-y-1/2
-                  text-gray-400
-                "
+                  text-gray-400"
               />
 
               <input
@@ -460,8 +441,7 @@ export default function ChangePassword() {
                   rounded-lg
                   outline-none
                   focus:ring-2
-                  focus:ring-blue-500
-                "
+                  focus:ring-[#202860]"
               />
 
               <button
@@ -477,8 +457,7 @@ export default function ChangePassword() {
                   top-1/2
                   -translate-y-1/2
                   text-gray-400
-                  hover:text-gray-600
-                "
+                  hover:text-gray-600"
               >
                 {showNew ? (
                   <FaEyeSlash />
@@ -492,8 +471,7 @@ export default function ChangePassword() {
             <p className="
               text-xs
               text-gray-500
-              mt-2
-            ">
+              mt-2">
               Password must be at least 8
               characters.
             </p>
@@ -508,8 +486,7 @@ export default function ChangePassword() {
               text-sm
               font-semibold
               text-gray-700
-              mb-2
-            ">
+              mb-2">
               Confirm New Password
             </label>
 
@@ -521,8 +498,7 @@ export default function ChangePassword() {
                   left-4
                   top-1/2
                   -translate-y-1/2
-                  text-gray-400
-                "
+                  text-gray-400"
               />
 
               <input
@@ -548,8 +524,7 @@ export default function ChangePassword() {
                   rounded-lg
                   outline-none
                   focus:ring-2
-                  focus:ring-blue-500
-                "
+                  focus:ring-[#202860]"
               />
 
               <button
@@ -565,8 +540,7 @@ export default function ChangePassword() {
                   top-1/2
                   -translate-y-1/2
                   text-gray-400
-                  hover:text-gray-600
-                "
+                  hover:text-gray-600"
               >
                 {showConfirm ? (
                   <FaEyeSlash />
@@ -584,8 +558,7 @@ export default function ChangePassword() {
             justify-end
             gap-3
             pt-6
-            border-t
-          ">
+            border-t">
 
             <button
               type="button"
@@ -600,8 +573,7 @@ export default function ChangePassword() {
                 border-gray-300
                 text-gray-700
                 hover:bg-gray-50
-                transition
-              "
+                transition"
             >
               Cancel
             </button>
@@ -616,12 +588,11 @@ export default function ChangePassword() {
                 px-6
                 py-3
                 rounded-lg
-                bg-blue-600
+                bg-[#202860]
                 text-white
-                hover:bg-blue-700
+                hover:bg-[#202860]
                 disabled:opacity-60
-                transition
-              "
+                transition"
             >
               <FaLock />
 

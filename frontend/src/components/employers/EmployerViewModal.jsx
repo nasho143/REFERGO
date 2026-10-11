@@ -1,12 +1,4 @@
-import {
-  FaBuilding,
-  FaUser,
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaClock,
-  FaCalendarAlt,
-} from "react-icons/fa";
+import { FaBuilding, FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
 
 import Modal from "../common/Modal";
 import Button from "../common/Button";
@@ -145,9 +137,6 @@ export default function EmployerViewModal({
               {/* POLICY INFORMATION */}
               <div className="flex items-start gap-3">
 
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-100">
-                  <FaClock className="text-purple-600" />
-                </div>
 
                 <div className="min-w-0">
 
@@ -168,11 +157,11 @@ export default function EmployerViewModal({
               {/* COOLDOWN DAYS */}
               <div className="shrink-0 rounded-xl bg-white px-5 py-3 text-center shadow-sm">
 
-                <p className="text-2xl font-extrabold text-purple-700">
+                <p className="text-2xl font-bold text-purple-700">
                   {cooldownDays}
                 </p>
 
-                <p className="text-[10px] font-bold uppercase tracking-wide text-purple-600">
+                <p className="text-[10px] font-bold text-purple-600">
                   Days
                 </p>
 
@@ -192,7 +181,7 @@ export default function EmployerViewModal({
             <div className="flex items-start gap-3">
 
               {/* BLUE VIEW MODAL ICON */}
-              <span className="mt-0.5 shrink-0 text-blue-600">
+              <span className="mt-0.5 shrink-0 text-[#202860]">
                 <FaCalendarAlt />
               </span>
 
@@ -255,7 +244,7 @@ function InfoCard({
       <div className="flex items-center gap-2">
 
         {/* ALL GENERAL VIEW MODAL ICONS = BLUE */}
-        <span className="shrink-0 text-blue-600">
+        <span className="shrink-0 text-[#202860]">
           {icon}
         </span>
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { FaTachometerAlt } from "react-icons/fa";
+
+import LoadingSpinner from "../components/common/LoadingSpinner";
+import Button from "../components/common/Button";
 
 import { getDashboard } from "../services/dashboardApi";
 
@@ -278,19 +280,7 @@ export default function Dashboard() {
   // ======================================================
 
   if (loading) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="text-center">
-
-          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
-
-          <p className="mt-4 text-sm font-medium text-slate-500">
-            Loading dashboard...
-          </p>
-
-        </div>
-      </div>
-    );
+    return <LoadingSpinner message="Loading dashboard..." />;
   }
 
   // ======================================================
@@ -299,29 +289,15 @@ export default function Dashboard() {
 
   if (error) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="w-full max-w-lg rounded-2xl border border-red-200 bg-red-50 p-6 text-center">
-
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600">
-            <FaTachometerAlt />
-          </div>
-
-          <h2 className="mt-4 text-lg font-bold text-red-700">
-            Unable to Load Dashboard
-          </h2>
-
-          <p className="mt-2 text-sm text-red-600">
-            {error}
-          </p>
-
-          <button
-            type="button"
-            onClick={loadDashboard}
-            className="mt-5 rounded-xl bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
-          >
-            Try Again
-          </button>
-
+      <div role="alert" className="mx-auto mt-6 max-w-lg border border-red-600 bg-white">
+        <h2 className="border-b border-red-600 bg-red-50 px-5 py-2.5 !text-base !text-red-700">
+          Unable to load dashboard
+        </h2>
+        <div className="px-5 py-4">
+          <p className="text-slate-800">{error}</p>
+          <Button className="mt-4" onClick={loadDashboard}>
+            Try again
+          </Button>
         </div>
       </div>
     );
@@ -332,7 +308,7 @@ export default function Dashboard() {
   // ======================================================
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
 
       {/* ================================================
           DASHBOARD HERO
@@ -372,34 +348,10 @@ export default function Dashboard() {
             data={dashboardData.pendingApprovals}
           />
 
-          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-            <ApprovalOverview
-              summary={dashboardData.approvalSummary}
-            />
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-800">Approval Summary</h2>
-              <p className="mt-1 text-sm text-slate-500">
-                {dashboardData.pendingApprovals.total > 0
-                  ? `${dashboardData.pendingApprovals.total} record${dashboardData.pendingApprovals.total === 1 ? "" : "s"} require your attention.`
-                  : "There are no records waiting for your approval."}
-              </p>
-              <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-                <div className="rounded-xl bg-amber-50 p-4">
-                  <p className="text-2xl font-extrabold text-amber-700">{dashboardData.approvalSummary.pending}</p>
-                  <p className="mt-1 text-xs font-semibold text-amber-700">Pending</p>
-                </div>
-                <div className="rounded-xl bg-green-50 p-4">
-                  <p className="text-2xl font-extrabold text-green-700">{dashboardData.approvalSummary.approved}</p>
-                  <p className="mt-1 text-xs font-semibold text-green-700">Approved</p>
-                </div>
-                <div className="rounded-xl bg-red-50 p-4">
-                  <p className="text-2xl font-extrabold text-red-700">{dashboardData.approvalSummary.rejected}</p>
-                  <p className="mt-1 text-xs font-semibold text-red-700">Rejected</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ApprovalOverview
+            summary={dashboardData.approvalSummary}
+            pendingTotal={dashboardData.pendingApprovals.total}
+          />
 
           <PendingApprovalTable
             records={dashboardData.pendingApprovalRecords}

@@ -1,10 +1,4 @@
-import {
-  FaEdit,
-  FaTrash,
-  FaUserCheck,
-  FaUserTimes,
-  FaUsers,
-} from "react-icons/fa";
+import { FaEdit, FaTrash, FaUserCheck, FaUserTimes } from "react-icons/fa";
 
 export default function UserTable({
   users = [],
@@ -20,9 +14,6 @@ export default function UserTable({
       {/* Table Header */}
       <div className="border-b border-slate-200 px-5 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-            <FaUsers />
-          </div>
 
           <div>
             <h2 className="font-semibold text-slate-800">
@@ -51,9 +42,6 @@ export default function UserTable({
         /* Empty State */
         <div className="flex min-h-[260px] items-center justify-center px-5">
           <div className="text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400">
-              <FaUsers className="text-xl" />
-            </div>
 
             <h3 className="mt-4 font-semibold text-slate-700">
               No users found
@@ -70,34 +58,34 @@ export default function UserTable({
           <div className="hidden overflow-x-auto lg:block">
             <table className="w-full min-w-[850px]">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <tr className="  bg-slate-50">
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-slate-500">
                     User
                   </th>
 
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-slate-500">
                     Username
                   </th>
 
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-slate-500">
                     Role
                   </th>
 
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-slate-500">
                     Status
                   </th>
 
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-slate-500">
                     Created
                   </th>
 
-                  <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <th className="px-5 py-4 text-right text-xs font-semibold text-slate-500">
                     Actions
                   </th>
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-slate-100">
+              <tbody className=" ">
                 {users.map((user) => (
                   <tr
                     key={user.id}
@@ -106,7 +94,7 @@ export default function UserTable({
                     {/* User */}
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-700">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-[#eef0f8] font-semibold text-[#202860]">
                           {user.full_name
                             ?.charAt(0)
                             ?.toUpperCase() || "U"}
@@ -134,10 +122,10 @@ export default function UserTable({
                     {/* Role */}
                     <td className="px-5 py-4">
                       <span
-                        className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
+                        className={`inline-flex items-center rounded-sm px-3 py-1 text-xs font-semibold ${
                           user.role === "department_head"
                             ? "bg-purple-100 text-purple-700"
-                            : "bg-blue-100 text-blue-700"
+                            : "bg-[#eef0f8] text-[#202860]"
                         }`}
                       >
                         {getRoleLabel(user.role)}
@@ -147,14 +135,14 @@ export default function UserTable({
                     {/* Status */}
                     <td className="px-5 py-4">
                       <span
-                        className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${
+                        className={`inline-flex items-center gap-2 rounded-sm px-3 py-1 text-xs font-semibold ${
                           user.status === "active"
                             ? "bg-green-100 text-green-700"
                             : "bg-red-100 text-red-700"
                         }`}
                       >
                         <span
-                          className={`h-2 w-2 rounded-full ${
+                          className={`h-2 w-2 rounded-sm ${
                             user.status === "active"
                               ? "bg-green-500"
                               : "bg-red-500"
@@ -179,7 +167,7 @@ export default function UserTable({
                           type="button"
                           onClick={() => onEdit(user)}
                           title="Edit User"
-                          className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 transition hover:bg-blue-100"
+                          className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-[#202860] transition hover:bg-[#eef0f8]"
                         >
                           <FaEdit />
                         </button>
@@ -231,7 +219,7 @@ export default function UserTable({
                 {/* User Info */}
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex min-w-0 items-center gap-3">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-700">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm bg-[#eef0f8] font-semibold text-[#202860]">
                       {user.full_name
                         ?.charAt(0)
                         ?.toUpperCase() || "U"}
@@ -249,7 +237,7 @@ export default function UserTable({
                   </div>
 
                   <span
-                    className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${
+                    className={`shrink-0 rounded-sm px-3 py-1 text-xs font-semibold ${
                       user.status === "active"
                         ? "bg-green-100 text-green-700"
                         : "bg-red-100 text-red-700"
@@ -264,7 +252,7 @@ export default function UserTable({
                 {/* Details */}
                 <div className="mt-4 grid grid-cols-1 gap-3 border-t border-slate-100 pt-4 sm:grid-cols-2">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                    <p className="text-xs font-medium text-slate-400">
                       Email
                     </p>
 
@@ -274,16 +262,16 @@ export default function UserTable({
                   </div>
 
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                    <p className="text-xs font-medium text-slate-400">
                       Role
                     </p>
 
                     <div className="mt-1">
                       <span
-                        className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                        className={`inline-flex rounded-sm px-3 py-1 text-xs font-semibold ${
                           user.role === "department_head"
                             ? "bg-purple-100 text-purple-700"
-                            : "bg-blue-100 text-blue-700"
+                            : "bg-[#eef0f8] text-[#202860]"
                         }`}
                       >
                         {getRoleLabel(user.role)}
@@ -292,7 +280,7 @@ export default function UserTable({
                   </div>
 
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                    <p className="text-xs font-medium text-slate-400">
                       Created
                     </p>
 
@@ -307,7 +295,7 @@ export default function UserTable({
                   <button
                     type="button"
                     onClick={() => onEdit(user)}
-                    className="inline-flex items-center gap-2 rounded-lg bg-blue-50 px-3 py-2 text-sm font-medium text-blue-600 transition hover:bg-blue-100"
+                    className="inline-flex items-center gap-2 rounded-lg bg-blue-50 px-3 py-2 text-sm font-medium text-[#202860] transition hover:bg-[#eef0f8]"
                   >
                     <FaEdit />
                     Edit

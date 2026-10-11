@@ -3,19 +3,7 @@ import Button from "../common/Button";
 import ApprovalReviewInfo from "../common/ApprovalReviewInfo";
 import StatusBadge from "../common/StatusBadge";
 
-import {
-  FaUser,
-  FaBuilding,
-  FaBriefcase,
-  FaCalendarAlt,
-  FaComments,
-  FaClipboardCheck,
-  FaPhone,
-  FaUserTie,
-  FaClock,
-  FaCheckCircle,
-  FaExclamationTriangle,
-} from "react-icons/fa";
+import { FaUser, FaBuilding, FaBriefcase, FaCalendarAlt, FaComments, FaClipboardCheck, FaPhone, FaUserTie, FaClock, FaCheckCircle } from "react-icons/fa";
 
 export default function ReferralViewModal({
   isOpen,
@@ -56,14 +44,14 @@ export default function ReferralViewModal({
       subtitle="View complete referral information."
       size="lg"
     >
-      <div className="space-y-8">
+      <div className="space-y-10">
 
         {/* =====================================================
             REFERRAL SUMMARY
         ====================================================== */}
         <section>
-          <div className="mb-5 border-b border-slate-200 pb-3">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mb-6 border-b border-slate-200 pb-3">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               
               <div className="min-w-0">
                 <h3 className="text-lg font-bold text-slate-800">
@@ -82,11 +70,11 @@ export default function ReferralViewModal({
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
 
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-4">
 
-              <span className="mt-0.5 shrink-0 text-blue-600">
+              <span className="mt-0.5 shrink-0 text-[#202860]">
                 <FaUser />
               </span>
 
@@ -246,17 +234,17 @@ export default function ReferralViewModal({
 
             {/* FOLLOW-UP RESULT */}
             {referral.follow_up_result && (
-              <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-5">
+              <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-6">
 
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-4">
 
-                  <span className="mt-0.5 shrink-0 text-blue-600">
+                  <span className="mt-0.5 shrink-0 text-[#202860]">
                     <FaComments />
                   </span>
 
                   <div className="min-w-0">
 
-                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <p className="text-xs font-semibold text-slate-500">
                       Follow-up Result
                     </p>
 
@@ -281,11 +269,11 @@ export default function ReferralViewModal({
           !isRejected &&
           status !== "Hired" && (
             <section>
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
 
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-4">
 
-                  <span className="mt-0.5 shrink-0 text-blue-600">
+                  <span className="mt-0.5 shrink-0 text-[#202860]">
                     <FaClock />
                   </span>
 
@@ -313,9 +301,9 @@ export default function ReferralViewModal({
         ====================================================== */}
         {status === "Hired" && (
           <section>
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-4">
 
                 <span className="mt-0.5 shrink-0 text-emerald-600">
                   <FaCheckCircle />
@@ -345,7 +333,7 @@ export default function ReferralViewModal({
       {/* =====================================================
           FOOTER
       ====================================================== */}
-      <div className="mt-8 flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-end">
+      <div className="mt-8 flex flex-col-reverse gap-4 border-t border-slate-200 pt-6 sm:flex-row sm:justify-end">
 
         <Button
           variant="secondary"
@@ -367,13 +355,13 @@ function SectionHeader({
   title,
   description,
   icon,
-  iconClass = "text-blue-600",
+  iconClass = "text-[#202860]",
   iconBgClass = "bg-blue-50",
 }) {
   return (
-    <div className="mb-5 border-b border-slate-200 pb-3">
+    <div className="mb-6 border-b border-slate-200 pb-3">
 
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-4">
 
         <div
           className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${iconBgClass}`}
@@ -413,12 +401,12 @@ function InfoCard({
   return (
     <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
 
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-4">
 
         {/* VIEW MODAL GENERAL ICON = BLUE */}
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50">
 
-          <span className="text-blue-600">
+          <span className="text-[#202860]">
             {icon}
           </span>
 
@@ -426,7 +414,7 @@ function InfoCard({
 
         <div className="min-w-0 flex-1">
 
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <p className="text-xs font-semibold text-slate-500">
             {label}
           </p>
 

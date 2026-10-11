@@ -1,12 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
-import {
-  FaBuilding,
-  FaCheckCircle,
-  FaBriefcase,
-  FaUsers,
-} from "react-icons/fa";
 
+import StatStrip from "../components/common/StatStrip";
 import {
   getEmployers,
   addEmployer,
@@ -703,7 +698,7 @@ export default function Employers() {
       showCancelButton: true,
       confirmButtonText: "Yes, Approve",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#16a34a",
+      confirmButtonColor: "#1e6b3c",
     });
 
     if (!result.isConfirmed) return;
@@ -746,7 +741,7 @@ export default function Employers() {
       showCancelButton: true,
       confirmButtonText: "Reject Employer",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#dc2626",
+      confirmButtonColor: "#c8142f",
       inputValidator: (value) =>
         !value || !value.trim()
           ? "Rejection reason is required."
@@ -819,125 +814,14 @@ export default function Employers() {
           SUMMARY CARDS
       ====================================================== */}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-
-        {/* ===================================================
-            TOTAL EMPLOYERS
-        ==================================================== */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-sm font-medium text-slate-500">
-                Total Employers
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-slate-800">
-                {totalEmployers}
-              </h3>
-
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-              <FaBuilding />
-            </div>
-
-          </div>
-
-        </div>
-
-
-        {/* ===================================================
-            ACTIVE EMPLOYERS
-        ==================================================== */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-sm font-medium text-slate-500">
-                Active Employers
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-green-600">
-                {activeEmployers}
-              </h3>
-
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-600">
-              <FaCheckCircle />
-            </div>
-
-          </div>
-
-        </div>
-
-
-        {/* ===================================================
-            TOTAL VACANCIES
-        ==================================================== */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-sm font-medium text-slate-500">
-                Total Vacancies
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-indigo-600">
-                {totalVacancies}
-              </h3>
-
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-              <FaBriefcase />
-            </div>
-
-          </div>
-
-        </div>
-
-
-        {/* ===================================================
-            EMPLOYERS WITH OPENINGS
-        ==================================================== */}
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-sm font-medium text-slate-500">
-                Employers with Openings
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-amber-600">
-                {employersWithOpenings}
-              </h3>
-
-            </div>
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
-              <FaUsers />
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
+      <StatStrip
+        items={[
+          { label: "Total Employers", value: totalEmployers },
+          { label: "Active Employers", value: activeEmployers },
+          { label: "Total Vacancies", value: totalVacancies },
+          { label: "Employers with Openings", value: employersWithOpenings },
+        ]}
+      />
 
 
       {/* =====================================================

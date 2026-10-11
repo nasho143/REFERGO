@@ -52,23 +52,23 @@ export default function RecentReferrals({ referrals = [] }) {
         <table className="min-w-[760px] w-full">
           <thead className="bg-slate-50">
             <tr>
-              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 sm:px-6">
+              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold r text-slate-600 sm:px-6">
                 Applicant
               </th>
 
-              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 sm:px-6">
+              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold r text-slate-600 sm:px-6">
                 Company
               </th>
 
-              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 sm:px-6">
+              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold r text-slate-600 sm:px-6">
                 Position
               </th>
 
-              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 sm:px-6">
+              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold r text-slate-600 sm:px-6">
                 Date
               </th>
 
-              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 sm:px-6">
+              <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold r text-slate-600 sm:px-6">
                 Status
               </th>
             </tr>
@@ -88,12 +88,12 @@ export default function RecentReferrals({ referrals = [] }) {
               referrals.map((item, index) => (
                 <tr
                   key={item.referral_id ?? index}
-                  className="border-b border-slate-100 transition hover:bg-slate-50"
+                  className="  transition hover:bg-slate-50"
                 >
                   {/* Applicant */}
                   <td className="px-5 py-4 sm:px-6">
                     <div className="flex items-center gap-2">
-                      <FaUser className="shrink-0 text-blue-600" />
+                      <FaUser className="shrink-0 text-[#202860]" />
 
                       <span className="font-medium text-slate-700">
                         {item.full_name || "—"}

@@ -58,7 +58,7 @@ export default function UserManagement() {
         text:
           error?.response?.data?.message ||
           "Unable to retrieve system users.",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
     } finally {
       setLoading(false);
@@ -155,7 +155,7 @@ export default function UserManagement() {
         icon: "warning",
         title: "Full Name Required",
         text: "Please enter the user's full name.",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
 
       return;
@@ -166,7 +166,7 @@ export default function UserManagement() {
         icon: "warning",
         title: "Username Required",
         text: "Please enter a username.",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
 
       return;
@@ -177,7 +177,7 @@ export default function UserManagement() {
         icon: "warning",
         title: "Password Required",
         text: "Please enter a password for the new user.",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
 
       return;
@@ -206,7 +206,7 @@ export default function UserManagement() {
           icon: "success",
           title: "User Updated",
           text: "The user account has been updated successfully.",
-          confirmButtonColor: "#2563eb",
+          confirmButtonColor: "#202860",
         });
       } else {
         const payload = {
@@ -224,7 +224,7 @@ export default function UserManagement() {
           icon: "success",
           title: "User Created",
           text: "The new user account has been created successfully.",
-          confirmButtonColor: "#2563eb",
+          confirmButtonColor: "#202860",
         });
       }
 
@@ -245,7 +245,7 @@ export default function UserManagement() {
         text:
           error?.response?.data?.message ||
           "Something went wrong while saving the user.",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
     } finally {
       setSaving(false);
@@ -277,8 +277,8 @@ export default function UserManagement() {
         ? "Yes, Deactivate"
         : "Yes, Activate",
       cancelButtonText: "Cancel",
-      confirmButtonColor: isActive ? "#d97706" : "#16a34a",
-      cancelButtonColor: "#64748b",
+      confirmButtonColor: isActive ? "#8a7600" : "#1e6b3c",
+      cancelButtonColor: "#5c6280",
     });
 
     if (!result.isConfirmed) {
@@ -296,7 +296,7 @@ export default function UserManagement() {
         text: `${user.full_name} is now ${
           isActive ? "inactive" : "active"
         }.`,
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
 
       await loadUsers();
@@ -313,7 +313,7 @@ export default function UserManagement() {
         text:
           error?.response?.data?.message ||
           "Unable to change the user's status.",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
     }
   }
@@ -338,8 +338,8 @@ export default function UserManagement() {
       showCancelButton: true,
       confirmButtonText: "Yes, Delete",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#dc2626",
-      cancelButtonColor: "#64748b",
+      confirmButtonColor: "#c8142f",
+      cancelButtonColor: "#5c6280",
     });
 
     if (!result.isConfirmed) {
@@ -353,7 +353,7 @@ export default function UserManagement() {
         icon: "success",
         title: "User Deleted",
         text: "The user account has been deleted successfully.",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
 
       await loadUsers();
@@ -370,7 +370,7 @@ export default function UserManagement() {
         text:
           error?.response?.data?.message ||
           "Unable to delete the user account.",
-        confirmButtonColor: "#2563eb",
+        confirmButtonColor: "#202860",
       });
     }
   }
