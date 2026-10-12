@@ -71,23 +71,17 @@ export default function Login() {
     "mt-1.5 block w-full border border-slate-400 bg-white px-3 py-2.5 text-[15px] text-slate-900";
 
   return (
-    <div
-      className="flex min-h-screen flex-col bg-cover bg-fixed"
-      style={{
-        backgroundImage: `linear-gradient(rgba(17, 22, 58, 0.28), rgba(17, 22, 58, 0.28)), url(${bgImage})`,
-        backgroundPosition: "center 47%",
-      }}
-    >
+    <div className="flex min-h-screen flex-col">
       {/* Republic strip */}
-      <div className="gov-strip !bg-[#f3f4f8]/90">
-        <div className="mx-auto w-full max-w-[1100px] px-4 py-1.5 sm:px-6">
+      <div className="gov-strip">
+        <div className="mx-auto w-full max-w-[1180px] px-4 py-1.5 sm:px-6">
           Republic of the Philippines
         </div>
       </div>
 
       {/* Masthead */}
-      <header className="gov-masthead !bg-white/95">
-        <div className="mx-auto flex w-full max-w-[1100px] items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+      <header className="gov-masthead">
+        <div className="mx-auto flex w-full max-w-[1180px] items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
           <img
             src={logo}
             alt="PESO seal"
@@ -103,7 +97,7 @@ export default function Login() {
           </div>
         </div>
         <div className="gov-nav">
-          <div className="mx-auto w-full max-w-[1100px] px-4 py-2.5 font-serif text-lg font-bold tracking-wide text-white sm:px-6">
+          <div className="mx-auto w-full max-w-[1180px] px-4 py-2.5 font-serif text-lg font-bold tracking-wide text-white sm:px-6">
             REFERGO
             <span className="ml-3 font-sans text-sm font-normal tracking-normal text-white/85">
               Employment Referral Management System
@@ -112,28 +106,33 @@ export default function Login() {
         </div>
       </header>
 
-      <main className="flex-1">
-        <div className="mx-auto grid w-full max-w-[1100px] gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_400px] lg:py-10">
+      <main
+        className="flex flex-1 items-center bg-cover bg-no-repeat"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundPosition: "center 64%",
+        }}
+      >
+        <div className="mx-auto grid w-full max-w-[1180px] items-center gap-6 px-4 py-10 sm:px-6 lg:grid-cols-[580px_380px] lg:justify-center lg:gap-6 lg:py-12">
           {/* About the system */}
-          <section className="gov-panel order-2 self-start p-6 sm:p-8 lg:order-1">
-
-            <h1 className="font-serif text-[26px] font-bold leading-tight text-blue-600">
+          <section className="gov-panel order-2 p-6 sm:p-7 lg:order-1">
+            <h1 className="font-serif text-[24px] font-bold leading-tight text-blue-600">
               Employment Referral Management System
             </h1>
-            <p className="mt-3 max-w-[62ch] leading-7 text-slate-700">
+            <p className="mt-3 text-[15px] leading-7 text-slate-700">
               An office information system for recording and monitoring
               employment referrals and related applicant, employer, and vacancy
               records.
             </p>
 
-            <p className="gov-notice mt-6 max-w-[62ch] px-4 py-3 text-[14px] leading-6">
+            <p className="gov-notice mt-5 px-4 py-3 text-[14px] leading-6">
               <strong>Notice:</strong> This system is for authorized PESO
               personnel only. Sign in with the account assigned to you.
             </p>
           </section>
 
           {/* Sign-in form */}
-          <section className="order-1 self-start lg:order-2">
+          <section className="order-1 lg:order-2">
             <div className="gov-panel">
               <h2 className="gov-panel-title !text-white">Sign in</h2>
 
@@ -195,8 +194,8 @@ export default function Login() {
         </div>
       </main>
 
-      <footer className="gov-footer !bg-[#161c47]/90">
-        <div className="mx-auto w-full max-w-[1100px] px-4 py-4 sm:px-6">
+      <footer className="gov-footer">
+        <div className="mx-auto w-full max-w-[1180px] px-4 py-4 sm:px-6">
           &copy; {new Date().getFullYear()} Public Employment Service Office,
           Municipality of Mendez, Cavite
         </div>
