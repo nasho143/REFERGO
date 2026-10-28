@@ -41,12 +41,9 @@ export default defineConfig(({ mode }) => {
       // Extra hostnames the dev server should answer to (comma separated),
       // for example when previewing through a tunnel or a shared dev domain.
       // Leave empty for normal local development.
-      allowedHosts: [
-        "regress-constable-storable.ngrok-free.dev",
-        ...(env.VITE_ALLOWED_HOSTS
-          ? env.VITE_ALLOWED_HOSTS.split(",").map((h) => h.trim()).filter(Boolean)
-          : []),
-      ],
+      allowedHosts: env.VITE_ALLOWED_HOSTS
+        ? env.VITE_ALLOWED_HOSTS.split(",").map((h) => h.trim()).filter(Boolean)
+        : undefined,
 
       proxy: {
         "/api": {
