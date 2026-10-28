@@ -31,7 +31,7 @@ function buildDbConfig() {
       user: env.DB_USER || env.MYSQLUSER,
       password:
         env.DB_PASSWORD !== undefined ? env.DB_PASSWORD : env.MYSQLPASSWORD,
-      database: env.DB_NAME || env.MYSQLDATABASE,
+      database: env.DB_NAME || env.MYSQLDATABASE || "refergo_deploy",
     };
   }
 

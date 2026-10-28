@@ -7,7 +7,9 @@ export default defineConfig(({ mode }) => {
 
   // Used only by `npm run dev`: where the local backend is running.
   // Change it with VITE_DEV_API in frontend/.env if your backend uses another port.
-  const devApi = env.VITE_DEV_API || "http://localhost:5000";
+  // Defaults to the live backend on Railway (same as the old deploy setup).
+  // For a local backend, put VITE_DEV_API=http://localhost:5000 in frontend/.env
+  const devApi = env.VITE_DEV_API || "https://refergo-production.up.railway.app";
 
   // A production build must know where the backend is. Stop here, with a
   // clear message, instead of publishing a site that cannot load any data.
@@ -39,15 +41,18 @@ export default defineConfig(({ mode }) => {
       // Extra hostnames the dev server should answer to (comma separated),
       // for example when previewing through a tunnel or a shared dev domain.
       // Leave empty for normal local development.
-      allowedHosts: env.VITE_ALLOWED_HOSTS
-        ? env.VITE_ALLOWED_HOSTS.split(",").map((h) => h.trim()).filter(Boolean)
-        : undefined,
+      allowedHosts: [
+        "regress-constable-storable.ngrok-free.dev",
+        ...(env.VITE_ALLOWED_HOSTS
+          ? env.VITE_ALLOWED_HOSTS.split(",").map((h) => h.trim()).filter(Boolean)
+          : []),
+      ],
 
       proxy: {
         "/api": {
           target: devApi,
           changeOrigin: true,
-          secure: false,
+          secure: devApi.startsWith("https"),
         },
       },
     },
