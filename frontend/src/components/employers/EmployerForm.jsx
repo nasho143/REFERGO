@@ -89,7 +89,7 @@ export default function EmployerForm({
           {/* CONTACT NUMBER */}
           <div>
             <label className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-slate-700">
-              <FaPhone className="text-green-600" />
+              <FaPhone className="text-[#202860]" />
               Contact Number
             </label>
 
@@ -121,7 +121,7 @@ export default function EmployerForm({
           {/* EMAIL */}
           <div className="md:col-span-2">
             <label className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-slate-700">
-              <FaEnvelope className="text-red-500" />
+              <FaEnvelope className="text-[#202860]" />
               Email Address
             </label>
 
@@ -153,7 +153,7 @@ export default function EmployerForm({
           {/* ADDRESS */}
           <div className="md:col-span-2">
             <label className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-slate-700">
-              <FaMapMarkerAlt className="text-amber-600" />
+              <FaMapMarkerAlt className="text-[#202860]" />
               Company Address
             </label>
 
@@ -203,7 +203,7 @@ export default function EmployerForm({
             <div className="w-full sm:w-40">
 
               <label className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-slate-700">
-                <FaClock className="text-purple-600" />
+                <FaClock className="text-[#202860]" />
                 Cooldown Days
               </label>
 

@@ -1,39 +1,64 @@
-
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
 require("dotenv").config();
+
+// In production the token secret must be set, never the built-in default.
+if (process.env.NODE_ENV === "production" && !process.env.JWT_SECRET) {
+  console.error("JWT_SECRET is not set. Add it to the environment variables.");
+  process.exit(1);
+}
+
+if (process.env.NODE_ENV === "production" && !process.env.FRONTEND_URL) {
+  console.warn(
+    "FRONTEND_URL is not set. Only localhost can call this API. " +
+      "Set it to your website address (for example your Vercel URL)."
+  );
+}
 
 const app = express();
 
-// ======================================
-// CORS CONFIGURATION
-// ======================================
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://refergo-xi.vercel.app",
-];
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests without an Origin header,
-      // such as server-to-server or local health checks.
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      console.warn("CORS blocked origin:", origin);
-      return callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
-  })
-);
+// Hosting platforms such as Railway sit in front of the server: trust the address they forward.
+app.set("trust proxy", 1);
 
 // ======================================
 // MIDDLEWARE
 // ======================================
+// Allowed browsers: local development, and the websites listed in
+// FRONTEND_URL (comma separated), for example your Vercel address.
+// The live website is always allowed, so the API keeps working even if
+// FRONTEND_URL is missing on Railway. Add more addresses with FRONTEND_URL.
+const DEFAULT_FRONTEND_ORIGINS = "https://refergo-xi.vercel.app";
+
+const frontendOrigins = String(
+  [DEFAULT_FRONTEND_ORIGINS, process.env.FRONTEND_URL].filter(Boolean).join(",")
+)
+  .split(",")
+  .map((value) => value.trim().replace(/\/$/, ""))
+  .filter(Boolean);
+
+const allowedOrigin = (origin) =>
+  !origin ||
+  /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin) ||
+  frontendOrigins.includes(origin);
+
+app.use(
+  cors({
+    origin: (origin, callback) => callback(null, allowedOrigin(origin)),
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ======================================
+// HEALTH CHECK (used by Railway)
+// ======================================
+app.get("/api/health", (req, res) => {
+  res.json({ success: true, status: "ok" });
+});
 
 // ======================================
 // ROUTES
@@ -50,6 +75,7 @@ const userRoutes = require("./routes/userRoutes");
 const followUpRoutes = require("./routes/followUpRoutes");
 const employerResponseRoutes = require("./routes/employerResponseRoutes");
 const approvalRoutes = require("./routes/approvalRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 // ======================================
 // API ROUTES
@@ -66,6 +92,26 @@ app.use("/api/users", userRoutes);
 app.use("/api/follow-ups", followUpRoutes);
 app.use("/api/employer-responses", employerResponseRoutes);
 app.use("/api/approvals", approvalRoutes);
+app.use("/api/notifications", notificationRoutes);
+
+
+
+// ======================================
+// WEBSITE (built frontend)
+// After `npm run build` in the frontend folder, this server also serves the
+// website, so a single address shows the pages and the data.
+// ======================================
+const distPath = path.join(__dirname, "..", "frontend", "dist");
+
+if (fs.existsSync(path.join(distPath, "index.html"))) {
+  app.use(express.static(distPath));
+
+  app.get(/^\/(?!api\/).*/, (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+
+  console.log("Serving the website from frontend/dist");
+}
 
 // ======================================
 // TEST ROUTE
@@ -93,13 +139,6 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   console.error("SERVER ERROR:", err);
 
-  if (err.message === "Not allowed by CORS") {
-    return res.status(403).json({
-      success: false,
-      message: "Origin not allowed by CORS.",
-    });
-  }
-
   res.status(500).json({
     success: false,
     message: "Internal server error.",
@@ -112,5 +151,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`REFERGO Backend running on port ${PORT}`);
+  console.log(
+    `REFERGO Backend running on port ${PORT}`
+  );
 });

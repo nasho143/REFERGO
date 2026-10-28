@@ -59,6 +59,8 @@ exports.getReports = (req, res) => {
       skills,
       address,
       classification,
+      gender,
+      DATE_FORMAT(birthdate, '%Y-%m-%d') AS birthdate,
 
       resume_uploaded,
       valid_id_uploaded,

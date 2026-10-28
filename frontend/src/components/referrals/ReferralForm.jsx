@@ -127,7 +127,7 @@ export default function ReferralForm({
           ================================================== */}
           <div className="md:col-span-2">
             <label className={labelClass}>
-              <FaBriefcase className="text-purple-600" />
+              <FaBriefcase className="text-[#202860]" />
               Job Vacancy
             </label>
 
@@ -206,7 +206,7 @@ export default function ReferralForm({
           ================================================== */}
           <div>
             <label className={labelClass}>
-              <FaBriefcase className="text-purple-600" />
+              <FaBriefcase className="text-[#202860]" />
               Position
             </label>
 
@@ -244,7 +244,7 @@ export default function ReferralForm({
           ================================================== */}
           <div>
             <label className={labelClass}>
-              <FaCheckCircle className="text-green-600" />
+              <FaCheckCircle className="text-[#202860]" />
               Status
             </label>
 
@@ -326,7 +326,7 @@ export default function ReferralForm({
           {/* Result */}
           <div>
             <label className={labelClass}>
-              <FaClipboardCheck className="text-orange-500" />
+              <FaClipboardCheck className="text-[#202860]" />
               Result
             </label>
 
@@ -344,7 +344,7 @@ export default function ReferralForm({
           {isRejected && (
             <div className="md:col-span-2">
               <label className={labelClass}>
-                <FaCommentAlt className="text-red-600" />
+                <FaCommentAlt className="text-[#202860]" />
                 Rejection Reason
               </label>
 
@@ -461,7 +461,7 @@ export default function ReferralForm({
           {/* Contacted Person */}
           <div>
             <label className={labelClass}>
-              <FaUserTie className="text-green-600" />
+              <FaUserTie className="text-[#202860]" />
               Contacted Person
             </label>
 
@@ -480,7 +480,7 @@ export default function ReferralForm({
           {/* Contact Method */}
           <div>
             <label className={labelClass}>
-              <FaPhone className="text-green-600" />
+              <FaPhone className="text-[#202860]" />
               Contact Method
             </label>
 
@@ -525,7 +525,7 @@ export default function ReferralForm({
           {/* Next Follow-up */}
           <div>
             <label className={labelClass}>
-              <FaClock className="text-orange-500" />
+              <FaClock className="text-[#202860]" />
               Next Follow-up
             </label>
 
@@ -543,7 +543,7 @@ export default function ReferralForm({
           {/* Follow-up Result */}
           <div className="md:col-span-2">
             <label className={labelClass}>
-              <FaCommentAlt className="text-orange-500" />
+              <FaCommentAlt className="text-[#202860]" />
               Follow-up Result
             </label>
 

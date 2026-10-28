@@ -1,261 +1,117 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { getReports } from "../services/reportApi";
+import { ReportsSkeleton } from "../components/common/Skeleton";
+import Button from "../components/common/Button";
+import PeriodFilter from "../components/common/PeriodFilter";
+import KeyRates from "../components/common/KeyRates";
 
 import ReportCards from "../components/reports/ReportCards";
 import ReportCharts from "../components/reports/ReportCharts";
 import ExportButtons from "../components/reports/ExportButtons";
 
+import { DEFAULT_PERIOD, describePeriod } from "../utils/period";
+import { buildReport } from "../utils/reportMetrics";
+
+const list = (value) => (Array.isArray(value) ? value : []);
+
 export default function Reports() {
-  const [reportData, setReportData] = useState({
-    applicants: 0,
-    employers: 0,
-    vacancies: 0,
-    activeVacancies: 0,
-    referrals: 0,
-
-    interviewed: 0,
-    hired: 0,
-    rejected: 0,
-    pending: 0,
-    placementRate: 0,
-
-    status: [],
-    topPositions: [],
-    topEmployers: [],
-    monthlyData: [],
-
-    applicantData: [],
-    employerData: [],
-    vacancyData: [],
-    referralData: [],
-  });
-
-  const [loading, setLoading] = useState(true);
+  const [raw, setRaw] = useState(null);
+  const [period, setPeriod] = useState(DEFAULT_PERIOD);
   const [error, setError] = useState("");
 
-  // ======================================================
-  // LOAD REPORTS
-  // ======================================================
-
-  async function loadReports() {
+  const loadReports = useCallback(async () => {
     try {
-      setLoading(true);
       setError("");
-
       const res = await getReports();
+      const body = res?.data || {};
+      const data = body.data || body;
 
-      const responseData = res?.data || {};
-      const data = responseData.data || responseData;
-
-      setReportData({
-        applicants: Number(data.applicants) || 0,
-        employers: Number(data.employers) || 0,
-        vacancies: Number(data.vacancies) || 0,
-        activeVacancies: Number(data.activeVacancies) || 0,
-        referrals: Number(data.referrals) || 0,
-
-        interviewed: Number(data.interviewed) || 0,
-        hired: Number(data.hired) || 0,
-        rejected: Number(data.rejected) || 0,
-        pending: Number(data.pending) || 0,
-        placementRate: Number(data.placementRate) || 0,
-
-        status: Array.isArray(data.status)
-          ? data.status
-          : [],
-
-        topPositions: Array.isArray(data.topPositions)
-          ? data.topPositions
-          : [],
-
-        topEmployers: Array.isArray(data.topEmployers)
-          ? data.topEmployers
-          : [],
-
-        monthlyData: Array.isArray(data.monthlyData)
-          ? data.monthlyData
-          : [],
-
-        applicantData: Array.isArray(data.applicantData)
-          ? data.applicantData
-          : [],
-
-        employerData: Array.isArray(data.employerData)
-          ? data.employerData
-          : [],
-
-        vacancyData: Array.isArray(data.vacancyData)
-          ? data.vacancyData
-          : [],
-
-        referralData: Array.isArray(data.referralData)
-          ? data.referralData
-          : [],
+      setRaw({
+        applicantData: list(data.applicantData),
+        employerData: list(data.employerData),
+        vacancyData: list(data.vacancyData),
+        referralData: list(data.referralData),
       });
     } catch (err) {
       console.error("LOAD REPORTS ERROR:", err);
-      console.error(
-        "REPORT ERROR RESPONSE:",
-        err?.response?.data
-      );
-
-      setError(
-        err?.response?.data?.message ||
-          "Failed to load reports."
-      );
-    } finally {
-      setLoading(false);
+      setError(err?.response?.data?.message || "Failed to load reports.");
     }
-  }
-
-  // ======================================================
-  // LOAD REPORTS ON PAGE LOAD
-  // ======================================================
-
-  useEffect(() => {
-    loadReports();
   }, []);
 
-  // ======================================================
-  // LOADING STATE
-  // ======================================================
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadReports();
+  }, [loadReports]);
 
-  if (loading) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="text-center">
-
-          <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-sm border-4 border-slate-200 border-t-blue-600" />
-
-          <p className="text-base font-semibold text-slate-700">
-            Loading reports...
-          </p>
-
-          <p className="mt-1 text-sm text-slate-400">
-            Please wait while we load the latest report data.
-          </p>
-
-        </div>
-      </div>
-    );
-  }
-
-  // ======================================================
-  // ERROR STATE
-  // ======================================================
+  // Everything on this page, in the graphs, and in the exports comes from
+  // the same filtered records.
+  const report = useMemo(() => (raw ? buildReport(raw, period) : null), [raw, period]);
 
   if (error) {
     return (
-      <div className="space-y-6">
-
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-
-          <div className="flex items-center gap-3">
-
-
-            <div>
-              <h1>
-                Reports & Analytics
-              </h1>
-
-              <p className="mt-0.5 text-sm text-slate-500">
-                Recruitment analytics, employment outcomes,
-                and downloadable reports.
-              </p>
-            </div>
-
-          </div>
-
+      <div role="alert" className="mx-auto mt-6 max-w-lg border border-red-600 bg-white">
+        <h2 className="border-b border-red-600 bg-red-50 px-5 py-2.5 !text-base !text-red-700">
+          Unable to load reports
+        </h2>
+        <div className="px-5 py-4">
+          <p className="text-slate-800">{error}</p>
+          <Button className="mt-4" onClick={loadReports}>
+            Try again
+          </Button>
         </div>
-
-        <div className="rounded-2xl border border-red-200 bg-red-50 p-6">
-
-          <p className="font-semibold text-red-700">
-            Unable to load reports
-          </p>
-
-          <p className="mt-1 text-sm text-red-600">
-            {error}
-          </p>
-
-          <button
-            type="button"
-            onClick={loadReports}
-            className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
-          >
-            Try Again
-          </button>
-
-        </div>
-
       </div>
     );
   }
 
-  // ======================================================
-  // MAIN REPORTS PAGE
-  // ======================================================
+  if (!report) {
+    return <ReportsSkeleton />;
+  }
+
+  const periodLabel = describePeriod(period);
 
   return (
-    <div className="space-y-8">
-
-      {/* =====================================================
-          PAGE HEADER
-      ====================================================== */}
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-
-        <div className="flex items-center gap-3">
-
-
-          <div>
-
-            <h1>
-              Reports & Analytics
-            </h1>
-
-            <p className="mt-0.5 text-sm text-slate-500">
-              Recruitment analytics, employment outcomes,
-              and downloadable reports.
-            </p>
-
-          </div>
-
-        </div>
-
-        <div className="w-full sm:w-auto">
-          <ExportButtons
-            reportData={reportData}
-          />
-        </div>
-
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border border-slate-300 bg-white px-3 py-3">
+        <PeriodFilter value={period} onChange={setPeriod} />
+        <ExportButtons report={report} periodLabel={periodLabel} />
       </div>
 
-      {/* =====================================================
-          SUMMARY CARDS
-      ====================================================== */}
+      <ReportCards data={report} />
 
-      <ReportCards
-        data={reportData}
+      <KeyRates
+        items={[
+          {
+            label: "Placement rate",
+            part: report.hired,
+            whole: report.referrals,
+            unit: "referrals hired",
+            color: "#1e6b3c",
+          },
+          {
+            label: "Interview rate",
+            part: report.interviewed,
+            whole: report.referrals,
+            unit: "referrals interviewed",
+          },
+          {
+            label: "Rejection rate",
+            part: report.rejected,
+            whole: report.referrals,
+            unit: "referrals rejected",
+            color: "#c8142f",
+          },
+          {
+            label: "Active vacancies",
+            part: report.activeVacancies,
+            whole: report.vacancies,
+            unit: "vacancies active",
+            color: "#c9a800",
+          },
+        ]}
       />
 
-      {/* =====================================================
-          CHARTS
-      ====================================================== */}
-
-      <ReportCharts
-        status={reportData.status}
-        monthlyData={reportData.monthlyData}
-        topPositions={reportData.topPositions}
-        topEmployers={reportData.topEmployers}
-        interviewed={reportData.interviewed}
-        hired={reportData.hired}
-        rejected={reportData.rejected}
-        pending={reportData.pending}
-        placementRate={reportData.placementRate}
-      />
-
+      <ReportCharts report={report} />
     </div>
   );
 }

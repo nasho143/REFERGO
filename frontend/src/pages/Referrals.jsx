@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import StatStrip from "../components/common/StatStrip";
+import QuickFilterBar from "../components/common/QuickFilterBar";
+import { readQuick, referralMatches } from "../utils/quickFilter";
+import MiniCharts from "../components/common/MiniCharts";
+import { countBy, countOverTime } from "../utils/chartData";
+import { DEFAULT_PERIOD, periodFromParams, filterByPeriod } from "../utils/period";
+import { useSearchParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import ReferralToolbar from "../components/referrals/ReferralToolbar";
@@ -56,6 +62,13 @@ export default function Referrals() {
 
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  // Dashboard shortcuts open this page pre-filtered, e.g. ?status=Hired&mode=month
+  const [searchParams] = useSearchParams();
+  const quick = useMemo(() => readQuick(searchParams), [searchParams]);
+  const [period, setPeriod] = useState(() => periodFromParams(searchParams));
+  const [statusFilter, setStatusFilter] = useState(
+    searchParams.get("status") || ""
+  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -253,14 +266,29 @@ export default function Referrals() {
      SEARCH
   ========================================================= */
 
+  const periodReferrals = useMemo(
+    () =>
+      filterByPeriod(
+        referrals,
+        period,
+        "date_referred",
+        "created_at"
+      ),
+    [referrals, period]
+  );
+
   const filteredReferrals = useMemo(() => {
     const keyword = search.trim().toLowerCase();
 
+    const base = periodReferrals.filter((referral) =>
+      referralMatches(referral, { ...quick, status: statusFilter })
+    );
+
     if (!keyword) {
-      return referrals;
+      return base;
     }
 
-    return referrals.filter((referral) => {
+    return base.filter((referral) => {
       const searchableText = [
         referral.full_name,
         referral.company_name,
@@ -277,20 +305,20 @@ export default function Referrals() {
 
       return searchableText.includes(keyword);
     });
-  }, [referrals, search]);
+  }, [periodReferrals, search, statusFilter, quick]);
 
   /* =========================================================
      SUMMARY COUNTS
   ========================================================= */
 
-  const totalReferrals = referrals.length;
+  const totalReferrals = periodReferrals.length;
 
-  const pendingReferrals = referrals.filter(
+  const pendingReferrals = periodReferrals.filter(
     (referral) =>
       String(referral.status || "").trim() === "Pending"
   ).length;
 
-  const interviewReferrals = referrals.filter((referral) => {
+  const interviewReferrals = periodReferrals.filter((referral) => {
     const status = String(referral.status || "").trim();
 
     return (
@@ -299,7 +327,7 @@ export default function Referrals() {
     );
   }).length;
 
-  const hiredReferrals = referrals.filter(
+  const hiredReferrals = periodReferrals.filter(
     (referral) =>
       String(referral.status || "").trim() === "Hired"
   ).length;
@@ -1034,15 +1062,95 @@ export default function Referrals() {
           TOOLBAR
       ===================================================== */}
 
+      <QuickFilterBar />
+
       <ReferralToolbar
         search={search}
         setSearch={setSearch}
+        period={period}
+        setPeriod={setPeriod}
         onAdd={
           (isPesoStaff || isDepartmentHead) ? handleAdd : null
         }
         onApprove={isDepartmentHead ? handleApprove : null}
         onReject={isDepartmentHead ? handleReject : null}
-        totalReferrals={totalReferrals}
+        totalReferrals={filteredReferrals.length}
+      >
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          aria-label="Filter by referral status"
+          className="h-10 border border-slate-400 bg-white px-2.5 text-sm"
+        >
+          <option value="">All statuses</option>
+          {[
+            ["Pending", "Pending"],
+            ["For Interview", "For Interview"],
+            ["Interview Scheduled", "Interview Scheduled"],
+            ["Hired", "Hired"],
+            ["Rejected", "Rejected"],
+            ["Failed", "Failed"],
+            ["Rejected,Failed", "Rejected / Failed"],
+            ["No Response", "No Response"],
+            ["Expired", "Expired"],
+            ["Cancelled", "Cancelled"],
+          ]
+            .concat(
+              statusFilter &&
+                ![
+                  "pending","for interview","interview scheduled","hired",
+                  "rejected","failed","rejected,failed","no response",
+                  "expired","cancelled",
+                ].includes(statusFilter.trim().toLowerCase())
+                ? [[statusFilter, statusFilter]]
+                : []
+            )
+            .map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+        </select>
+      </ReferralToolbar>
+
+      <MiniCharts
+        loading={loading}
+        charts={[
+          {
+            title: "Referral status",
+            type: "bar",
+            data: countBy(periodReferrals, (r) => r.status),
+          },
+          {
+            title: "Referrals over time",
+            type: "line",
+            data: countOverTime(
+              periodReferrals,
+              (r) => r.date_referred || r.created_at,
+              period.mode
+            ),
+            series: [
+              { key: "value", name: "Referred", color: "#202860" },
+            ],
+          },
+          {
+            title: "Top employers (referrals)",
+            type: "bar",
+            data: countBy(
+              periodReferrals,
+              (r) => r.company_name
+            ).slice(0, 5),
+          },
+          {
+            title: "Approval status",
+            type: "donut",
+            data: countBy(
+              periodReferrals,
+              (r) => r.approval_status,
+              { fallback: "Pending" }
+            ),
+          },
+        ]}
       />
 
       {/* =====================================================

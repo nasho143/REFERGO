@@ -1,5 +1,5 @@
 const db = require("../config/db");
-const bcrypt = require("bcrypt");
+const { hashPassword } = require("../utils/passwordHash");
 
 // ==========================================
 // ACTIVITY LOG HELPER
@@ -179,6 +179,21 @@ const addUser = async (req, res) => {
         ? email.trim()
         : null;
 
+    if (!cleanEmail) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Email is required. It is used to reset the user's password.",
+      });
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(cleanEmail)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address.",
+      });
+    }
+
     // ==========================================
     // CHECK DUPLICATE USERNAME
     // ==========================================
@@ -229,10 +244,7 @@ const addUser = async (req, res) => {
     // HASH PASSWORD
     // ==========================================
 
-    const hashedPassword = await bcrypt.hash(
-      password,
-      10
-    );
+    const hashedPassword = await hashPassword(password);
 
     // ==========================================
     // INSERT USER
@@ -407,6 +419,21 @@ const updateUser = async (req, res) => {
         ? email.trim()
         : null;
 
+    if (!cleanEmail) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Email is required. It is used to reset the user's password.",
+      });
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(cleanEmail)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address.",
+      });
+    }
+
     // ==========================================
     // CHECK DUPLICATE USERNAME
     // ==========================================
@@ -477,10 +504,7 @@ const updateUser = async (req, res) => {
     let values;
 
     if (passwordChanged) {
-      const hashedPassword = await bcrypt.hash(
-        password,
-        10
-      );
+      const hashedPassword = await hashPassword(password);
 
       query = `
         UPDATE users

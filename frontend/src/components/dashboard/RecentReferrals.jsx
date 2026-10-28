@@ -4,6 +4,7 @@ import {
   FaBriefcase,
   FaCalendarAlt,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import StatusBadge from "../common/StatusBadge";
 
 function formatDate(dateValue) {
@@ -35,21 +36,21 @@ function formatDate(dateValue) {
 
 export default function RecentReferrals({ referrals = [] }) {
   return (
-    <div className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div className="min-w-0 overflow-hidden border border-slate-300 bg-white">
       {/* Header */}
-      <div className="border-b border-slate-200 px-5 py-5 sm:px-6">
-        <h2 className="text-lg font-bold text-slate-800 sm:text-xl">
-          Recent Referrals
-        </h2>
-
-        <p className="mt-1 text-sm text-slate-500">
-          Latest employment referrals
-        </p>
+      <div className="flex items-baseline justify-between border-b border-slate-300 bg-slate-50 px-4 py-2">
+        <h2 className="!text-[15px]">Recent referrals</h2>
+        <Link
+          to="/referrals"
+          className="text-[12.5px] font-semibold text-blue-600 underline hover:text-blue-800"
+        >
+          View all
+        </Link>
       </div>
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="min-w-[760px] w-full">
+        <table className="min-w-[640px] w-full">
           <thead className="bg-slate-50">
             <tr>
               <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-bold r text-slate-600 sm:px-6">
@@ -91,9 +92,9 @@ export default function RecentReferrals({ referrals = [] }) {
                   className="  transition hover:bg-slate-50"
                 >
                   {/* Applicant */}
-                  <td className="px-5 py-4 sm:px-6">
+                  <td className="px-3 py-2">
                     <div className="flex items-center gap-2">
-                      <FaUser className="shrink-0 text-[#202860]" />
+                      <FaUser className="shrink-0 text-sm text-[#202860]" />
 
                       <span className="font-medium text-slate-700">
                         {item.full_name || "—"}
@@ -102,9 +103,9 @@ export default function RecentReferrals({ referrals = [] }) {
                   </td>
 
                   {/* Company */}
-                  <td className="px-5 py-4 sm:px-6">
+                  <td className="px-3 py-2">
                     <div className="flex items-center gap-2">
-                      <FaBuilding className="shrink-0 text-green-600" />
+                      <FaBuilding className="shrink-0 text-sm text-[#202860]" />
 
                       <span className="text-slate-700">
                         {item.company_name || "—"}
@@ -113,9 +114,9 @@ export default function RecentReferrals({ referrals = [] }) {
                   </td>
 
                   {/* Position */}
-                  <td className="px-5 py-4 sm:px-6">
+                  <td className="px-3 py-2">
                     <div className="flex items-center gap-2">
-                      <FaBriefcase className="shrink-0 text-amber-500" />
+                      <FaBriefcase className="shrink-0 text-sm text-[#202860]" />
 
                       <span className="text-slate-700">
                         {item.position_title || "—"}
@@ -124,9 +125,9 @@ export default function RecentReferrals({ referrals = [] }) {
                   </td>
 
                   {/* Date */}
-                  <td className="px-5 py-4 sm:px-6">
+                  <td className="px-3 py-2">
                     <div className="flex items-center gap-2">
-                      <FaCalendarAlt className="shrink-0 text-slate-500" />
+                      <FaCalendarAlt className="shrink-0 text-sm text-[#202860]" />
 
                       <span className="whitespace-nowrap text-slate-700">
                         {formatDate(item.date_referred)}
@@ -135,7 +136,7 @@ export default function RecentReferrals({ referrals = [] }) {
                   </td>
 
                   {/* Status */}
-                  <td className="px-5 py-4 sm:px-6">
+                  <td className="px-3 py-2">
                     <StatusBadge status={item.status} />
                   </td>
                 </tr>

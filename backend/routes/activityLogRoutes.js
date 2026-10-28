@@ -3,8 +3,8 @@ const router = express.Router();
 
 const { getActivityLogs } = require("../controllers/activityLogController");
 const authMiddleware = require("../middleware/authMiddleware");
-const { pesoStaffAndDepartmentHead } = require("../middleware/roleMiddleware");
+const { departmentHeadOnly } = require("../middleware/roleMiddleware");
 
-router.get("/", authMiddleware, pesoStaffAndDepartmentHead, getActivityLogs);
+router.get("/", authMiddleware, departmentHeadOnly, getActivityLogs);
 
 module.exports = router;

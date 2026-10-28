@@ -1,6 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import StatStrip from "../components/common/StatStrip";
+import QuickFilterBar from "../components/common/QuickFilterBar";
+import { readQuick, applicantMatches } from "../utils/quickFilter";
+import MiniCharts from "../components/common/MiniCharts";
+import { countBy, countOverTime } from "../utils/chartData";
+import {
+  DEFAULT_PERIOD,
+  periodFromParams,
+  filterByPeriod,
+  calcAge,
+  ageGroupOf,
+  AGE_GROUPS,
+} from "../utils/period";
 import {
   getApplicants,
   addApplicant,
@@ -55,6 +68,14 @@ export default function Applicants() {
 
   const [search, setSearch] = useState("");
 
+  // Dashboard shortcuts open this page pre-filtered, e.g. ?ready=1&mode=month
+  const [searchParams] = useSearchParams();
+  const quick = useMemo(() => readQuick(searchParams), [searchParams]);
+  const [period, setPeriod] = useState(() => periodFromParams(searchParams));
+  const [genderFilter, setGenderFilter] = useState(
+    searchParams.get("gender") || ""
+  );
+
   const [showModal, setShowModal] =
     useState(false);
 
@@ -96,6 +117,8 @@ export default function Applicants() {
 
     full_name: "",
     contact_number: "",
+    gender: "",
+    birthdate: "",
     classification: "",
     education: "",
     work_experience: "",
@@ -243,11 +266,22 @@ export default function Applicants() {
       const searchValue =
         search.toLowerCase().trim();
 
+      const scoped = filterByPeriod(
+        applicants,
+        period,
+        "created_at"
+      ).filter((applicant) =>
+        applicantMatches(applicant, {
+          ...quick,
+          gender: genderFilter,
+        })
+      );
+
       if (!searchValue) {
-        return applicants;
+        return scoped;
       }
 
-      return applicants.filter(
+      return scoped.filter(
         (applicant) => {
           const fullName =
             applicant?.full_name
@@ -278,28 +312,34 @@ export default function Applicants() {
           );
         }
       );
-    }, [applicants, search]);
+    }, [applicants, search, period, genderFilter, quick]);
 
 
   // ==========================================================
   // SUMMARY COUNTS
   // ==========================================================
 
+  const periodApplicants = filterByPeriod(
+    applicants,
+    period,
+    "created_at"
+  );
+
   const totalApplicants =
-    applicants.length;
+    periodApplicants.length;
 
 
   /*
-   * Job Ready
+   * Ready for Referral
    *
    * Backend automatically calculates
    * job_readiness_score.
    *
-   * 80 and above = Job Ready.
+   * 80 and above = Ready for Referral.
    */
 
   const jobReadyApplicants =
-    applicants.filter((applicant) => {
+    periodApplicants.filter((applicant) => {
       const score = Number(
         applicant?.job_readiness_score || 0
       );
@@ -316,7 +356,7 @@ export default function Applicants() {
    */
 
   const incompleteProfiles =
-    applicants.filter((applicant) => {
+    periodApplicants.filter((applicant) => {
       const score = Number(
         applicant?.profile_completion_score || 0
       );
@@ -385,6 +425,8 @@ export default function Applicants() {
 
       full_name: "",
       contact_number: "",
+      gender: "",
+      birthdate: "",
       classification: "",
       education: "",
       work_experience: "",
@@ -459,6 +501,14 @@ export default function Applicants() {
 
       contact_number:
         applicant.contact_number || "",
+
+      gender:
+        applicant.gender || "",
+
+      birthdate:
+        applicant.birthdate
+          ? String(applicant.birthdate).substring(0, 10)
+          : "",
 
       classification:
         applicant.classification || "",
@@ -562,6 +612,12 @@ export default function Applicants() {
 
       contact_number:
         form.contact_number || null,
+
+      gender:
+        form.gender || null,
+
+      birthdate:
+        form.birthdate || null,
 
       classification:
         form.classification || null,
@@ -892,6 +948,72 @@ export default function Applicants() {
     }
   };
 
+
+  // ==========================================================
+  // GRAPHS (follow the period filter)
+  // ==========================================================
+
+  const applicantCharts = [
+    {
+      title: "Applicants by gender",
+      type: "donut",
+      data: countBy(periodApplicants, (a) => a.gender),
+    },
+    {
+      title: "Applicants by age group",
+      type: "bar",
+      data: [
+        ...AGE_GROUPS.map((group) => ({
+          name: group.label,
+          value: periodApplicants.filter(
+            (a) => ageGroupOf(calcAge(a.birthdate)) === group.label
+          ).length,
+        })),
+        {
+          name: "Not specified",
+          value: periodApplicants.filter(
+            (a) => calcAge(a.birthdate) === null
+          ).length,
+        },
+      ],
+    },
+    {
+      title: "Referral status of applicants",
+      type: "bar",
+      data: countBy(
+        periodApplicants,
+        (a) => a.referral_status,
+        { fallback: "Not yet referred" }
+      ),
+    },
+    {
+      title: "Readiness",
+      type: "donut",
+      data: [
+        { name: "Ready for Referral", value: jobReadyApplicants },
+        {
+          name: "Not yet ready",
+          value: totalApplicants - jobReadyApplicants,
+        },
+      ],
+    },
+    {
+      title: "Classification",
+      type: "bar",
+      data: countBy(periodApplicants, (a) => a.classification).slice(0, 5),
+    },
+    {
+      title: "Applicants added",
+      type: "line",
+      data: countOverTime(
+        periodApplicants,
+        (a) => a.created_at,
+        period.mode
+      ),
+      series: [{ key: "value", name: "Added", color: "#202860" }],
+    },
+  ];
+
   // RENDER
   // ==========================================================
 
@@ -902,26 +1024,45 @@ export default function Applicants() {
           MODULE HEADER + SEARCH
       ===================================================== */}
 
+      <QuickFilterBar />
+
       <ApplicantToolbar
         search={search}
         setSearch={setSearch}
+        period={period}
+        setPeriod={setPeriod}
         totalApplicants={
           filteredApplicants.length
         }
         onAdd={
           (isPesoStaff || isDepartmentHead) ? openAddModal : null
         }
-      />
+      >
+        <select
+          value={genderFilter}
+          onChange={(e) =>
+            setGenderFilter(e.target.value)
+          }
+          aria-label="Filter by gender"
+          className="h-10 border border-slate-400 bg-white px-2.5 text-sm"
+        >
+          <option value="">All genders</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </ApplicantToolbar>
 
 
       {/* ====================================================
           SUMMARY CARDS
       ===================================================== */}
 
+      <MiniCharts loading={loading} charts={applicantCharts} />
+
       <StatStrip
         items={[
           { label: "Total Applicants", value: totalApplicants },
-          { label: "Job Ready", value: jobReadyApplicants },
+          { label: "Ready for Referral", value: jobReadyApplicants },
           { label: "Incomplete Profiles", value: incompleteProfiles },
         ]}
       />

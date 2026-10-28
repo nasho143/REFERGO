@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import MiniCharts from "../components/common/MiniCharts";
+import { countBy, countOverTime } from "../utils/chartData";
+import { DEFAULT_PERIOD, filterByPeriod } from "../utils/period";
 import Swal from "sweetalert2";
 
 import {
@@ -26,6 +29,7 @@ const initialForm = {
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
+  const [period, setPeriod] = useState(DEFAULT_PERIOD);
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -73,14 +77,19 @@ export default function UserManagement() {
   // SEARCH
   // =========================================================
 
+  const periodUsers = useMemo(
+    () => filterByPeriod(users, period, "created_at"),
+    [users, period]
+  );
+
   const filteredUsers = useMemo(() => {
     const keyword = search.trim().toLowerCase();
 
     if (!keyword) {
-      return users;
+      return periodUsers;
     }
 
-    return users.filter((user) => {
+    return periodUsers.filter((user) => {
       const fullName = String(user.full_name || "").toLowerCase();
       const username = String(user.username || "").toLowerCase();
       const email = String(user.email || "").toLowerCase();
@@ -95,7 +104,7 @@ export default function UserManagement() {
         status.includes(keyword)
       );
     });
-  }, [users, search]);
+  }, [periodUsers, search]);
 
   // =========================================================
   // OPEN ADD MODAL
@@ -172,6 +181,28 @@ export default function UserManagement() {
       return;
     }
 
+    if (!email) {
+      Swal.fire({
+        icon: "warning",
+        title: "Email Required",
+        text: "Please enter the user's email address. It is used to reset the password.",
+        confirmButtonColor: "#202860",
+      });
+
+      return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      Swal.fire({
+        icon: "warning",
+        title: "Invalid Email",
+        text: "Please enter a valid email address.",
+        confirmButtonColor: "#202860",
+      });
+
+      return;
+    }
+
     if (!editingUser && !password) {
       Swal.fire({
         icon: "warning",
@@ -190,7 +221,7 @@ export default function UserManagement() {
         const payload = {
           full_name: fullName,
           username,
-          email: email || null,
+          email,
           role: form.role,
           status: form.status,
         };
@@ -212,7 +243,7 @@ export default function UserManagement() {
         const payload = {
           full_name: fullName,
           username,
-          email: email || null,
+          email,
           password,
           role: form.role,
           status: form.status,
@@ -418,11 +449,51 @@ export default function UserManagement() {
       <UserToolbar
         search={search}
         setSearch={setSearch}
-        totalUsers={users.length}
+        period={period}
+        setPeriod={setPeriod}
+        totalUsers={filteredUsers.length}
         onAddUser={handleAddUser}
       />
 
-      <UserSummaryCards users={users} />
+      <MiniCharts
+        loading={loading}
+        charts={[
+          {
+            title: "Users by role",
+            type: "donut",
+            data: countBy(periodUsers, (u) =>
+              u.role === "department_head"
+                ? "Department Head"
+                : u.role === "peso_staff"
+                ? "PESO Staff"
+                : u.role
+            ),
+          },
+          {
+            title: "Users by status",
+            type: "donut",
+            data: countBy(periodUsers, (u) =>
+              u.status
+                ? u.status.charAt(0).toUpperCase() + u.status.slice(1)
+                : "Active"
+            ),
+          },
+          {
+            title: "Accounts created",
+            type: "line",
+            data: countOverTime(
+              periodUsers,
+              (u) => u.created_at,
+              period.mode
+            ),
+            series: [
+              { key: "value", name: "Created", color: "#202860" },
+            ],
+          },
+        ]}
+      />
+
+      <UserSummaryCards users={periodUsers} />
 
       <UserTable
         users={filteredUsers}

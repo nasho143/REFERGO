@@ -1,3 +1,4 @@
+import { SkeletonRows } from "../common/Skeleton";
 import {
   FaBuilding,
   FaUserTie,
@@ -14,13 +15,9 @@ export default function EmployerTable({
   onView,
   onEdit,
   onDelete,
-  onAdd,
   onApprove,
   onReject,
 }) {
-  const hasManagementActions =
-    Boolean(onEdit || onDelete);
-
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
 
@@ -80,31 +77,7 @@ export default function EmployerTable({
 
             {/* LOADING */}
             {loading ? (
-              <tr>
-                <td
-                  colSpan={5}
-                  className="px-5 py-14 text-center"
-                >
-                  <div className="flex flex-col items-center justify-center gap-3">
-
-                    <div
-                      className="
-                        h-9
-                        w-9
-                        animate-spin
-                        rounded-sm
-                        border-4
-                        border-slate-200
-                        border-t-blue-600"
-                    />
-
-                    <p className="text-sm text-slate-500">
-                      Loading employers...
-                    </p>
-
-                  </div>
-                </td>
-              </tr>
+              <SkeletonRows columns={5} rows={6} />
             ) : employers.length === 0 ? (
 
               /* EMPTY */
@@ -117,38 +90,14 @@ export default function EmployerTable({
 
 
                     <h3 className="text-base font-bold text-slate-800">
-                      No Employers Found
+                      No Employers
                     </h3>
 
                     <p className="mt-1 text-sm text-slate-500">
-                      {onAdd
-                        ? "Start by adding your first employer."
-                        : "There are no employers available to display."
-                      }
+                      This list is empty.
                     </p>
 
-                    {onAdd && (
-                      <button
-                        type="button"
-                        onClick={onAdd}
-                        className="
-                          mt-4
-                          rounded-lg
-                          bg-[#202860]
-                          px-4
-                          py-2.5
-                          text-sm
-                          font-semibold
-                          text-white
-                          transition
-                          hover:bg-[#202860]
-                          focus:outline-none
-                          focus:ring-2
-                          focus:ring-[#959fcb]"
-                      >
-                        Add Employer
-                      </button>
-                    )}
+                    
 
                   </div>
                 </td>

@@ -2,6 +2,8 @@ const db = require("../config/db");
 
 // ======================================
 // GET ACTIVITY LOGS
+// Department Head only. IP addresses are recorded when an activity happens,
+// but they are never sent back to the browser.
 // ======================================
 exports.getActivityLogs = (req, res) => {
   const sql = `
@@ -11,7 +13,6 @@ exports.getActivityLogs = (req, res) => {
       username,
       module,
       activity,
-      ip_address,
       created_at
     FROM activity_logs
     ORDER BY created_at DESC, log_id DESC

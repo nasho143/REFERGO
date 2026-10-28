@@ -1,29 +1,27 @@
-# Dependencies
+# Dependencies and builds
 node_modules/
+dist/
+dist-ssr/
+build/
 
-# Environment variables
+# Secrets. Never commit these.
 .env
 .env.*
 !.env.example
+!.env.production
+railway connect MySQL
+railway connect MySQL.pub
+*.pem
 
-# Build files
-dist/
-build/
-
-# Logs
+# Logs and editor files
 *.log
 npm-debug.log*
-
-# IDE
-.vscode/
+.vscode/*
+!.vscode/extensions.json
 .idea/
-
-# OS
 .DS_Store
 Thumbs.db
 
 # Local database exports may contain personal information
 database/refergo_deploy.sql
-
-# Keep schema only if needed in the repository
 !database/refergo_schema.sql

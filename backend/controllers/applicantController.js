@@ -72,7 +72,7 @@ function createActivityLog(
       activity,
       ip_address
     )
-    VALUES (?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
     [
       userId,
@@ -242,6 +242,8 @@ exports.getApplicants = (req, res) => {
       full_name,
       address,
       contact_number,
+      gender,
+      birthdate,
       classification,
       education,
       work_experience,
@@ -265,7 +267,15 @@ exports.getApplicants = (req, res) => {
       submitted_by,
       reviewed_by,
       reviewed_at,
-      rejection_reason
+      rejection_reason,
+
+      (
+        SELECT r.status
+        FROM referrals r
+        WHERE r.applicant_id = applicants.applicant_id
+        ORDER BY r.created_at DESC, r.referral_id DESC
+        LIMIT 1
+      ) AS referral_status
 
     FROM applicants
     ORDER BY applicant_id DESC
@@ -360,6 +370,8 @@ exports.getApplicant = (
       full_name,
       address,
       contact_number,
+      gender,
+      birthdate,
       classification,
       education,
       work_experience,
@@ -476,6 +488,8 @@ exports.addApplicant = (
     full_name,
     address,
     contact_number,
+    gender,
+    birthdate,
     classification,
     education,
     work_experience,
@@ -508,6 +522,16 @@ exports.addApplicant = (
 
     contact_number:
       contact_number || null,
+
+    gender:
+      ["Male", "Female"].includes(gender)
+        ? gender
+        : null,
+
+    birthdate:
+      birthdate && /^\d{4}-\d{2}-\d{2}/.test(String(birthdate))
+        ? String(birthdate).substring(0, 10)
+        : null,
 
     classification:
       classification || null,
@@ -560,6 +584,8 @@ exports.addApplicant = (
       full_name,
       address,
       contact_number,
+      gender,
+      birthdate,
       classification,
       education,
       work_experience,
@@ -583,13 +609,15 @@ exports.addApplicant = (
       reviewed_at,
       rejection_reason
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   const values = [
     applicantData.full_name,
     applicantData.address,
     applicantData.contact_number,
+    applicantData.gender,
+    applicantData.birthdate,
     applicantData.classification,
     applicantData.education,
     applicantData.work_experience,
@@ -669,6 +697,8 @@ exports.updateApplicant = (
     full_name,
     address,
     contact_number,
+    gender,
+    birthdate,
     classification,
     education,
     work_experience,
@@ -701,6 +731,16 @@ exports.updateApplicant = (
 
     contact_number:
       contact_number || null,
+
+    gender:
+      ["Male", "Female"].includes(gender)
+        ? gender
+        : null,
+
+    birthdate:
+      birthdate && /^\d{4}-\d{2}-\d{2}/.test(String(birthdate))
+        ? String(birthdate).substring(0, 10)
+        : null,
 
     classification:
       classification || null,
@@ -750,6 +790,8 @@ exports.updateApplicant = (
       full_name = ?,
       address = ?,
       contact_number = ?,
+      gender = ?,
+      birthdate = ?,
       classification = ?,
       education = ?,
       work_experience = ?,
@@ -780,6 +822,8 @@ exports.updateApplicant = (
     applicantData.full_name,
     applicantData.address,
     applicantData.contact_number,
+    applicantData.gender,
+    applicantData.birthdate,
     applicantData.classification,
     applicantData.education,
     applicantData.work_experience,

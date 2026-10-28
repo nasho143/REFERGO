@@ -1,3 +1,4 @@
+import { SkeletonRows } from "../common/Skeleton";
 import { FaBuilding, FaUsers, FaCalendarAlt } from "react-icons/fa";
 
 import StatusBadge from "../common/StatusBadge";
@@ -79,7 +80,6 @@ export default function VacancyTable({
   onView,
   onEdit,
   onDelete,
-  onAdd,
   onApprove,
   onReject,
 }) {
@@ -137,22 +137,7 @@ export default function VacancyTable({
           <tbody>
 
             {loading ? (
-              <tr>
-                <td
-                  colSpan={7}
-                  className="px-6 py-14 text-center"
-                >
-                  <div className="flex flex-col items-center justify-center gap-3">
-
-                    <div className="h-9 w-9 animate-spin rounded-sm border-4 border-slate-200 border-t-blue-600" />
-
-                    <p className="text-sm text-slate-500">
-                      Loading job vacancies...
-                    </p>
-
-                  </div>
-                </td>
-              </tr>
+              <SkeletonRows columns={7} rows={6} />
             ) : vacancies.length === 0 ? (
               <tr>
                 <td
@@ -163,24 +148,14 @@ export default function VacancyTable({
 
 
                     <h3 className="text-base font-bold text-slate-800">
-                      No Job Vacancies Found
+                      No Job Vacancies
                     </h3>
 
                     <p className="mt-1 text-sm text-slate-500">
-                      {onAdd
-                        ? "Start by adding your first job vacancy."
-                        : "There are no job vacancies available to display."}
+                      This list is empty.
                     </p>
 
-                    {onAdd && (
-                      <button
-                        type="button"
-                        onClick={onAdd}
-                        className="mt-4 rounded-lg bg-[#202860] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#202860] focus:outline-none focus:ring-2 focus:ring-[#959fcb]"
-                      >
-                        Add Vacancy
-                      </button>
-                    )}
+                    
 
                   </div>
                 </td>
@@ -224,7 +199,7 @@ export default function VacancyTable({
 
                       <div className="flex items-center gap-2 text-sm text-slate-700">
 
-                        <FaBuilding className="shrink-0 text-[#202860]" />
+                        <FaBuilding className="shrink-0 text-sm text-[#202860]" />
 
                         <span className="truncate">
                           {vacancy.company_name || "-"}
@@ -239,7 +214,7 @@ export default function VacancyTable({
 
                       <div className="flex items-center gap-2 text-sm text-slate-700">
 
-                        <FaUsers className="shrink-0 text-green-600" />
+                        <FaUsers className="shrink-0 text-sm text-[#202860]" />
 
                         <span>
                           {vacancy.openings || 0}
@@ -254,7 +229,7 @@ export default function VacancyTable({
 
                       <div className="flex items-center gap-2 text-sm text-slate-700">
 
-                        <FaCalendarAlt className="shrink-0 text-orange-500" />
+                        <FaCalendarAlt className="shrink-0 text-sm text-[#202860]" />
 
                         <span className="whitespace-nowrap">
                           {formatDate(vacancy.deadline)}

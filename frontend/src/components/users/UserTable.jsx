@@ -1,3 +1,4 @@
+import { SkeletonTable } from "../common/Skeleton";
 import { FaEdit, FaTrash, FaUserCheck, FaUserTimes } from "react-icons/fa";
 
 export default function UserTable({
@@ -29,26 +30,18 @@ export default function UserTable({
 
       {/* Loading */}
       {loading ? (
-        <div className="flex min-h-[260px] items-center justify-center px-5">
-          <div className="text-center">
-            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600" />
-
-            <p className="mt-3 text-sm text-slate-500">
-              Loading users...
-            </p>
-          </div>
-        </div>
+        <SkeletonTable columns={5} rows={6} label="Loading users..." />
       ) : users.length === 0 ? (
         /* Empty State */
         <div className="flex min-h-[260px] items-center justify-center px-5">
           <div className="text-center">
 
             <h3 className="mt-4 font-semibold text-slate-700">
-              No users found
+              No Users
             </h3>
 
             <p className="mt-1 text-sm text-slate-500">
-              No user accounts match your search.
+              This list is empty.
             </p>
           </div>
         </div>

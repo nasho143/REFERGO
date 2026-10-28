@@ -1,3 +1,4 @@
+import { SkeletonRows } from "../common/Skeleton";
 import {
   FaUser,
   FaGraduationCap,
@@ -6,6 +7,7 @@ import {
 } from "react-icons/fa";
 
 import StatusBadge from "../common/StatusBadge";
+import { calcAge } from "../../utils/period";
 import ActionButtons from "../common/ActionButtons";
 import ApprovalActions from "../common/ApprovalActions";
 
@@ -15,13 +17,9 @@ export default function ApplicantTable({
   onView,
   onEdit,
   onDelete,
-  onAdd,
   onApprove,
   onReject,
 }) {
-  const hasManagementActions =
-    Boolean(onEdit || onDelete);
-
   // =========================================================
   // READINESS STATUS
   // =========================================================
@@ -31,7 +29,7 @@ export default function ApplicantTable({
 
     if (readinessScore >= 80) {
       return {
-        label: "Job Ready",
+        label: "Ready for Referral",
         variant: "success",
       };
     }
@@ -88,7 +86,7 @@ export default function ApplicantTable({
 
       <div className="table-scroll w-full overflow-x-auto">
 
-        <table className="w-full min-w-[1100px] border-collapse">
+        <table className="w-full min-w-[1150px] border-collapse">
 
           {/* =================================================
               COLUMN WIDTHS
@@ -96,12 +94,14 @@ export default function ApplicantTable({
 
           <colgroup>
 
-            <col className="w-[25%]" />
-            <col className="w-[16%]" />
-            <col className="w-[16%]" />
-            <col className="w-[12%]" />
+            <col className="w-[19%]" />
             <col className="w-[8%]" />
-            <col className="w-[23%]" />
+            <col className="w-[12%]" />
+            <col className="w-[12%]" />
+            <col className="w-[10%]" />
+            <col className="w-[10%]" />
+            <col className="w-[13%]" />
+            <col className="w-[16%]" />
 
           </colgroup>
 
@@ -117,6 +117,10 @@ export default function ApplicantTable({
               </th>
 
               <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
+                Gender / Age
+              </th>
+
+              <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
                 Education
               </th>
 
@@ -125,11 +129,15 @@ export default function ApplicantTable({
               </th>
 
               <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
+                Referral
+              </th>
+
+              <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
                 Approval
               </th>
 
               <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
-                Job Readiness
+                Readiness
               </th>
 
               <th className="px-5 py-4 text-left text-xs font-bold text-slate-500">
@@ -150,35 +158,7 @@ export default function ApplicantTable({
             ================================================== */}
 
             {loading ? (
-
-              <tr>
-                <td
-                  colSpan={6}
-                  className="px-5 py-14 text-center"
-                >
-
-                  <div className="flex flex-col items-center justify-center gap-3">
-
-                    <div
-                      className="
-                        h-9
-                        w-9
-                        animate-spin
-                        rounded-sm
-                        border-4
-                        border-slate-200
-                        border-t-blue-600"
-                    />
-
-                    <p className="text-sm text-slate-500">
-                      Loading applicants...
-                    </p>
-
-                  </div>
-
-                </td>
-              </tr>
-
+              <SkeletonRows columns={8} rows={6} />
             ) : applicants.length === 0 ? (
 
               /* =================================================
@@ -187,7 +167,7 @@ export default function ApplicantTable({
 
               <tr>
                 <td
-                  colSpan={6}
+                  colSpan={8}
                   className="px-5 py-14"
                 >
 
@@ -195,38 +175,14 @@ export default function ApplicantTable({
 
 
                     <h3 className="text-base font-bold text-slate-800">
-                      No Applicants Found
+                      No Applicants
                     </h3>
 
                     <p className="mt-1 text-sm text-slate-500">
-                      {onAdd
-                        ? "Start by adding your first applicant."
-                        : "There are no applicants available to display."
-                      }
+                      This list is empty.
                     </p>
 
-                    {onAdd && (
-                      <button
-                        type="button"
-                        onClick={onAdd}
-                        className="
-                          mt-4
-                          rounded-lg
-                          bg-[#202860]
-                          px-4
-                          py-2.5
-                          text-sm
-                          font-semibold
-                          text-white
-                          transition
-                          hover:bg-[#202860]
-                          focus:outline-none
-                          focus:ring-2
-                          focus:ring-[#959fcb]"
-                      >
-                        Add Applicant
-                      </button>
-                    )}
+                    
 
                   </div>
 
@@ -304,6 +260,24 @@ export default function ApplicantTable({
                     </td>
 
                     {/* =================================================
+                        GENDER / AGE
+                    ================================================== */}
+
+                    <td className="px-5 py-4">
+
+                      <p className="text-sm font-medium text-slate-700">
+                        {applicant.gender || "N/A"}
+                      </p>
+
+                      <p className="text-xs text-slate-500">
+                        {calcAge(applicant.birthdate) !== null
+                          ? `${calcAge(applicant.birthdate)} yrs old`
+                          : "Age N/A"}
+                      </p>
+
+                    </td>
+
+                    {/* =================================================
                         EDUCATION
                     ================================================== */}
 
@@ -342,6 +316,18 @@ export default function ApplicantTable({
                         </span>
 
                       </div>
+
+                    </td>
+
+                    {/* =================================================
+                        REFERRAL STATUS
+                    ================================================== */}
+
+                    <td className="px-5 py-4">
+
+                      <span className="text-sm font-medium text-slate-700">
+                        {applicant.referral_status || "Not yet referred"}
+                      </span>
 
                     </td>
 

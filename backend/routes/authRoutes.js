@@ -7,11 +7,15 @@ const {
   updateProfile,
   changePassword,
   logout,
+  forgotPassword,
+  resetPassword,
 } = require("../controllers/authController");
 
 const authMiddleware = require("../middleware/authMiddleware");
 
 router.post("/login", login);
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 router.get("/profile/:id", authMiddleware, getProfile);
 router.put("/profile/:id", authMiddleware, updateProfile);
 router.post("/change-password/:id", authMiddleware, changePassword);

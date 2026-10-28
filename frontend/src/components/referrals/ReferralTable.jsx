@@ -16,12 +16,10 @@ export default function ReferralTable({
   onView,
   onEdit,
   onDelete,
-  onAdd,
   onApprove,
   onReject,
 }) {
-  const hasManagementActions =
-    Boolean(onEdit || onDelete);
+  const hasManagementActions = Boolean(onEdit || onDelete);
 
   /* =========================================================
      COLUMN WIDTHS
@@ -86,22 +84,8 @@ export default function ReferralTable({
           columnWidths={columnWidths}
           loading={loading}
           isEmpty={referrals.length === 0}
-          emptyTitle="No Referrals Found"
-          emptyDescription={
-            hasManagementActions
-              ? "There are no referral records yet. Add your first referral to get started."
-              : "There are no referral records to display."
-          }
-          emptyButtonText={
-            hasManagementActions
-              ? "Add Referral"
-              : null
-          }
-          onEmptyButtonClick={
-            hasManagementActions
-              ? onAdd
-              : null
-          }
+          emptyTitle="No Referrals"
+          emptyDescription="This list is empty."
         >
 
           {referrals.map((referral) => (
@@ -122,7 +106,7 @@ export default function ReferralTable({
 
               <td className="px-5 py-5">
 
-                <div className="flex min-w-0 items-center gap-3">
+                <div className="flex min-w-0 items-center gap-2">
 
                   <FaUser className="shrink-0 text-sm text-[#202860]" />
 
@@ -156,7 +140,7 @@ export default function ReferralTable({
 
               <td className="px-5 py-5">
 
-                <div className="flex min-w-0 items-center gap-3">
+                <div className="flex min-w-0 items-center gap-2">
 
                   <FaBuilding className="shrink-0 text-sm text-[#202860]" />
 
@@ -177,7 +161,7 @@ export default function ReferralTable({
 
               <td className="px-5 py-5">
 
-                <div className="flex min-w-0 items-center gap-3">
+                <div className="flex min-w-0 items-center gap-2">
 
                   <FaBriefcase className="shrink-0 text-sm text-[#202860]" />
 
@@ -198,7 +182,7 @@ export default function ReferralTable({
 
               <td className="px-5 py-5">
 
-                <div className="flex items-center gap-3 whitespace-nowrap">
+                <div className="flex items-center gap-2 whitespace-nowrap">
 
                   <FaCalendarAlt className="shrink-0 text-sm text-[#202860]" />
 

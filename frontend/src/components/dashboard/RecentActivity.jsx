@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { FaClipboardList, FaClock } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaClock } from "react-icons/fa";
 
 import { getActivityLogs } from "../../services/activityLogApi";
 
@@ -116,38 +117,26 @@ export default function RecentActivity() {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+    <div className="border border-slate-300 bg-white">
 
       {/* Header */}
-      <div className="mb-5 flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-bold text-slate-800 sm:text-xl">
-            Recent Activity
-          </h2>
-
-          <p className="mt-1 text-sm text-slate-500">
-            Latest activities performed in the system.
-          </p>
-        </div>
-
+      <div className="flex items-baseline justify-between border-b border-slate-300 bg-slate-50 px-4 py-2">
+        <h2 className="!text-[15px]">Recent activity</h2>
+        <Link
+          to="/activity-logs"
+          className="text-[12.5px] font-semibold text-blue-600 underline hover:text-blue-800"
+        >
+          View all
+        </Link>
       </div>
 
       {/* Empty State */}
       {activities.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-200 py-12">
-          <FaClipboardList className="mb-4 text-4xl text-slate-300" />
-
-          <h3 className="text-lg font-semibold text-slate-700">
-            No recent activities
-          </h3>
-
-          <p className="mt-2 max-w-md px-4 text-center text-sm text-slate-500">
-            Activities will appear here once users perform
-            actions in the system.
-          </p>
-        </div>
+        <p className="px-4 py-8 text-center text-sm text-slate-500">
+          No recent activities.
+        </p>
       ) : (
-        <div className="space-y-3">
+        <div className="divide-y divide-slate-200">
           {activities.map((activity, index) => {
             const username = getUsername(activity);
             const action = getActivity(activity);
@@ -161,7 +150,7 @@ export default function RecentActivity() {
                   activity.id ||
                   `${username}-${index}`
                 }
-                className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50 p-4 transition hover:border-slate-200 hover:shadow-sm"
+                className="flex items-start gap-3 px-4 py-2.5 hover:bg-slate-50"
               >
 
                 {/* User Icon */}

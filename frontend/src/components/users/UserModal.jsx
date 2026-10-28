@@ -121,7 +121,7 @@ export default function UserModal({
                   htmlFor="email"
                   className="mb-2 block text-sm font-medium text-slate-700"
                 >
-                  Email Address
+                  Email Address <span className="text-red-600">*</span>
                 </label>
 
                 <div className="relative">
@@ -134,6 +134,7 @@ export default function UserModal({
                     value={form.email}
                     onChange={handleChange}
                     placeholder="Enter email address"
+                    required
                     disabled={loading}
                     autoComplete="email"
                     className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#202860] focus:ring-2 focus:ring-[#eef0f8] disabled:bg-slate-50"

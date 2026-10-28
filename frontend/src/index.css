@@ -10,7 +10,9 @@
 
 @theme {
   --font-sans: "Public Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
-  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  /* One typeface for the whole system. The serif slot points to the same font, so
+     any element that still asks for "font-serif" gets Public Sans too. */
+  --font-serif: var(--font-sans);
 
   /* Square, form-like corners. Only 'rounded-full' stays round. */
   --radius-xs: 0;
@@ -138,16 +140,18 @@
     min-height: 100%;
   }
 
+  /* Whole site renders at ~90% so it no longer fills the screen. */
   html {
     background: var(--paper);
+    font-size: 90%;
   }
 
   body {
     background: var(--paper);
     color: var(--ink);
     font-family: var(--font-sans);
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 14px;
+    line-height: 1.5;
     font-variant-numeric: tabular-nums;
     -webkit-font-smoothing: antialiased;
   }
@@ -186,14 +190,14 @@
   }
 
   main h1 {
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: 0;
   }
 
   main h2 {
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: 0;
@@ -290,7 +294,7 @@
   }
 
   .gov-office {
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-weight: 700;
     color: var(--peso-navy);
     line-height: 1.15;
@@ -303,10 +307,10 @@
 
   .gov-nav-link {
     display: block;
-    padding: 13px 16px 10px;
+    padding: 9px 14px 7px;
     border-bottom: 3px solid transparent;
     color: #fff;
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 500;
     white-space: nowrap;
     text-decoration: none;
@@ -335,7 +339,7 @@
 
   .gov-footer {
     background: var(--peso-navy-deep);
-    border-top: 4px solid var(--peso-red);
+    border-top: 3px solid var(--peso-red);
     color: #dfe2f1;
     font-size: 13px;
   }
@@ -377,7 +381,7 @@
   .gov-panel-title {
     background: var(--peso-navy);
     color: #fff;
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-size: 1.1rem;
     font-weight: 700;
     padding: 10px 18px;
@@ -400,7 +404,7 @@
 }
 
 .swal2-title {
-  font-family: var(--font-serif) !important;
+  font-family: var(--font-sans) !important;
   color: var(--peso-navy) !important;
   font-size: 1.4rem !important;
 }
@@ -463,4 +467,59 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Tighter record tables. Unlayered, so it wins over the padding utilities
+   that are baked into each table component. */
+main table th,
+main table td {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+/* ---- Loading skeletons: grey blocks with a soft moving highlight ---- */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #e3e6f0;
+  border-radius: 2px;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ---- Chart focus: smooth float / fade when a part is clicked ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .chart-seg {
+    transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+  }
+}
+
+/* Charts: no outline box after a mouse click (keyboard focus still shows one). */
+.recharts-wrapper:focus:not(:focus-visible),
+.recharts-wrapper :focus:not(:focus-visible) {
+  outline: none;
 }

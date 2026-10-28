@@ -1,6 +1,5 @@
 import {
   FaUser,
-  FaGlobe,
   FaCalendarAlt,
   FaBuilding,
   FaBriefcase,
@@ -168,14 +167,6 @@ function getActivity(log) {
   );
 }
 
-function getIpAddress(log) {
-  return (
-    log.ip_address ||
-    log.ipAddress ||
-    "—"
-  );
-}
-
 // =====================================================
 // MODULE DISPLAY
 // =====================================================
@@ -209,7 +200,6 @@ function LogRow({ log }) {
   const userId = getUserId(log);
   const module = getModule(log);
   const activity = getActivity(log);
-  const ipAddress = getIpAddress(log);
 
   return (
     <tr className="  transition-colors  hover:bg-slate-50">
@@ -261,25 +251,12 @@ function LogRow({ log }) {
           4. ACTIVITY
       ================================================= */}
 
-      <td className="w-[28%] px-8 py-5 align-top">
+      <td className="w-[43%] px-8 py-5 align-top">
         <p className="break-words text-sm leading-6 text-slate-600">
           {activity}
         </p>
       </td>
 
-      {/* =================================================
-          5. IP ADDRESS
-      ================================================= */}
-
-      <td className="w-[15%] px-8 py-5 align-top">
-        <div className="flex items-start gap-3">
-          <FaGlobe className="mt-1 shrink-0 text-slate-400" />
-
-          <span className="break-all text-sm leading-5 text-slate-600">
-            {ipAddress}
-          </span>
-        </div>
-      </td>
     </tr>
   );
 }
@@ -293,7 +270,6 @@ function MobileLogCard({ log }) {
   const userId = getUserId(log);
   const module = getModule(log);
   const activity = getActivity(log);
-  const ipAddress = getIpAddress(log);
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -375,23 +351,6 @@ function MobileLogCard({ log }) {
         </p>
       </div>
 
-      {/* =================================================
-          IP ADDRESS
-      ================================================= */}
-
-      <div className="mt-4 flex items-center gap-2 border-t border-slate-100 pt-4">
-        <FaGlobe className="shrink-0 text-slate-400" />
-
-        <div className="min-w-0">
-          <p className="text-xs font-medium text-slate-400">
-            IP Address
-          </p>
-
-          <p className="mt-0.5 break-all text-sm text-slate-600">
-            {ipAddress}
-          </p>
-        </div>
-      </div>
     </div>
   );
 }
@@ -412,11 +371,11 @@ export default function ActivityLogTable({
       <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm">
 
         <h3 className="mt-4 text-lg font-semibold text-slate-700">
-          No activity logs found
+          No Activity Logs
         </h3>
 
         <p className="mt-1 text-sm text-slate-500">
-          There are no activity records matching your search.
+          This list is empty.
         </p>
       </div>
     );
@@ -449,13 +408,8 @@ export default function ActivityLogTable({
                 </th>
 
                 {/* ACTIVITY */}
-                <th className="w-[28%] px-8 py-4 text-left text-xs font-semibold text-slate-500">
+                <th className="w-[43%] px-8 py-4 text-left text-xs font-semibold text-slate-500">
                   Activity
-                </th>
-
-                {/* IP */}
-                <th className="w-[15%] px-8 py-4 text-left text-xs font-semibold text-slate-500">
-                  IP Address
                 </th>
               </tr>
             </thead>

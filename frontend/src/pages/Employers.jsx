@@ -2,6 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 
 
 import StatStrip from "../components/common/StatStrip";
+import QuickFilterBar from "../components/common/QuickFilterBar";
+import { readQuick, employerMatches } from "../utils/quickFilter";
+import MiniCharts from "../components/common/MiniCharts";
+import { countBy, countOverTime } from "../utils/chartData";
+import { DEFAULT_PERIOD, periodFromParams, filterByPeriod } from "../utils/period";
+import { useSearchParams } from "react-router-dom";
 import {
   getEmployers,
   addEmployer,
@@ -63,6 +69,9 @@ export default function Employers() {
   const [vacancyLoading, setVacancyLoading] = useState(false);
 
   const [search, setSearch] = useState("");
+  const [searchParams] = useSearchParams();
+  const quick = useMemo(() => readQuick(searchParams), [searchParams]);
+  const [period, setPeriod] = useState(() => periodFromParams(searchParams));
 
   const [showModal, setShowModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
@@ -215,16 +224,20 @@ export default function Employers() {
       return [];
     }
 
+    const base = filterByPeriod(employers, period, "created_at").filter(
+      (employer) => employerMatches(employer, quick)
+    );
+
     const searchValue =
       search
         .toLowerCase()
         .trim();
 
     if (!searchValue) {
-      return employers;
+      return base;
     }
 
-    return employers.filter(
+    return base.filter(
       (employer) => {
 
         return (
@@ -262,18 +275,29 @@ export default function Employers() {
       }
     );
 
-  }, [employers, search]);
+  }, [employers, search, period, quick]);
 
 
   // =========================================================
   // SUMMARY CARD VALUES
   // =========================================================
 
+  const periodEmployers = filterByPeriod(
+    employers,
+    period,
+    "created_at"
+  );
+
   const totalEmployers =
-    employers.length;
+    periodEmployers.length;
 
   const activeEmployers =
-    employers.length;
+    periodEmployers.filter(
+      (employer) =>
+        String(employer?.status || "Active")
+          .trim()
+          .toLowerCase() !== "inactive"
+    ).length;
 
   const totalVacancies =
     vacancies.length;
@@ -790,9 +814,13 @@ export default function Employers() {
           EMPLOYER TOOLBAR
       ====================================================== */}
 
+      <QuickFilterBar />
+
       <EmployerToolbar
         search={search}
         setSearch={setSearch}
+        period={period}
+        setPeriod={setPeriod}
 
         /*
           Add button is only available
@@ -805,8 +833,43 @@ export default function Employers() {
         onReject={isDepartmentHead ? handleReject : null}
 
         totalEmployers={
-          totalEmployers
+          filteredEmployers.length
         }
+      />
+
+      <MiniCharts
+        loading={loading}
+        charts={[
+          {
+            title: "Employers by approval status",
+            type: "donut",
+            data: countBy(
+              periodEmployers,
+              (e) => e.approval_status,
+              { fallback: "Pending" }
+            ),
+          },
+          {
+            title: "Vacancies by employer (top 5)",
+            type: "bar",
+            data: countBy(
+              vacancies,
+              (v) => v.company_name
+            ).slice(0, 5),
+          },
+          {
+            title: "Employers added",
+            type: "line",
+            data: countOverTime(
+              periodEmployers,
+              (e) => e.created_at,
+              period.mode
+            ),
+            series: [
+              { key: "value", name: "Added", color: "#202860" },
+            ],
+          },
+        ]}
       />
 
 

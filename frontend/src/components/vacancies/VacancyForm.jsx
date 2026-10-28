@@ -62,7 +62,7 @@ export default function VacancyForm({
           {/* Position */}
           <div>
             <label className={labelClass}>
-              <FaBriefcase className="text-indigo-600" />
+              <FaBriefcase className="text-[#202860]" />
               Position Title
             </label>
 
@@ -82,7 +82,7 @@ export default function VacancyForm({
             {/* Salary */}
             <div>
               <label className={labelClass}>
-                <FaMoneyBillWave className="text-green-600" />
+                <FaMoneyBillWave className="text-[#202860]" />
                 Salary
               </label>
 
@@ -99,7 +99,7 @@ export default function VacancyForm({
             {/* Location */}
             <div>
               <label className={labelClass}>
-                <FaMapMarkerAlt className="text-red-500" />
+                <FaMapMarkerAlt className="text-[#202860]" />
                 Location
               </label>
 
@@ -121,7 +121,7 @@ export default function VacancyForm({
             {/* Employment Type */}
             <div>
               <label className={labelClass}>
-                <FaBriefcase className="text-purple-600" />
+                <FaBriefcase className="text-[#202860]" />
                 Employment Type
               </label>
 
@@ -156,7 +156,7 @@ export default function VacancyForm({
             {/* Number of Openings */}
             <div>
               <label className={labelClass}>
-                <FaUsers className="text-green-600" />
+                <FaUsers className="text-[#202860]" />
                 Number of Openings
               </label>
 
@@ -189,7 +189,7 @@ export default function VacancyForm({
           {/* Deadline */}
           <div>
             <label className={labelClass}>
-              <FaCalendarAlt className="text-orange-500" />
+              <FaCalendarAlt className="text-[#202860]" />
               Application Deadline
             </label>
 
@@ -209,7 +209,7 @@ export default function VacancyForm({
           {/* Status */}
           <div>
             <label className={labelClass}>
-              <FaCheckCircle className="text-emerald-600" />
+              <FaCheckCircle className="text-[#202860]" />
               Status
             </label>
 
@@ -250,7 +250,7 @@ export default function VacancyForm({
           {/* Qualifications */}
           <div>
             <label className={labelClass}>
-              <FaClipboardList className="text-amber-500" />
+              <FaClipboardList className="text-[#202860]" />
               Qualifications
             </label>
 

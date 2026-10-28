@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
+import MiniCharts from "../components/common/MiniCharts";
+import { countBy, countOverTime } from "../utils/chartData";
+import { DEFAULT_PERIOD, filterByPeriod } from "../utils/period";
 
 import { getActivityLogs } from "../services/activityLogApi";
 
+import { ModuleSkeleton } from "../components/common/Skeleton";
 import ActivityLogToolbar from "../components/activityLogs/ActivityLogToolbar";
 import ActivityLogSummaryCards from "../components/activityLogs/ActivityLogSummaryCards";
 import ActivityLogTable from "../components/activityLogs/ActivityLogTable";
@@ -9,6 +13,7 @@ import ActivityLogTable from "../components/activityLogs/ActivityLogTable";
 export default function ActivityLogs() {
   const [logs, setLogs] = useState([]);
   const [search, setSearch] = useState("");
+  const [period, setPeriod] = useState(DEFAULT_PERIOD);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -75,6 +80,11 @@ export default function ActivityLogs() {
   // FILTER LOGS
   // =====================================================
 
+  const periodLogs = useMemo(
+    () => filterByPeriod(logs, period, "created_at", "date_time"),
+    [logs, period]
+  );
+
   const filteredLogs = useMemo(() => {
     const keyword = search
       .trim()
@@ -82,10 +92,10 @@ export default function ActivityLogs() {
 
     // No search keyword
     if (!keyword) {
-      return logs;
+      return periodLogs;
     }
 
-    return logs.filter((log) => {
+    return periodLogs.filter((log) => {
       const username =
         log.username ||
         log.user_name ||
@@ -98,11 +108,6 @@ export default function ActivityLogs() {
       const activity =
         log.activity ||
         log.action ||
-        "";
-
-      const ipAddress =
-        log.ip_address ||
-        log.ipAddress ||
         "";
 
       const userId =
@@ -129,10 +134,6 @@ export default function ActivityLogs() {
           .toLowerCase()
           .includes(keyword) ||
 
-        String(ipAddress)
-          .toLowerCase()
-          .includes(keyword) ||
-
         String(userId)
           .toLowerCase()
           .includes(keyword) ||
@@ -142,45 +143,14 @@ export default function ActivityLogs() {
           .includes(keyword)
       );
     });
-  }, [logs, search]);
+  }, [periodLogs, search]);
 
   // =====================================================
   // LOADING STATE
   // =====================================================
 
   if (loading) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center px-4">
-        <div className="flex flex-col items-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-[#202860]">
-            <svg
-              className="h-6 w-6 animate-spin"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-              />
-            </svg>
-          </div>
-
-          <p className="mt-4 text-sm font-medium text-slate-500">
-            Loading activity logs...
-          </p>
-        </div>
-      </div>
-    );
+    return <ModuleSkeleton columns={5} />;
   }
 
   // =====================================================
@@ -196,7 +166,42 @@ export default function ActivityLogs() {
       <ActivityLogToolbar
         search={search}
         setSearch={setSearch}
+        period={period}
+        setPeriod={setPeriod}
         totalActivities={filteredLogs.length}
+      />
+
+      <MiniCharts
+        charts={[
+          {
+            title: "Activities by module",
+            type: "bar",
+            data: countBy(filteredLogs, (l) => l.module, {
+              fallback: "System",
+            }).slice(0, 6),
+          },
+          {
+            title: "Most active users",
+            type: "bar",
+            data: countBy(
+              filteredLogs,
+              (l) => l.username || l.user_name,
+              { fallback: "System" }
+            ).slice(0, 5),
+          },
+          {
+            title: "Activities over time",
+            type: "line",
+            data: countOverTime(
+              filteredLogs,
+              (l) => l.created_at || l.date_time,
+              period.mode
+            ),
+            series: [
+              { key: "value", name: "Activities", color: "#202860" },
+            ],
+          },
+        ]}
       />
 
       {/* =================================================

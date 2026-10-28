@@ -181,7 +181,11 @@ export default function App() {
 
           <Route
             path="/activity-logs"
-            element={<ActivityLogs />}
+            element={
+              <DepartmentHeadRoute>
+                <ActivityLogs />
+              </DepartmentHeadRoute>
+            }
           />
 
 

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { calcAge } from "../../utils/period";
 import {
   FaUser,
   FaMapMarkerAlt,
@@ -12,6 +13,8 @@ import {
   FaIdCard,
   FaChartBar,
   FaCommentDots,
+  FaVenusMars,
+  FaBirthdayCake,
 } from "react-icons/fa";
 
 import Modal from "../common/Modal";
@@ -102,11 +105,6 @@ export default function ApplicantModal({
       isOpen={isOpen}
       onClose={onClose}
       title={editing ? "Edit Applicant" : "Add Applicant"}
-      subtitle={
-        editing
-          ? "Update applicant information and readiness details."
-          : "Enter applicant information and requirements."
-      }
       size="lg"
     >
       <div className="space-y-8">
@@ -119,10 +117,6 @@ export default function ApplicantModal({
             <h3 className="text-lg font-bold text-slate-800">
               Personal Information
             </h3>
-
-            <p className="mt-1 text-sm text-slate-500">
-              Enter the applicant's basic personal information.
-            </p>
           </div>
 
           <div className="space-y-5">
@@ -146,7 +140,7 @@ export default function ApplicantModal({
             {/* ADDRESS */}
             <FormField
               icon={<FaMapMarkerAlt />}
-              iconColor="text-red-500"
+              iconColor="text-[#202860]"
               label="Address"
             >
               <textarea
@@ -162,7 +156,7 @@ export default function ApplicantModal({
             {/* CONTACT NUMBER */}
             <FormField
               icon={<FaPhone />}
-              iconColor="text-green-600"
+              iconColor="text-[#202860]"
               label="Contact Number"
             >
               <input
@@ -175,10 +169,49 @@ export default function ApplicantModal({
               />
             </FormField>
 
+            {/* GENDER + BIRTHDATE / AGE */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <FormField
+                icon={<FaVenusMars />}
+                iconColor="text-[#202860]"
+                label="Gender"
+              >
+                <select
+                  name="gender"
+                  value={form.gender || ""}
+                  onChange={handleChange}
+                  className={inputClass}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </FormField>
+
+              <FormField
+                icon={<FaBirthdayCake />}
+                iconColor="text-[#202860]"
+                label={`Birthdate${
+                  calcAge(form.birthdate) !== null
+                    ? ` (Age: ${calcAge(form.birthdate)})`
+                    : ""
+                }`}
+              >
+                <input
+                  type="date"
+                  name="birthdate"
+                  value={form.birthdate || ""}
+                  max={new Date().toISOString().substring(0, 10)}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+              </FormField>
+            </div>
+
             {/* CLASSIFICATION */}
             <FormField
               icon={<FaUserTag />}
-              iconColor="text-purple-600"
+              iconColor="text-[#202860]"
               label="Applicant Classification"
             >
               <select
@@ -246,7 +279,7 @@ export default function ApplicantModal({
             {/* EDUCATION */}
             <FormField
               icon={<FaGraduationCap />}
-              iconColor="text-purple-600"
+              iconColor="text-[#202860]"
               label="Education"
             >
               <input
@@ -262,7 +295,7 @@ export default function ApplicantModal({
             {/* WORK EXPERIENCE */}
             <FormField
               icon={<FaUserTie />}
-              iconColor="text-orange-500"
+              iconColor="text-[#202860]"
               label="Work Experience"
             >
               <textarea
@@ -278,7 +311,7 @@ export default function ApplicantModal({
             {/* SKILLS */}
             <FormField
               icon={<FaTools />}
-              iconColor="text-amber-500"
+              iconColor="text-[#202860]"
               label="Skills"
             >
               <textarea
@@ -336,7 +369,7 @@ export default function ApplicantModal({
               checked={Boolean(form.valid_id_uploaded)}
               onChange={handleChange}
               icon={<FaIdCard />}
-              iconColor="text-green-600"
+              iconColor="text-[#202860]"
               title="Valid ID"
               description="Valid ID uploaded"
             />
@@ -347,7 +380,7 @@ export default function ApplicantModal({
               checked={Boolean(form.diploma_tor_uploaded)}
               onChange={handleChange}
               icon={<FaGraduationCap />}
-              iconColor="text-purple-600"
+              iconColor="text-[#202860]"
               title="Diploma / TOR"
               description="Diploma or TOR uploaded"
             />

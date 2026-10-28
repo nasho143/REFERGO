@@ -6,6 +6,8 @@ import { FaChevronDown } from "react-icons/fa";
 import Swal from "sweetalert2";
 import api from "../services/api";
 import logo from "../assets/peso-logo.png";
+import NotificationBell from "./NotificationBell";
+import HeaderClock from "./HeaderClock";
 
 export default function Navbar() {
   const location = useLocation();
@@ -37,12 +39,6 @@ export default function Navbar() {
 
   const isDepartmentHead = user?.role === "department_head";
 
-  const today = new Date().toLocaleDateString("en-PH", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 
   // ======================================
   // LOGOUT
@@ -161,32 +157,28 @@ export default function Navbar() {
 
   return (
     <header>
-      {/* Republic strip */}
-      <div className="gov-strip">
-        <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-4 py-1.5 sm:px-6">
-          <span>Republic of the Philippines</span>
-          <span className="hidden sm:inline">{today}</span>
-        </div>
-      </div>
-
       {/* Office masthead */}
       <div className="gov-masthead">
-        <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4">
+        <div className="mx-auto flex w-full max-w-[1120px] items-center justify-between gap-4 px-4 py-2 sm:px-6 sm:py-2.5">
           <div className="flex min-w-0 items-center gap-3 sm:gap-4">
             <img
               src={logo}
               alt="PESO seal"
-              className="h-11 w-11 shrink-0 object-contain sm:h-[68px] sm:w-[68px]"
+              className="h-10 w-10 shrink-0 object-contain sm:h-[52px] sm:w-[52px]"
             />
             <div className="min-w-0">
-              <p className="gov-office text-[17px] sm:text-[26px]">
+              <p className="gov-office text-[16px] sm:text-[21px]">
                 Public Employment Service Office
               </p>
-              <p className="text-[12.5px] text-slate-600 sm:text-[14.5px]">
+              <p className="text-[12px] text-slate-600 sm:text-[13px]">
                 Municipality of Mendez, Cavite
               </p>
             </div>
           </div>
+
+          <div className="flex shrink-0 items-center gap-3">
+          <HeaderClock />
+          <NotificationBell />
 
           {/* Signed-in user */}
           <div className="relative shrink-0" ref={dropdownRef}>
@@ -279,6 +271,7 @@ export default function Navbar() {
                 </button>
               </div>
             )}
+          </div>
           </div>
         </div>
       </div>

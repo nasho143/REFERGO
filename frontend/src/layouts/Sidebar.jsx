@@ -13,16 +13,30 @@ const menu = [
   { name: "Activity Logs", path: "/activity-logs" },
 ];
 
+function currentRole() {
+  try {
+    return JSON.parse(localStorage.getItem("user"))?.role || "";
+  } catch {
+    return "";
+  }
+}
+
 export default function Sidebar({
   open = false,
   onToggle = () => {},
   onClose = () => {},
 }) {
+  // Activity Logs belongs to the Department Head only.
+  const isHead = currentRole() === "department_head";
+  const visibleMenu = menu.filter(
+    (item) => item.path !== "/activity-logs" || isHead
+  );
+
   return (
     <div className="gov-nav">
-      <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6">
+      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6">
         <div className="flex items-stretch justify-between lg:justify-start">
-          <p className="flex items-center border-white/25 py-3 pr-5 font-serif text-lg font-bold tracking-wide text-white lg:mr-2 lg:border-r">
+          <p className="flex items-center border-white/25 py-2 pr-5 font-serif text-base font-bold tracking-wide text-white lg:mr-2 lg:border-r">
             REFERGO
           </p>
 
@@ -40,7 +54,7 @@ export default function Sidebar({
 
           {/* Desktop links */}
           <ul className="hidden lg:flex">
-            {menu.map((item) => (
+            {visibleMenu.map((item) => (
               <li key={item.path}>
                 <NavLink to={item.path} className="gov-nav-link">
                   {item.name}
@@ -56,7 +70,7 @@ export default function Sidebar({
             id="primary-menu"
             className="border-t border-white/25 pb-2 lg:hidden"
           >
-            {menu.map((item) => (
+            {visibleMenu.map((item) => (
               <li key={item.path}>
                 <NavLink
                   to={item.path}

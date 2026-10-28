@@ -1,5 +1,10 @@
 import api from "./api";
 
-export const getDashboard = () => {
-  return api.get("/dashboard");
+// params: { mode: "day" | "week" | "month", date: "YYYY-MM-DD" | "YYYY-Www" | "YYYY-MM" }
+export const getDashboard = (params = {}) => {
+  return api.get("/dashboard", { params });
+};
+
+export const getNotifications = () => {
+  return api.get("/notifications");
 };

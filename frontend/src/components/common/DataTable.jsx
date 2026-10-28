@@ -1,5 +1,5 @@
 import EmptyState from "./EmptyState";
-import LoadingSpinner from "./LoadingSpinner";
+import { SkeletonTable } from "./Skeleton";
 
 export default function DataTable({
   columns = [],
@@ -13,11 +13,7 @@ export default function DataTable({
   onEmptyButtonClick,
 }) {
   if (loading) {
-    return (
-      <div className="overflow-x-auto border border-slate-400 bg-white">
-        <LoadingSpinner />
-      </div>
-    );
+    return <SkeletonTable columns={columns.length || 6} rows={7} />;
   }
 
   return (

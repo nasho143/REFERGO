@@ -1,3 +1,4 @@
+import { calcAge } from "../../utils/period";
 import { useEffect, useMemo, useState } from "react";
 
 import {
@@ -272,7 +273,7 @@ export default function ApplicantViewModal({
 
   const readinessLabel =
     scores.overall >= 80
-      ? "Job Ready"
+      ? "Ready for Referral"
       : scores.overall >= 60
       ? "Nearly Ready"
       : "Needs Improvement";
@@ -707,6 +708,22 @@ export default function ApplicantViewModal({
                 icon={<FaPhone />}
                 label="Contact Number"
                 value={applicant.contact_number}
+              />
+
+              <InfoCard
+                icon={<FaUser />}
+                label="Gender"
+                value={applicant.gender}
+              />
+
+              <InfoCard
+                icon={<FaUser />}
+                label="Age"
+                value={
+                  calcAge(applicant.birthdate) !== null
+                    ? `${calcAge(applicant.birthdate)} years old`
+                    : null
+                }
               />
 
               <InfoCard

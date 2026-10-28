@@ -1,6 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import StatStrip from "../components/common/StatStrip";
+import QuickFilterBar from "../components/common/QuickFilterBar";
+import { readQuick, vacancyMatches } from "../utils/quickFilter";
+import MiniCharts from "../components/common/MiniCharts";
+import { countBy, countOverTime } from "../utils/chartData";
+import { DEFAULT_PERIOD, periodFromParams, filterByPeriod } from "../utils/period";
+import { useSearchParams } from "react-router-dom";
 import VacancyToolbar from "../components/vacancies/VacancyToolbar";
 import VacancyTable from "../components/vacancies/VacancyTable";
 import VacancyModal from "../components/vacancies/VacancyModal";
@@ -55,6 +61,9 @@ export default function Vacancies() {
   const [employers, setEmployers] = useState([]);
 
   const [search, setSearch] = useState("");
+  const [searchParams] = useSearchParams();
+  const quick = useMemo(() => readQuick(searchParams), [searchParams]);
+  const [period, setPeriod] = useState(() => periodFromParams(searchParams));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -523,7 +532,13 @@ export default function Vacancies() {
      SEARCH
   ========================================================= */
 
-  const filteredVacancies = vacancies.filter(
+  const filteredVacancies = filterByPeriod(
+    vacancies,
+    period,
+    "created_at"
+  )
+    .filter((vacancy) => vacancyMatches(vacancy, quick))
+    .filter(
     (vacancy) => {
       const keyword =
         search.toLowerCase().trim();
@@ -601,25 +616,31 @@ export default function Vacancies() {
      SUMMARY CARDS
   ========================================================= */
 
+  const periodVacancies = filterByPeriod(
+    vacancies,
+    period,
+    "created_at"
+  );
+
   const totalVacancies =
-    vacancies.length;
+    periodVacancies.length;
 
   const activeVacancies =
-    vacancies.filter(
+    periodVacancies.filter(
       (vacancy) =>
         getVacancyStatus(vacancy) ===
         "Active"
     ).length;
 
   const expiringVacancies =
-    vacancies.filter(
+    periodVacancies.filter(
       (vacancy) =>
         getVacancyStatus(vacancy) ===
         "Expiring Soon"
     ).length;
 
   const expiredVacancies =
-    vacancies.filter(
+    periodVacancies.filter(
       (vacancy) =>
         getVacancyStatus(vacancy) ===
         "Expired"
@@ -732,9 +753,13 @@ export default function Vacancies() {
           HEADER + SEARCH
       ====================================================== */}
 
+      <QuickFilterBar />
+
       <VacancyToolbar
         search={search}
         setSearch={setSearch}
+        period={period}
+        setPeriod={setPeriod}
         totalVacancies={
           filteredVacancies.length
         }
@@ -746,6 +771,61 @@ export default function Vacancies() {
       {/* =====================================================
           SUMMARY CARDS
       ====================================================== */}
+
+      <MiniCharts
+        loading={loadingData}
+        charts={[
+          {
+            title: "Vacancies by status",
+            type: "donut",
+            data: countBy(periodVacancies, getVacancyStatus),
+          },
+          {
+            title: "Employment type",
+            type: "bar",
+            data: countBy(
+              periodVacancies,
+              (v) => v.employment_type
+            ),
+          },
+          {
+            title: "Openings by employer (top 5)",
+            type: "bar",
+            data: Object.entries(
+              periodVacancies.reduce((acc, v) => {
+                const name = v.company_name || "Not specified";
+                acc[name] =
+                  (acc[name] || 0) + (Number(v.openings) || 0);
+                return acc;
+              }, {})
+            )
+              .map(([name, value]) => ({ name, value }))
+              .sort((a, b) => b.value - a.value)
+              .slice(0, 5),
+          },
+          {
+            title: "Approval status",
+            type: "donut",
+            data: countBy(
+              periodVacancies,
+              (v) => v.approval_status,
+              { fallback: "Pending" }
+            ),
+          },
+          {
+            title: "Vacancies posted",
+            type: "line",
+            data: countOverTime(
+              periodVacancies,
+              (v) => v.created_at,
+              period.mode
+            ),
+            series: [
+              { key: "value", name: "Posted", color: "#202860" },
+            ],
+          },
+        ]}
+      />
 
       <StatStrip
         items={[
